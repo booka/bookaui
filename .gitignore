@@ -1,2 +1,12 @@
 war/WEB-INF/classes
+war/BokCore/**
+war/BokDocuments/**
+war/BokWorkspace/**
+war/Booka/**
+war/BokTools/**
+war/BokEntrance/**
+war/BokProjects/**
+
+
+
 

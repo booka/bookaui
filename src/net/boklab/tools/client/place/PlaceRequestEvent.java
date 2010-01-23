@@ -8,6 +8,10 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler> {
     private final Place place;
     private final boolean isFromHistory;
 
+    public PlaceRequestEvent(Place place) {
+	this(place, false);
+    }
+
     public PlaceRequestEvent(Place place, boolean isFromHistory) {
 	this.place = place;
 	this.isFromHistory = isFromHistory;

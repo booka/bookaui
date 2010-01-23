@@ -1,7 +1,7 @@
 package net.boklab.tools.client.place;
 
 public interface PlaceTokenizer {
-    Place fromToken(String token);
+    Place fromString(String token);
 
-    String getToken(Place place);
+    String toString(Place place);
 }

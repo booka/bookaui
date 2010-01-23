@@ -13,4 +13,9 @@ public class GWTHistoryManager implements HistoryManager {
 	return History.addValueChangeHandler(handler);
     }
 
+    @Override
+    public void fireCurrentHistoryState() {
+	History.fireCurrentHistoryState();
+    }
+
 }

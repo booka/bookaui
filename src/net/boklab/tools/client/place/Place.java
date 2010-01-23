@@ -13,6 +13,8 @@ import java.util.Set;
 public class Place {
     public static final String CONTROLLER = "controller";
     public static final String ID = "id";
+    public static final Place ROOT = new Place();
+    public static final Place UNKNOWN = new Place("", "");
 
     private final Map<String, String> params;
 

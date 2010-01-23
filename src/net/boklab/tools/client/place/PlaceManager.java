@@ -9,13 +9,17 @@ import com.google.inject.Inject;
 
 public class PlaceManager {
 
-    @Inject
-    public PlaceManager(final EventBus eventBus, final PlaceTokenizer serializer, HistoryManager history) {
+    private final HistoryManager history;
+    private final PlaceTokenizer tokenizer;
 
+    @Inject
+    public PlaceManager(final EventBus eventBus, final PlaceTokenizer tokenizer, HistoryManager history) {
+	this.tokenizer = tokenizer;
+	this.history = history;
 	history.addValueChangeHandler(new ValueChangeHandler<String>() {
 	    @Override
 	    public void onValueChange(ValueChangeEvent<String> event) {
-		Place place = serializer.fromToken(event.getValue());
+		Place place = tokenizer.fromString(event.getValue());
 		eventBus.fireEvent(new PlaceRequestEvent(place, true));
 	    }
 	});
@@ -29,8 +33,7 @@ public class PlaceManager {
     }
 
     public void fireCurrentPlace() {
-	if (History.getToken() != null)
-	    History.fireCurrentHistoryState();
+	history.fireCurrentHistoryState();
     }
 
     public void onPlaceRequest(PlaceRequestEvent event) {
@@ -39,8 +42,9 @@ public class PlaceManager {
 	}
     }
 
-    private void newPlace(Place request) {
-	History.newItem(request.toString(), false);
+    private void newPlace(Place place) {
+	String token = tokenizer.toString(place);
+	History.newItem(token, false);
     }
 
 }

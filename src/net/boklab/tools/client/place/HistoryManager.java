@@ -6,4 +6,6 @@ import com.google.gwt.event.shared.HandlerRegistration;
 public interface HistoryManager {
     HandlerRegistration addValueChangeHandler(ValueChangeHandler<String> handler);
 
+    void fireCurrentHistoryState();
+
 }

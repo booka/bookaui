@@ -4,21 +4,28 @@
     "http://java.sun.com/dtd/web-app_2_3.dtd">
 
 <web-app>
-  
-  <!-- Servlets -->
-  <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>com.calclab.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/bookaui/greet</url-pattern>
-  </servlet-mapping>
-  
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>Bookaui.html</welcome-file>
-  </welcome-file-list>
-
+    <servlet>
+        <servlet-name>ProxyServlet</servlet-name>
+        <servlet-class>net.boklab.tools.server.rest.ProxyServlet</servlet-class>
+        <init-param>
+            <param-name>proxyHost</param-name>
+            <param-value>localhost</param-value>
+        </init-param>
+        <init-param>
+            <param-name>proxyPort</param-name>
+            <param-value>3000</param-value>
+        </init-param>
+        <init-param>
+            <param-name>proxyPath</param-name>
+            <param-value>/proxy/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>maxFileUploadSize</param-name>
+            <param-value></param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ProxyServlet</servlet-name>
+        <url-pattern>/proxy/*</url-pattern>
+    </servlet-mapping>
 </web-app>

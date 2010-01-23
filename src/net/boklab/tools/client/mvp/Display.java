@@ -1,5 +1,7 @@
 package net.boklab.tools.client.mvp;
 
-public interface Display {
+import com.google.gwt.user.client.ui.Widget;
 
+public interface Display {
+    Widget asWidget();
 }
