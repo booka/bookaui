@@ -1,13 +1,9 @@
 package net.boklab.core.client;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.document.client.model.Document;
 
 public class SimpleBok implements Bok {
 
-    public static Document newDocument(String id) {
-	return new Document(new SimpleBok(id, Document.TYPE));
-    }
     private String userId;
     private String title;
     private String parentId;

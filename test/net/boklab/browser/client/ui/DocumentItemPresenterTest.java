@@ -1,8 +1,8 @@
 package net.boklab.browser.client.ui;
 
 import static org.junit.Assert.assertEquals;
-import net.boklab.core.client.SimpleBok;
 import net.boklab.document.client.model.Document;
+import net.boklab.testing.Boky;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.RouterTester;
 import net.boklab.tools.client.place.Place;
@@ -26,14 +26,15 @@ public class DocumentItemPresenterTest {
 
     @Test
     public void shouldFireItemClickedEvent() {
-	presenter.setDocument(SimpleBok.newDocument("docID"));
+	Document doc = Boky.document();
+	presenter.setDocument(doc);
 	display.getClickeable().fireEvent(null);
-	assertEquals(new Place("documents", "docID"), router.getLastRequest());
+	assertEquals(new Place("documents", doc.getId()), router.getLastRequest());
     }
 
     @Test
     public void shouldSetDocumentProperties() {
-	Document document = SimpleBok.newDocument("1");
+	Document document = Boky.document();
 	presenter.setDocument(document);
 	assertEquals(document.getTitle(), display.getDocumentTitle().getText());
     }

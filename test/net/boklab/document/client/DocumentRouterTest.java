@@ -1,8 +1,9 @@
 package net.boklab.document.client;
 
-import static org.mockito.Mockito.verify;
-import net.boklab.document.client.manager.DocumentManager;
+import static org.junit.Assert.assertEquals;
+import net.boklab.document.client.manager.OpenDocumentEvent;
 import net.boklab.testing.BookaTester;
+import net.boklab.testing.EventBusTester;
 import net.boklab.tools.client.place.Place;
 
 import org.junit.Before;
@@ -10,19 +11,19 @@ import org.junit.Test;
 
 public class DocumentRouterTest {
     private BookaTester test;
-    private DocumentManager manager;
+    private EventBusTester bus;
 
     @Before
     public void setup() {
 	test = new BookaTester();
-	manager = test.get(DocumentManager.class);
+	bus = test.getEventBus();
 	test.get(DocumentRouter.class);
     }
 
     @Test
     public void shouldLoadDocumentClips() {
 	test.router.fireRequest(new Place("documents", "1"));
-	verify(manager).getDocumentClips("1");
+	assertEquals(OpenDocumentEvent.class, bus.getLastEventType());
     }
 
 }

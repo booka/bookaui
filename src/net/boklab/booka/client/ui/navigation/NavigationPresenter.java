@@ -24,7 +24,7 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 		NavigationDisplay.EDITION, NavigationDisplay.ENTRANCE, NavigationDisplay.LOGIN };
 
 	NavigationDisplay display = getDisplay();
-	setLoggedIn(false);
+	setLoggedIn(false, false);
 
 	for (final String name : names) {
 	    display.getLink(name).addClickHandler(new ClickHandler() {
@@ -39,12 +39,13 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 	sessions.onLoggedIn(new LoggedInHandler() {
 	    @Override
 	    public void onLoggedIn(LoggedInEvent event) {
-		setLoggedIn(true);
+		setLoggedIn(true, false);
 	    }
 	});
+
     }
 
-    private NavigationDisplay setLoggedIn(boolean loggedIn) {
+    private NavigationDisplay setLoggedIn(boolean loggedIn, boolean hasProject) {
 	NavigationDisplay display = getDisplay();
 	display.setVisible(NavigationDisplay.ARCHIVES, loggedIn);
 	display.setVisible(NavigationDisplay.EDITION, loggedIn);

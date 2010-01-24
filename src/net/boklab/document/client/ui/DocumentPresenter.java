@@ -1,7 +1,7 @@
 package net.boklab.document.client.ui;
 
-import net.boklab.document.client.manager.DocumentClipsHandler;
-import net.boklab.document.client.manager.DocumentManager;
+import net.boklab.document.client.manager.DocumentOpenedHandler;
+import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.document.client.model.DocumentClips;
@@ -16,11 +16,11 @@ import com.google.inject.Singleton;
 public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 
     @Inject
-    public DocumentPresenter(DocumentManager documents,
+    public DocumentPresenter(Documents documents,
 	    final Provider<DocumentDisplay> displayProvider, final Provider<ClipPresenter> provider) {
 	super(displayProvider);
 
-	documents.onDocumentClips(new DocumentClipsHandler() {
+	documents.onDocumentOpened(new DocumentOpenedHandler() {
 	    @Override
 	    public void onDocumentClips(DocumentClips documentClips) {
 		Document document = documentClips.getDocument();

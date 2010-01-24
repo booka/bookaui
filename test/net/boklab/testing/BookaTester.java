@@ -4,15 +4,16 @@ import net.boklab.booka.client.ui.app.BookaAppDisplay;
 import net.boklab.booka.client.ui.navigation.NavigationDisplay;
 import net.boklab.browser.client.ui.DocumentBrowserDisplay;
 import net.boklab.browser.client.ui.DocumentItemDisplay;
-import net.boklab.document.client.manager.DefaultDocumentManager;
-import net.boklab.document.client.manager.DocumentManager;
+import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.session.SessionsBridge;
+import net.boklab.document.client.manager.Documents;
+import net.boklab.document.client.manager.DocumentsBridge;
 import net.boklab.document.client.ui.DocumentDisplay;
 import net.boklab.document.client.ui.clip.ClipDisplay;
-import net.boklab.project.client.action.DefaultProjectManager;
-import net.boklab.project.client.action.ProjectManager;
+import net.boklab.project.client.action.Projects;
+import net.boklab.project.client.action.ProjectsBridge;
 import net.boklab.project.client.ui.ProjectDisplay;
 import net.boklab.project.client.ui.ProjectListDisplay;
-import net.boklab.tools.client.eventbus.DefaultEventBus;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Display;
 import net.boklab.tools.client.place.HistoryManager;
@@ -33,11 +34,11 @@ public class BookaTester extends AbstractModule implements Module {
 
     public final RouterTester router;
     public final Injector injector;
-    public final DefaultEventBus eventBus;
+    public final EventBusTester eventBus;
     private final HistoryManagerTester historyManager;
 
     public BookaTester() {
-	eventBus = new DefaultEventBus();
+	eventBus = new EventBusTester();
 	router = new RouterTester(eventBus);
 	historyManager = new HistoryManagerTester();
 	injector = Guice.createInjector(this);
@@ -47,7 +48,7 @@ public class BookaTester extends AbstractModule implements Module {
 	return injector.getInstance(modelClass);
     }
 
-    public DefaultEventBus getEventBus() {
+    public EventBusTester getEventBus() {
 	return eventBus;
     }
 
@@ -77,8 +78,9 @@ public class BookaTester extends AbstractModule implements Module {
 
     private void configureManagers() {
 	addMock(RestManager.class);
-	bind(DocumentManager.class).to(DefaultDocumentManager.class).in(Singleton.class);
-	bind(ProjectManager.class).to(DefaultProjectManager.class).in(Singleton.class);
+	bind(Documents.class).to(DocumentsBridge.class).in(Singleton.class);
+	bind(Projects.class).to(ProjectsBridge.class).in(Singleton.class);
+	bind(Sessions.class).to(SessionsBridge.class).in(Singleton.class);
     }
 
     @Override

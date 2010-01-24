@@ -1,11 +1,10 @@
 package net.boklab.browser.client.ui;
 
-import net.boklab.document.client.manager.DocumentManager;
+import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Document;
-import net.boklab.project.client.action.ProjectDocumentsHandler;
-import net.boklab.project.client.action.ProjectManager;
+import net.boklab.project.client.action.ProjectOpenedHandler;
+import net.boklab.project.client.action.Projects;
 import net.boklab.project.client.model.Project;
-import net.boklab.project.client.model.ProjectDocuments;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -18,19 +17,19 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
     private Project currentProject;
 
     @Inject
-    public DocumentBrowserPresenter(final DocumentManager documents, final ProjectManager projects,
+    public DocumentBrowserPresenter(final Documents documents, final Projects projects,
 	    final Provider<DocumentBrowserDisplay> displayProvider,
 	    final Provider<DocumentItemPresenter> itemProvider) {
 	super(displayProvider);
 
 	this.currentProject = null;
 
-	projects.onProjectDocuments(new ProjectDocumentsHandler() {
+	projects.onProject(new ProjectOpenedHandler() {
 	    @Override
-	    public void onProjectDocuments(ProjectDocuments documents) {
-		currentProject = documents.getProject();
+	    public void onProject(Project project) {
+		currentProject = project;
 		getDisplay().getList().clear();
-		for (Document d : documents) {
+		for (Document d : project) {
 		    DocumentItemPresenter item = itemProvider.get();
 		    item.setDocument(d);
 		    getDisplay().getList().add(item.getDisplay().asWidget());
@@ -45,7 +44,7 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
 		assert currentProject != null : "You should receive onNewDocument event without documents loaded previously";
 		Document document = currentProject.newDocument("Sin título");
 		documents.createDocument(document);
-		projects.getProjectDocuments(currentProject.getId());
+		projects.openProject(currentProject.getId());
 	    }
 	});
     }

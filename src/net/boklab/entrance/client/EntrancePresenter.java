@@ -2,8 +2,8 @@ package net.boklab.entrance.client;
 
 import java.util.ArrayList;
 
-import net.boklab.project.client.action.ProjectListHandler;
-import net.boklab.project.client.action.ProjectManager;
+import net.boklab.project.client.action.GotProjectsHandler;
+import net.boklab.project.client.action.Projects;
 import net.boklab.project.client.model.Project;
 import net.boklab.project.client.ui.ProjectListPresenter;
 import net.boklab.tools.client.mvp.AbstractPresenter;
@@ -18,13 +18,13 @@ import com.google.inject.Singleton;
 public class EntrancePresenter extends AbstractPresenter<WorkspaceDisplay> {
 
     @Inject
-    public EntrancePresenter(ProjectManager projects, final ProjectListPresenter projectList,
+    public EntrancePresenter(Projects projects, final ProjectListPresenter projectList,
 	    final Provider<WorkspaceDisplay> display) {
 	super(display);
 
 	Log.debug("Entrance presenter created");
 
-	projects.onProjectList(new ProjectListHandler() {
+	projects.onProjectList(new GotProjectsHandler() {
 	    @Override
 	    public void onProjectList(ArrayList<Project> list) {
 		Log.debug("EntrancePresenter: project list!");

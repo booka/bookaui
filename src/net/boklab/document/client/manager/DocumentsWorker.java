@@ -14,40 +14,49 @@ import net.boklab.tools.client.rest.RestManager;
 
 import com.google.gwt.core.client.JsonUtils;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-public class DefaultDocumentManager implements DocumentManager {
+@Singleton
+public class DocumentsWorker {
     private static final String RESOURCE = "boks";
-
-    public static void fireDocumentClips(EventBus eventBus, DocumentClips documentClips) {
-	DocumentClipsEvent event = new DocumentClipsEvent(documentClips);
-	eventBus.fireEvent(event);
-    }
 
     private final RestManager manager;
     private final EventBus eventBus;
 
     @Inject
-    public DefaultDocumentManager(EventBus eventBus, RestManager manager) {
+    public DocumentsWorker(EventBus eventBus, RestManager manager) {
 	this.eventBus = eventBus;
 	this.manager = manager;
+
+	eventBus.addHandler(OpenDocumentEvent.TYPE, new OpenDocumentHandler() {
+	    @Override
+	    public void onOpenDocument(OpenDocumentEvent event) {
+		openDocument(event.getDocumentId());
+	    }
+	});
+
+	eventBus.addHandler(CreateDocumentEvent.TYPE, new CreateDocumentHandler() {
+	    @Override
+	    public void onCreateDocument(CreateDocumentEvent event) {
+		createDocument(event.getDocument());
+	    }
+	});
     }
 
-    @Override
-    public void createDocument(final Document document) {
+    protected void createDocument(final Document document) {
 	Params params = BokToParams.encode(document, new Params());
 	manager.create("documents.create", RESOURCE, params, new RestCallback() {
 	    @Override
 	    public void onSuccess(String text) {
 		BokJSO bok = JsonUtils.unsafeEval(text);
 		Document document = new Document(bok);
-		DefaultDocumentManager.fireDocumentClips(eventBus,
-			new DocumentClips(document, null));
+		DocumentClips documentClips = new DocumentClips(document, null);
+		eventBus.fireEvent(new DocumentOpenedEvent(documentClips));
 	    }
 	});
     }
 
-    @Override
-    public void getDocumentClips(final String documentId) {
+    protected void openDocument(String documentId) {
 	BokQuery query = new BokQuery();
 	query.bokParentEquals(documentId);
 	query.bokTypeEquals(Clip.TYPE);
@@ -57,19 +66,13 @@ public class DefaultDocumentManager implements DocumentManager {
 	    public void onSuccess(String text) {
 		BokRequestResultsJSO results = JsonUtils.unsafeEval(text);
 		Document document = new Document(results.getBok());
-		DefaultDocumentManager.fireDocumentClips(eventBus, new DocumentClips(document,
-			results));
+		DocumentClips documentClips = new DocumentClips(document, results);
+		eventBus.fireEvent(new DocumentOpenedEvent(documentClips));
 	    }
 	});
     }
 
-    @Override
-    public void onDocumentClips(DocumentClipsHandler handler) {
-	eventBus.addHandler(DocumentClipsEvent.TYPE, handler);
-    }
-
-    @Override
-    public void update(Document document) {
+    protected void update(Document document) {
 	Params params = BokToParams.encode(document, new Params());
 	manager.update("documents.update", RESOURCE, document.getIdString(), params,
 		new RestCallback() {

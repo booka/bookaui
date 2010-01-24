@@ -6,7 +6,6 @@ package net.boklab.testing.display;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
-
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 

@@ -6,7 +6,7 @@ import net.boklab.project.client.model.Project;
 
 import com.google.gwt.event.shared.EventHandler;
 
-public interface ProjectListHandler extends EventHandler {
+public interface GotProjectsHandler extends EventHandler {
 
     void onProjectList(ArrayList<Project> list);
 

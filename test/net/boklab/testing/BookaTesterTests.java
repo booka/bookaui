@@ -4,10 +4,8 @@ import static org.junit.Assert.assertNotNull;
 import net.boklab.booka.client.BookaRouter;
 import net.boklab.booka.client.ui.navigation.NavigationDisplay;
 import net.boklab.booka.client.ui.navigation.NavigationPresenter;
-import net.boklab.document.client.manager.DefaultDocumentManager;
-import net.boklab.document.client.manager.DocumentManager;
-import net.boklab.project.client.action.DefaultProjectManager;
-import net.boklab.project.client.action.ProjectManager;
+import net.boklab.document.client.manager.Documents;
+import net.boklab.project.client.action.Projects;
 import net.boklab.project.client.ui.ProjectListDisplay;
 import net.boklab.tools.client.place.PlaceManager;
 
@@ -30,10 +28,8 @@ public class BookaTesterTests {
 
     @Test
     public void shouldCreateManagers() {
-	assertNotNull(test.get(DocumentManager.class));
-	assertNotNull(test.get(ProjectManager.class));
-	assertNotNull(test.get(DefaultDocumentManager.class));
-	assertNotNull(test.get(DefaultProjectManager.class));
+	assertNotNull(test.get(Documents.class));
+	assertNotNull(test.get(Projects.class));
 	assertNotNull(test.get(PlaceManager.class));
     }
 

@@ -28,7 +28,7 @@ public class BookaEntryPoint implements EntryPoint {
 	String hostPath = getMeta(CONFIG_HOST);
 	restService.setHostPath(hostPath);
 
-	injector.getProjectManager();
+	injector.getProjects();
 	injector.getBookaRouter();
 
 	BookaAppPresenter booka = injector.getBookaAppPresenter();
