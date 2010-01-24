@@ -17,12 +17,10 @@ public class RailsRestServiceAsync implements RestServiceAsync {
     private static final String EMPTY = "";
 
     private String hostPath;
-    private String authToken;
     private String format;
 
     public RailsRestServiceAsync() {
 	this.hostPath = "/";
-	this.authToken = null;
 	this.format = FORMAT_JSON;
     }
 
@@ -31,9 +29,6 @@ public class RailsRestServiceAsync implements RestServiceAsync {
 	String url = getPath(resource, null, format);
 	RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
-
-	assert authToken != null : "You can't CREATE without authorization token";
-	params.put("authenticity_token", authToken);
 
 	try {
 	    builder.sendRequest(params.toString(), callback);
@@ -53,11 +48,6 @@ public class RailsRestServiceAsync implements RestServiceAsync {
 	} catch (RequestException e) {
 	    callback.onError(null, e);
 	}
-    }
-
-    @Override
-    public String getAuthToken() {
-	return authToken;
     }
 
     @Override
@@ -91,11 +81,6 @@ public class RailsRestServiceAsync implements RestServiceAsync {
     }
 
     @Override
-    public void setAuthToken(String authToken) {
-	this.authToken = authToken;
-    }
-
-    @Override
     public void setCurrentFormat(String format) {
 	this.format = format;
     }
@@ -116,9 +101,6 @@ public class RailsRestServiceAsync implements RestServiceAsync {
 	RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 	params.put("_method", "put");
-
-	assert authToken != null : "You can't UPDATE without authorization token";
-	params.put("authenticity_token", authToken);
 
 	try {
 	    builder.sendRequest(params.toString(), callback);

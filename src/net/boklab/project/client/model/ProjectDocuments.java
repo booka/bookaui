@@ -3,7 +3,7 @@ package net.boklab.project.client.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import net.boklab.core.client.BokSearchResults;
+import net.boklab.core.client.model.BokSearchResults;
 import net.boklab.document.client.model.Document;
 
 public class ProjectDocuments implements Iterable<Document> {

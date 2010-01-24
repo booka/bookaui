@@ -28,6 +28,13 @@ public interface RestManager {
     void get(String requestId, String resource, String id, RestCallback callback);
 
     /**
+     * Gets the current authorization token
+     * 
+     * @return the current authorization token, can be null
+     */
+    String getAuthToken();
+
+    /**
      * Get the host path used.
      * 
      * @return the host path
@@ -50,6 +57,8 @@ public interface RestManager {
      */
     void getList(String requestId, String resource, Params params, RestCallback callback);
 
+    void setAuthToken(String authToken);
+
     /**
      * Change the hostPath url. The default is "/". This host path is prepended
      * to any call url
@@ -58,5 +67,6 @@ public interface RestManager {
      */
     void setHostPath(String hostPath);
 
-    void update(String requestId, String resource, String id, Params params, RestCallback restCallback);
+    void update(String requestId, String resource, String id, Params params,
+	    RestCallback restCallback);
 }

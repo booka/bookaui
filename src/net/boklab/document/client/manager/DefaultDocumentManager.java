@@ -1,9 +1,9 @@
 package net.boklab.document.client.manager;
 
-import net.boklab.core.client.BokJSO;
-import net.boklab.core.client.BokQuery;
-import net.boklab.core.client.BokRequestResultsJSO;
 import net.boklab.core.client.BokToParams;
+import net.boklab.core.client.model.BokJSO;
+import net.boklab.core.client.model.BokQuery;
+import net.boklab.core.client.model.BokRequestResultsJSO;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.document.client.model.DocumentClips;

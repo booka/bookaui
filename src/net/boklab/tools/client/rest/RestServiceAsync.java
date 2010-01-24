@@ -26,13 +26,6 @@ public interface RestServiceAsync {
      */
     void get(String resource, String id, RequestCallback callback);
 
-    /**
-     * Gets the current authorization token
-     * 
-     * @return the current authorization token, can be null
-     */
-    String getAuthToken();
-
     String getCurrentFormat();
 
     /**
@@ -57,8 +50,6 @@ public interface RestServiceAsync {
      *            the request callback
      */
     void getList(String resource, Params params, RequestCallback callback);
-
-    void setAuthToken(String authToken);
 
     void setCurrentFormat(String format);
 

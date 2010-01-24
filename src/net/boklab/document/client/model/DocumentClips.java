@@ -3,7 +3,7 @@ package net.boklab.document.client.model;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import net.boklab.core.client.BokSearchResults;
+import net.boklab.core.client.model.BokSearchResults;
 
 /**
  * The clips of a document model

@@ -1,5 +1,6 @@
 package net.boklab.core.client;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.model.Document;
 
 public class SimpleBok implements Bok {

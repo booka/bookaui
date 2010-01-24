@@ -1,4 +1,4 @@
-package net.boklab.core.client;
+package net.boklab.core.client.model;
 
 public interface Bok {
 

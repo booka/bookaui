@@ -1,8 +1,8 @@
 package net.boklab.document.client.model;
 
-import net.boklab.core.client.Bok;
-import net.boklab.core.client.BokJSO;
-import net.boklab.core.client.DelegatedBok;
+import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.model.BokJSO;
+import net.boklab.core.client.model.DelegatedBok;
 
 public class Clip extends DelegatedBok {
 

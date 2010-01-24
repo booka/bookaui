@@ -1,5 +1,6 @@
 package net.boklab.core.client;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.tools.client.rest.Params;
 
 public class BokToParams {

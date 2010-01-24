@@ -14,6 +14,7 @@ import com.google.inject.Inject;
 public class DefaultRestManager implements RestManager {
     private final RestServiceAsync service;
     private final EventBus eventBus;
+    private String authToken;
 
     @Inject
     public DefaultRestManager(EventBus eventBus, RestServiceAsync service) {
@@ -22,7 +23,11 @@ public class DefaultRestManager implements RestManager {
     }
 
     @Override
-    public void create(final String requestId, String resource, Params params, final RestCallback callback) {
+    public void create(final String requestId, String resource, Params params,
+	    final RestCallback callback) {
+
+	assert authToken != null : "You can't CREATE without authorization token";
+	params.put("authenticity_token", authToken);
 
 	service.create(resource, params, new RequestCallback() {
 	    @Override
@@ -53,12 +58,18 @@ public class DefaultRestManager implements RestManager {
     }
 
     @Override
+    public String getAuthToken() {
+	return authToken;
+    }
+
+    @Override
     public String getHostPath() {
 	return service.getHostPath();
     }
 
     @Override
-    public void getList(final String requestId, String resource, Params params, final RestCallback callback) {
+    public void getList(final String requestId, String resource, Params params,
+	    final RestCallback callback) {
 	service.getList(resource, params, new RequestCallback() {
 
 	    @Override
@@ -74,12 +85,21 @@ public class DefaultRestManager implements RestManager {
     }
 
     @Override
+    public void setAuthToken(String authToken) {
+	this.authToken = authToken;
+    }
+
+    @Override
     public void setHostPath(String hostPath) {
 	service.setHostPath(hostPath);
     }
 
     @Override
-    public void update(final String requestId, String resource, String id, Params params, final RestCallback callback) {
+    public void update(final String requestId, String resource, String id, Params params,
+	    final RestCallback callback) {
+
+	assert authToken != null : "You can't UPDATE without authorization token";
+	params.put("authenticity_token", authToken);
 
 	service.update(resource, id, params, new RequestCallback() {
 	    @Override

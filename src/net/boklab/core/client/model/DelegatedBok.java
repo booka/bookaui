@@ -1,4 +1,4 @@
-package net.boklab.core.client;
+package net.boklab.core.client.model;
 
 public class DelegatedBok implements Bok {
     protected final Bok delegate;

@@ -2,9 +2,9 @@ package net.boklab.project.client.action;
 
 import java.util.ArrayList;
 
-import net.boklab.core.client.BokJSO;
-import net.boklab.core.client.BokQuery;
-import net.boklab.core.client.BokRequestResultsJSO;
+import net.boklab.core.client.model.BokJSO;
+import net.boklab.core.client.model.BokQuery;
+import net.boklab.core.client.model.BokRequestResultsJSO;
 import net.boklab.document.client.model.Document;
 import net.boklab.project.client.model.Project;
 import net.boklab.project.client.model.ProjectDocuments;

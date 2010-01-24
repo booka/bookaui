@@ -1,8 +1,8 @@
 package net.boklab.project.client.model;
 
-import net.boklab.core.client.Bok;
-import net.boklab.core.client.BokJSO;
-import net.boklab.core.client.DelegatedBok;
+import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.model.BokJSO;
+import net.boklab.core.client.model.DelegatedBok;
 import net.boklab.document.client.model.Document;
 
 public class Project extends DelegatedBok {
