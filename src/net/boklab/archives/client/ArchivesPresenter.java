@@ -1,9 +1,10 @@
 package net.boklab.archives.client;
 
 import net.boklab.browser.client.ui.DocumentBrowserPresenter;
+import net.boklab.document.client.manager.DocumentOpenedEvent;
 import net.boklab.document.client.manager.DocumentOpenedHandler;
 import net.boklab.document.client.manager.Documents;
-import net.boklab.document.client.model.DocumentClips;
+import net.boklab.document.client.model.Document;
 import net.boklab.document.client.ui.DocumentPresenter;
 import net.boklab.project.client.action.ProjectOpenedHandler;
 import net.boklab.project.client.action.Projects;
@@ -25,13 +26,13 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
     private Project currentProject;
 
     @Inject
-    public ArchivesPresenter(final Router router, Projects projects, final Documents documents,
-	    final DocumentBrowserPresenter browser,
-	    final Provider<WorkspaceDisplay> displayProvider, DocumentPresenter document) {
+    public ArchivesPresenter(final Router router, final Projects projects,
+	    final Documents documents, final DocumentBrowserPresenter browser,
+	    final Provider<WorkspaceDisplay> displayProvider, DocumentPresenter documentPresenter) {
 	super(displayProvider);
 
 	final WorkspaceDisplay display = getDisplay();
-	display.setCenter(document.getDisplay());
+	display.setCenter(documentPresenter.getDisplay());
 	currentProject = null;
 
 	router.onRequest("^/documents/\\w+$", new PlaceRequestHandler() {
@@ -54,7 +55,12 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 
 	documents.onDocumentOpened(new DocumentOpenedHandler() {
 	    @Override
-	    public void onDocumentClips(DocumentClips documentClips) {
+	    public void onDocumentOpened(DocumentOpenedEvent event) {
+		Document document = event.getDocument();
+		if (currentProject == null
+			|| !document.getParentId().equals(currentProject.getId())) {
+		    projects.openProject(document.getParentId());
+		}
 	    }
 	});
     }

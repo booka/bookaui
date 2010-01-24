@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import net.boklab.core.client.SimpleBok;
 import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.model.Document;
-import net.boklab.document.client.model.DocumentClips;
+import net.boklab.document.client.model.Document;
 import net.boklab.project.client.model.Project;
 
 public class Boky {
@@ -25,10 +25,10 @@ public class Boky {
 	return document;
     }
 
-    public static DocumentClips emptyDocumentClips() {
+    public static Document emptyDocument() {
 	Document document = document();
-	DocumentClips documentClips = new DocumentClips(document, null);
-	return documentClips;
+	Document Document = new Document(document, null);
+	return Document;
     }
 
     public static Project project() {

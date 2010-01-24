@@ -49,7 +49,7 @@ public class EntrancePresenterTests {
 
     @Test
     public void shouldShowProjectListOnWorkspace() {
-	Boky.emptyDocumentClips();
+	Boky.emptyDocument();
 	eventBus.fireEvent(new GotProjectsEvent(Boky.projectList()));
 	ProjectListDisplay projectList = tester.get(ProjectListDisplay.class);
 	verify(workspace).setLeft(projectList);

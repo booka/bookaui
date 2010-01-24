@@ -6,7 +6,6 @@ import net.boklab.core.client.model.BokQuery;
 import net.boklab.core.client.model.BokRequestResultsJSO;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
-import net.boklab.document.client.model.DocumentClips;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.rest.Params;
 import net.boklab.tools.client.rest.RestCallback;
@@ -50,8 +49,8 @@ public class DocumentsWorker {
 	    public void onSuccess(String text) {
 		BokJSO bok = JsonUtils.unsafeEval(text);
 		Document document = new Document(bok);
-		DocumentClips documentClips = new DocumentClips(document, null);
-		eventBus.fireEvent(new DocumentOpenedEvent(documentClips));
+		Document Document = new Document(document, null);
+		eventBus.fireEvent(new DocumentOpenedEvent(Document));
 	    }
 	});
     }
@@ -68,8 +67,8 @@ public class DocumentsWorker {
 	    public void onSuccess(String text) {
 		BokRequestResultsJSO results = JsonUtils.unsafeEval(text);
 		Document document = new Document(results.getBok());
-		DocumentClips documentClips = new DocumentClips(document, results);
-		eventBus.fireEvent(new DocumentOpenedEvent(documentClips));
+		Document Document = new Document(document, results);
+		eventBus.fireEvent(new DocumentOpenedEvent(Document));
 	    }
 	});
     }

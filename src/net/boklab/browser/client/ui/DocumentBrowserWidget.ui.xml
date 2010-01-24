@@ -10,7 +10,7 @@
 				<g:Anchor ui:field="create" styleName="Action">Create document</g:Anchor>
 			</g:FlowPanel>
 		</g:layer>
-		<g:layer left="0" top="30px" right="0" bottom="0">
+		<g:layer left="3" top="30px" right="3" bottom="3">
 			<g:ScrollPanel styleName="Scroll">
 				<g:FlowPanel ui:field="list"></g:FlowPanel>
 			</g:ScrollPanel>

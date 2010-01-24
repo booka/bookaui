@@ -21,7 +21,7 @@ public class DocumentRouterTest {
     }
 
     @Test
-    public void shouldLoadDocumentClips() {
+    public void shouldLoadDocument() {
 	test.router.fireRequest(new Place("documents", "1"));
 	assertEquals(OpenDocumentEvent.class, bus.getLastEventType());
     }

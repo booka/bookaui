@@ -1,16 +1,16 @@
 package net.boklab.document.client.manager;
 
-import net.boklab.document.client.model.DocumentClips;
+import net.boklab.document.client.model.Document;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class DocumentOpenedEvent extends GwtEvent<DocumentOpenedHandler> {
 
     public static final Type<DocumentOpenedHandler> TYPE = new Type<DocumentOpenedHandler>();
-    private final DocumentClips documentClips;
+    private final Document document;
 
-    public DocumentOpenedEvent(DocumentClips documentClips) {
-	this.documentClips = documentClips;
+    public DocumentOpenedEvent(Document document) {
+	this.document = document;
     }
 
     @Override
@@ -18,9 +18,13 @@ public class DocumentOpenedEvent extends GwtEvent<DocumentOpenedHandler> {
 	return TYPE;
     }
 
+    public Document getDocument() {
+	return document;
+    }
+
     @Override
     protected void dispatch(DocumentOpenedHandler handler) {
-	handler.onDocumentClips(documentClips);
+	handler.onDocumentOpened(this);
     }
 
 }

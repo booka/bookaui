@@ -6,6 +6,6 @@ import com.google.gwt.event.shared.EventHandler;
 
 public interface ProjectOpenedHandler extends EventHandler {
 
-    void onProject(Project Project);
+    void onProject(Project project);
 
 }

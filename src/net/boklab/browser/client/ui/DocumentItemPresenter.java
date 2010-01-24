@@ -29,6 +29,6 @@ public class DocumentItemPresenter extends AbstractPresenter<DocumentItemDisplay
 	this.documentId = document.getId();
 	getDisplay().getDocumentTitle().setText(document.getTitle());
 	getDisplay().getDescription().setHTML(document.getDescription());
-	getDisplay().getExtra().setHTML("Este es el id: " + documentId);
+	getDisplay().getExtra().setHTML("Autor(a):" + document.getUserName());
     }
 }
