@@ -21,7 +21,7 @@
 			<g:SimplePanel ui:field="north" styleName="{style.top}">
 			</g:SimplePanel>
 		</g:layer>
-		<g:layer left="0" top="81px" right="0" bottom="0">
+		<g:layer left="0" top="81px" right="200" bottom="0">
 			<g:LayoutPanel ui:field="center" styleName="{style.slide}">
 			</g:LayoutPanel>
 		</g:layer>

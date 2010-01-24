@@ -22,9 +22,6 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
-
-    private Project currentProject;
-
     @Inject
     public ArchivesPresenter(final Router router, final Projects projects,
 	    final Documents documents, final DocumentBrowserPresenter browser,
@@ -33,7 +30,6 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 
 	final WorkspaceDisplay display = getDisplay();
 	display.setCenter(documentPresenter.getDisplay());
-	currentProject = null;
 
 	router.onRequest("^/documents/\\w+$", new PlaceRequestHandler() {
 	    @Override
@@ -47,7 +43,6 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 	projects.onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
 	    public void onProject(Project project) {
-		currentProject = project;
 		display.setRight(browser.getDisplay());
 		display.setLeft(Display.NONE);
 	    }
@@ -57,10 +52,7 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 	    @Override
 	    public void onDocumentOpened(DocumentOpenedEvent event) {
 		Document document = event.getDocument();
-		if (currentProject == null
-			|| !document.getParentId().equals(currentProject.getId())) {
-		    projects.openProject(document.getParentId());
-		}
+		projects.openProject(document.getParentId());
 	    }
 	});
     }

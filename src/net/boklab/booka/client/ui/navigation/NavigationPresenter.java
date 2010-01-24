@@ -19,22 +19,18 @@ import com.google.inject.Provider;
 public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
     private final NavigationDisplay navigation;
 
-    private boolean hasProject;
-
     final static String[] NAMES = new String[] { NavigationDisplay.CONTACT,
 	    NavigationDisplay.ACCOUNT, NavigationDisplay.ARCHIVES, NavigationDisplay.BOOKA,
 	    NavigationDisplay.CALENDAR, NavigationDisplay.EDITION, NavigationDisplay.ENTRANCE,
 	    NavigationDisplay.LOGIN };
 
     @Inject
-    public NavigationPresenter(final EventBus eventBus, final Sessions sessions, Projects projects,
-	    Provider<NavigationDisplay> displayProvider) {
+    public NavigationPresenter(final EventBus eventBus, final Sessions sessions,
+	    final Projects projects, Provider<NavigationDisplay> displayProvider) {
 	super(displayProvider);
 	navigation = getDisplay();
 
-	hasProject = false;
-
-	showIcons(false, hasProject);
+	showIcons(false, projects.hasActiveProject());
 
 	for (final String name : NAMES) {
 	    navigation.getLink(name).addClickHandler(new ClickHandler() {
@@ -49,15 +45,14 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 	sessions.onLoggedIn(new LoggedInHandler() {
 	    @Override
 	    public void onLoggedIn(LoggedInEvent event) {
-		showIcons(true, hasProject);
+		showIcons(true, projects.hasActiveProject());
 	    }
 	});
 
 	projects.onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
 	    public void onProject(Project project) {
-		hasProject = true;
-		showIcons(sessions.isLoggedIn(), hasProject);
+		showIcons(sessions.isLoggedIn(), projects.hasActiveProject());
 	    }
 	});
 
