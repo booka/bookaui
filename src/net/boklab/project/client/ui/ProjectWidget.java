@@ -1,4 +1,4 @@
-package net.boklab.projects.client.ui;
+package net.boklab.project.client.ui;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;

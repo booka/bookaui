@@ -1,5 +1,7 @@
 package net.boklab.tools.client;
 
+import net.boklab.tools.client.dispatcher.DefaultDispatcher;
+import net.boklab.tools.client.dispatcher.Dispatcher;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.eventbus.LoggerEventBus;
 import net.boklab.tools.client.place.GWTHistoryManager;
@@ -20,6 +22,7 @@ public class BokToolsModule extends AbstractGinModule {
 	bind(HistoryManager.class).to(GWTHistoryManager.class).in(Singleton.class);
 	bind(RestServiceAsync.class).to(RailsRestServiceAsync.class).in(Singleton.class);
 	bind(PlaceTokenizer.class).to(RestPlaceTokenizer.class).in(Singleton.class);
+	bind(Dispatcher.class).to(DefaultDispatcher.class).in(Singleton.class);
     }
 
 }

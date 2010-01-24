@@ -1,6 +1,6 @@
-package net.boklab.projects.client;
+package net.boklab.project.client;
 
-import net.boklab.projects.client.ui.ProjectListPresenter;
+import net.boklab.project.client.ui.ProjectListPresenter;
 
 import com.google.gwt.inject.client.GinModules;
 

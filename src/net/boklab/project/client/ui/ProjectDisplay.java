@@ -1,4 +1,4 @@
-package net.boklab.projects.client.ui;
+package net.boklab.project.client.ui;
 
 import net.boklab.tools.client.mvp.Display;
 

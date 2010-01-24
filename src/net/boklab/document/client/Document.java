@@ -1,4 +1,4 @@
-package net.boklab.documents.client;
+package net.boklab.document.client;
 
 import net.boklab.core.client.Bok;
 import net.boklab.core.client.DelegatedBok;
