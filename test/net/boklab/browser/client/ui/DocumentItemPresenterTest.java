@@ -3,7 +3,7 @@ package net.boklab.browser.client.ui;
 import static org.junit.Assert.assertEquals;
 import net.boklab.core.client.SimpleBok;
 import net.boklab.document.client.model.Document;
-import net.boklab.testing.Dimock;
+import net.boklab.testing.BookaTester;
 import net.boklab.testing.RouterTester;
 import net.boklab.tools.client.place.Place;
 
@@ -18,9 +18,10 @@ public class DocumentItemPresenterTest {
 
     @Before
     public void setup() {
-	display = Dimock.mock(DocumentItemDisplay.class);
-	router = new RouterTester();
-	presenter = new DocumentItemPresenter(router, display);
+	BookaTester tester = new BookaTester();
+	presenter = tester.get(DocumentItemPresenter.class);
+	display = presenter.getDisplay();
+	router = tester.router;
     }
 
     @Test
