@@ -1,5 +1,6 @@
 package net.boklab.testing;
 
+import net.boklab.testing.display.Dimock;
 import net.boklab.tools.client.mvp.Display;
 
 import com.google.inject.Provider;

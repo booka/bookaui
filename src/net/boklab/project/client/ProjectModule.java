@@ -16,6 +16,7 @@ public class ProjectModule extends AbstractGinModule {
 	bind(ProjectListDisplay.class).to(ProjectListWidget.class);
 	bind(ProjectDisplay.class).to(ProjectWidget.class);
 	bind(ProjectManager.class).to(DefaultProjectManager.class).asEagerSingleton();
+	bind(ProjectRouter.class).asEagerSingleton();
     }
 
 }

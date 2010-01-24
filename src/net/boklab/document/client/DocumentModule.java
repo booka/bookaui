@@ -10,6 +10,7 @@ public class DocumentModule extends AbstractGinModule {
     @Override
     protected void configure() {
 	bind(DocumentManager.class).to(DefaultDocumentManager.class).asEagerSingleton();
+	bind(DocumentRouter.class).asEagerSingleton();
     }
 
 }

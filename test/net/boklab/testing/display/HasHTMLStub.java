@@ -1,7 +1,7 @@
 /**
  * 
  */
-package net.boklab.testing;
+package net.boklab.testing.display;
 
 import com.google.gwt.user.client.ui.HasHTML;
 

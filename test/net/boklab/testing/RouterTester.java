@@ -37,8 +37,8 @@ public class RouterTester extends DefaultRouter {
     }
 
     @Override
-    public void when(String regex, PlaceRequestHandler handler) {
-	super.when(regex, handler);
+    public void onRequest(String regex, PlaceRequestHandler handler) {
+	super.onRequest(regex, handler);
     }
 
 }

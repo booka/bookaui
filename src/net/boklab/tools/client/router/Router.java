@@ -9,6 +9,6 @@ public interface Router {
 
     void fireRequest(Place place);
 
-    void when(String regex, PlaceRequestHandler handler);
+    void onRequest(String regex, PlaceRequestHandler handler);
 
 }

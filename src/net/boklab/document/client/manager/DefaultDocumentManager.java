@@ -11,7 +11,6 @@ import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.rest.Params;
 import net.boklab.tools.client.rest.RestCallback;
 import net.boklab.tools.client.rest.RestManager;
-import net.boklab.tools.client.router.Router;
 
 import com.google.gwt.core.client.JsonUtils;
 import com.google.inject.Inject;
@@ -22,10 +21,9 @@ public class DefaultDocumentManager implements DocumentManager {
     private final EventBus eventBus;
 
     @Inject
-    public DefaultDocumentManager(EventBus eventBus, Router router, RestManager manager) {
+    public DefaultDocumentManager(EventBus eventBus, RestManager manager) {
 	this.eventBus = eventBus;
 	this.manager = manager;
-
     }
 
     @Override
@@ -42,15 +40,16 @@ public class DefaultDocumentManager implements DocumentManager {
     }
 
     @Override
-    public void getDocumentClips(final Document document) {
+    public void getDocumentClips(final String documentId) {
 	BokQuery query = new BokQuery();
-	query.bokParentEquals(document.getId());
+	query.bokParentEquals(documentId);
 	query.bokTypeEquals(Clip.TYPE);
 	Params params = query.toParams();
 	manager.getList("documents.clips", RESOURCE, params, new RestCallback() {
 	    @Override
 	    public void onSuccess(String text) {
 		BokRequestResultsJSO results = JsonUtils.unsafeEval(text);
+		Document document = new Document(results.getBok());
 		fireDocumentClips(new DocumentClips(document, results));
 	    }
 	});

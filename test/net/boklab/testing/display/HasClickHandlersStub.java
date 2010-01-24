@@ -1,4 +1,4 @@
-package net.boklab.testing;
+package net.boklab.testing.display;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -28,6 +28,10 @@ public class HasClickHandlersStub implements HasClickHandlers {
     @Override
     public void fireEvent(GwtEvent<?> event) {
 	handler.onClick((ClickEvent) event);
+    }
+
+    public boolean isRemoved() {
+	return isRemoved;
     }
 
 }

@@ -1,12 +1,12 @@
 /**
  * 
  */
-package net.boklab.testing;
+package net.boklab.testing.display;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
 
-import net.boklab.testing.Dimock.DisplayFactory;
+import net.boklab.testing.display.Dimock.DisplayFactory;
 
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;

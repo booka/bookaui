@@ -51,7 +51,7 @@ public class DefaultRouter implements Router {
     }
 
     @Override
-    public void when(final String name, final PlaceRequestHandler handler) {
+    public void onRequest(final String name, final PlaceRequestHandler handler) {
 	GWT.log("New matcher for place: " + name, null);
 	matchers.add(new PlaceMatcher(name, handler));
     }

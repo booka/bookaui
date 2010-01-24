@@ -1,12 +1,13 @@
 package net.boklab.testing;
 
 import net.boklab.browser.client.ui.DocumentItemDisplay;
+import net.boklab.document.client.manager.DocumentManager;
+import net.boklab.project.client.action.ProjectManager;
 import net.boklab.tools.client.eventbus.DefaultEventBus;
 import net.boklab.tools.client.eventbus.EventBus;
+import net.boklab.tools.client.mvp.Display;
 import net.boklab.tools.client.rest.RestManager;
 import net.boklab.tools.client.router.Router;
-
-import org.mockito.Mockito;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -18,12 +19,10 @@ public class BookaTester extends AbstractModule implements Module {
     public final RouterTester router;
     public final Injector injector;
     public final DefaultEventBus eventBus;
-    public final RestManager restManager;
 
     public BookaTester() {
 	eventBus = new DefaultEventBus();
 	router = new RouterTester(eventBus);
-	restManager = Mockito.mock(RestManager.class);
 	injector = Guice.createInjector(this);
     }
 
@@ -31,16 +30,30 @@ public class BookaTester extends AbstractModule implements Module {
 	return injector.getInstance(modelClass);
     }
 
-    private void addDisplay(Class<DocumentItemDisplay> type) {
+    private <T extends Display> void addDisplay(Class<T> type) {
 	bind(type).toProvider(DisplayProvider.get(type));
+    }
+
+    private <T> void addMock(Class<T> type) {
+	bind(type).toProvider(MockProvider.get(type));
     }
 
     @Override
     protected void configure() {
 	bind(Router.class).toInstance(router);
 	bind(EventBus.class).toInstance(eventBus);
-	bind(RestManager.class).toInstance(restManager);
+	configureManagers();
+	configureDisplays();
+    }
+
+    private void configureDisplays() {
 	addDisplay(DocumentItemDisplay.class);
+    }
+
+    private void configureManagers() {
+	addMock(RestManager.class);
+	addMock(DocumentManager.class);
+	addMock(ProjectManager.class);
     }
 
 }

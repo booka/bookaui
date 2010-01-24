@@ -28,14 +28,14 @@ public class App {
 
 	RootLayoutPanel.get().add(booka.getDisplay().asWidget());
 
-	router.when("^/entrance$", new PlaceRequestHandler() {
+	router.onRequest("^/entrance$", new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(PlaceRequestEvent event) {
 		showEntrance(booka, event.getPlace());
 	    }
 	});
 
-	router.when("^/archives.*", new PlaceRequestHandler() {
+	router.onRequest("^/archives.*", new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(PlaceRequestEvent event) {
 		GWT.log("SHOW ARCHIVES", null);
