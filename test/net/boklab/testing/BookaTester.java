@@ -38,10 +38,17 @@ public class BookaTester extends AbstractModule implements Module {
     private final HistoryManagerTester historyManager;
 
     public BookaTester() {
+	this(null);
+    }
+
+    public BookaTester(Object test) {
 	eventBus = new EventBusTester();
 	router = new RouterTester(eventBus);
 	historyManager = new HistoryManagerTester();
 	injector = Guice.createInjector(this);
+	if (test != null) {
+	    injector.injectMembers(test);
+	}
     }
 
     public <T> T get(Class<T> modelClass) {
@@ -85,6 +92,7 @@ public class BookaTester extends AbstractModule implements Module {
 
     @Override
     protected void configure() {
+	bind(BookaTester.class).toInstance(this);
 	bind(HistoryManager.class).toInstance(historyManager);
 	bind(Router.class).toInstance(router);
 	bind(EventBus.class).toInstance(eventBus);

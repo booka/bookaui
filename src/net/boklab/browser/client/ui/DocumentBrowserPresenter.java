@@ -24,7 +24,7 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
 
 	this.currentProject = null;
 
-	projects.onProject(new ProjectOpenedHandler() {
+	projects.onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
 	    public void onProject(Project project) {
 		currentProject = project;

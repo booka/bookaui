@@ -21,7 +21,7 @@ public class ProjectsBridge implements Projects {
     }
 
     @Override
-    public void onProject(ProjectOpenedHandler handler) {
+    public void onProjectOpened(ProjectOpenedHandler handler) {
 	eventBus.addHandler(ProjectOpenedEvent.TYPE, handler);
     }
 

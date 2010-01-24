@@ -61,7 +61,9 @@ public class DocumentsWorker {
 	query.bokParentEquals(documentId);
 	query.bokTypeEquals(Clip.TYPE);
 	Params params = query.toParams();
-	manager.getList("documents.clips", RESOURCE, params, new RestCallback() {
+	String url = RESOURCE + "/" + documentId + "/children";
+
+	manager.getList("documents.clips", url, params, new RestCallback() {
 	    @Override
 	    public void onSuccess(String text) {
 		BokRequestResultsJSO results = JsonUtils.unsafeEval(text);

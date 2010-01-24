@@ -7,6 +7,6 @@ public interface Projects {
 
     void openProject(String projectId);
 
-    void onProject(ProjectOpenedHandler handler);
+    void onProjectOpened(ProjectOpenedHandler handler);
 
 }

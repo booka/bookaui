@@ -24,14 +24,15 @@ public class BookaRouter {
 	    }
 	});
 
-	router.onRequest("^/entrance$|^/archives.*", new PlaceRequestHandler() {
-	    @Override
-	    public void onPlaceRequest(PlaceRequestEvent event) {
-		Log.debug("BookaRouter: show workspace");
-		booka.setContent(workspace);
-		router.fireChanged(event.getPlace());
-	    }
-	});
+	router.onRequest("^/entrance$|^/archives/\\w+$|^/documents/\\w+$",
+		new PlaceRequestHandler() {
+		    @Override
+		    public void onPlaceRequest(PlaceRequestEvent event) {
+			Log.debug("BookaRouter: show workspace");
+			booka.setContent(workspace);
+			router.fireChanged(event.getPlace());
+		    }
+		});
 
 	router.onRequest("^/login$", new PlaceRequestHandler() {
 	    @Override
