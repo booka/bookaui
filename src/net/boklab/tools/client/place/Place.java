@@ -32,4 +32,23 @@ public class Place {
 	this.placeId = "/" + c + i;
     }
 
+    @Override
+    public boolean equals(Object o) {
+	if (o instanceof Place) {
+	    Place place = (Place) o;
+	    return placeId.equals(place.placeId);
+	}
+	return false;
+    }
+
+    @Override
+    public int hashCode() {
+	return 16 * placeId.hashCode();
+    }
+
+    @Override
+    public String toString() {
+	return "Place: " + placeId;
+    }
+
 }

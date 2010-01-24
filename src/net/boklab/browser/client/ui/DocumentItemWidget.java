@@ -1,6 +1,7 @@
 package net.boklab.browser.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
@@ -31,6 +32,11 @@ public class DocumentItemWidget extends Composite implements DocumentItemDisplay
     @Override
     public Widget asWidget() {
 	return this;
+    }
+
+    @Override
+    public HasClickHandlers getClickeable() {
+	return title;
     }
 
     @Override

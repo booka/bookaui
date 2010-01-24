@@ -12,6 +12,7 @@ import net.boklab.tools.client.rest.DefaultRestManager;
 import net.boklab.tools.client.rest.RailsRestServiceAsync;
 import net.boklab.tools.client.rest.RestManager;
 import net.boklab.tools.client.rest.RestServiceAsync;
+import net.boklab.tools.client.router.DefaultRouter;
 import net.boklab.tools.client.router.Router;
 
 import com.google.gwt.inject.client.AbstractGinModule;
@@ -27,7 +28,7 @@ public class BokToolsModule extends AbstractGinModule {
 	bind(RestManager.class).to(DefaultRestManager.class).in(Singleton.class);
 	bind(PlaceTokenizer.class).to(RestPlaceTokenizer.class).in(Singleton.class);
 	bind(Dispatcher.class).to(DefaultDispatcher.class).in(Singleton.class);
-	bind(Router.class).in(Singleton.class);
+	bind(Router.class).to(DefaultRouter.class).in(Singleton.class);
     }
 
 }
