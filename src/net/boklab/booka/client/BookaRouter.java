@@ -11,22 +11,19 @@ import net.boklab.tools.client.router.Router;
 import net.boklab.workspace.client.ui.WorkspacePresenter;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 
-public class App {
+public class BookaRouter {
 
     private final BookaPresenters presenters;
     private final Router router;
 
     @Inject
-    public App(Router router, final BookaPresenters presenters, PlaceManager placeManager) {
+    public BookaRouter(Router router, final BookaPresenters presenters, PlaceManager placeManager) {
 	this.router = router;
 	this.presenters = presenters;
 
 	final BookaAppPresenter booka = presenters.bookaApp.get();
-
-	RootLayoutPanel.get().add(booka.getDisplay().asWidget());
 
 	router.onRequest("^/entrance$", new PlaceRequestHandler() {
 	    @Override

@@ -1,7 +1,6 @@
 package net.boklab.booka.client.ui.navigation;
 
 import java.util.HashMap;
-import java.util.Set;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -16,8 +15,6 @@ public class NavigationWidget extends Composite implements NavigationDisplay {
 
     interface NavigationWidgetUiBinder extends UiBinder<Widget, NavigationWidget> {
     }
-
-    private static final String ENTRANCE = "entrance";
 
     private static NavigationWidgetUiBinder uiBinder = GWT.create(NavigationWidgetUiBinder.class);
 
@@ -48,11 +45,6 @@ public class NavigationWidget extends Composite implements NavigationDisplay {
     @Override
     public HasClickHandlers getLink(String name) {
 	return items.get(name);
-    }
-
-    @Override
-    public Set<String> getLinkNames() {
-	return items.keySet();
     }
 
     @Override

@@ -1,6 +1,12 @@
 package net.boklab.tools.client.place;
 
+import com.google.inject.Inject;
+
 public class RestPlaceTokenizer implements PlaceTokenizer {
+
+    @Inject
+    public RestPlaceTokenizer() {
+    }
 
     @Override
     public Place fromString(String token) {

@@ -18,4 +18,8 @@ public class GWTHistoryManager implements HistoryManager {
 	History.fireCurrentHistoryState();
     }
 
+    @Override
+    public void newItem(String token, boolean issueEvent) {
+	History.newItem(token, issueEvent);
+    }
 }

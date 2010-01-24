@@ -1,11 +1,13 @@
 package net.boklab.booka.client;
 
+import net.boklab.booka.client.ui.app.BookaAppPresenter;
 import net.boklab.tools.client.rest.RestServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 
 public class BookaEntryPoint implements EntryPoint {
     private static final String CONFIG_HOST = "booka.serverPath";
@@ -27,8 +29,10 @@ public class BookaEntryPoint implements EntryPoint {
 	restService.setHostPath(hostPath);
 
 	injector.getProjectManager();
+	injector.getBookaRouter();
 
-	injector.getApp();
+	BookaAppPresenter booka = injector.getBookaAppPresenter();
+	RootLayoutPanel.get().add(booka.getDisplay().asWidget());
     }
 
 }

@@ -14,6 +14,10 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
     public NavigationPresenter(final EventBus eventBus, NavigationDisplay display) {
 	super(display);
 
+	String[] names = new String[] { NavigationDisplay.CONTACT, NavigationDisplay.ACCOUNT,
+		NavigationDisplay.ARCHIVES, NavigationDisplay.BOOKA, NavigationDisplay.CALENDAR,
+		NavigationDisplay.EDITION, NavigationDisplay.ENTRANCE, NavigationDisplay.LOGIN };
+
 	display.setVisible(NavigationDisplay.ARCHIVES, false);
 	display.setVisible(NavigationDisplay.EDITION, false);
 	display.setVisible(NavigationDisplay.BOOKA, false);
@@ -21,7 +25,7 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 	display.setVisible(NavigationDisplay.ACCOUNT, false);
 	display.setVisible(NavigationDisplay.CALENDAR, false);
 
-	for (final String name : display.getLinkNames()) {
+	for (final String name : names) {
 	    display.getLink(name).addClickHandler(new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent event) {

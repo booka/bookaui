@@ -5,7 +5,6 @@ import net.boklab.tools.client.eventbus.EventBus;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
-import com.google.gwt.user.client.History;
 import com.google.inject.Inject;
 
 public class PlaceManager {
@@ -14,7 +13,8 @@ public class PlaceManager {
     private final PlaceTokenizer tokenizer;
 
     @Inject
-    public PlaceManager(final EventBus eventBus, final PlaceTokenizer tokenizer, HistoryManager history) {
+    public PlaceManager(final EventBus eventBus, final PlaceTokenizer tokenizer,
+	    HistoryManager history) {
 	this.tokenizer = tokenizer;
 	this.history = history;
 	history.addValueChangeHandler(new ValueChangeHandler<String>() {
@@ -46,7 +46,7 @@ public class PlaceManager {
 
     private void newPlace(Place place) {
 	String token = tokenizer.toString(place);
-	History.newItem(token, false);
+	history.newItem(token, false);
     }
 
 }
