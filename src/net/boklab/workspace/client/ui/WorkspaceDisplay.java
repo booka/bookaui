@@ -6,4 +6,6 @@ public interface WorkspaceDisplay extends Display {
 
     void setEast(Display display);
 
+    void setWest(Display display);
+
 }

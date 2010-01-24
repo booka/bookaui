@@ -3,5 +3,6 @@
 <module rename-to="BokCore">
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="net.boklab.tools.BokTools" />
-	<source path="client"/>
+	<source path="client" />
+	<entry-point class="net.boklab.core.client.BokCoreEntryPoint" />
 </module>

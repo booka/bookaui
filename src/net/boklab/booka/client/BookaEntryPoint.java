@@ -25,6 +25,9 @@ public class BookaEntryPoint implements EntryPoint {
 	RestServiceAsync restService = injector.getRestServiceAsync();
 	String hostPath = getMeta(CONFIG_HOST);
 	restService.setHostPath(hostPath);
+
+	injector.getProjectManager();
+
 	injector.getApp();
     }
 

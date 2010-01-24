@@ -1,0 +1,12 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel styleName="bk-DocumentItem">
+		<g:Label styleName="Title" ui:field="title">Title</g:Label>
+		<g:HTML ui:field="description" styleName="Description">Description</g:HTML>
+		<g:HTML ui:field="extra" styleName="Extra">Extra information</g:HTML>
+	</g:HTMLPanel>
+</ui:UiBinder> 

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE module PUBLIC "-//Google Inc.//DTD Google Web Toolkit 2.0.0//EN" "http://google-web-toolkit.googlecode.com/svn/tags/2.0.0/distro-source/core/src/gwt-module.dtd">
-<module rename-to="Booka">
+<module rename-to="BokArchives">
 	<inherits name="com.google.gwt.user.User" />
-    <inherits name="net.boklab.entrance.BokEntrance" />
-    <inherits name="net.boklab.archives.BokArchives" />
-    
+	<inherits name="net.boklab.browser.BokBrowser" />
+	<inherits name="net.boklab.workspace.BokWorkspace" />
 	<source path="client" />
-	<entry-point class="net.boklab.booka.client.BookaEntryPoint" />
+	<entry-point class="net.boklab.archives.client.ArchivesEntryPoint" />
 </module>

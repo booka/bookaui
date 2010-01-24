@@ -1,7 +1,7 @@
 package net.boklab.entrance.client;
 
-import net.boklab.project.client.ProjectGinjector;
+import com.google.gwt.inject.client.Ginjector;
 
-public interface EntranceGinjector extends ProjectGinjector {
+public interface EntranceGinjector extends Ginjector {
     EntrancePresenter getEntrancePresenter();
 }

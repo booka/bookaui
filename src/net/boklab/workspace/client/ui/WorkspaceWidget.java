@@ -10,6 +10,7 @@ import com.google.gwt.user.client.ui.Widget;
 public class WorkspaceWidget extends Composite implements WorkspaceDisplay {
     private final LayoutPanel dock;
     private Widget east;
+    private Widget west;
 
     public WorkspaceWidget() {
 	this.dock = new LayoutPanel();
@@ -26,9 +27,25 @@ public class WorkspaceWidget extends Composite implements WorkspaceDisplay {
 	if (this.east != null)
 	    dock.remove(east);
 	this.east = display.asWidget();
-	dock.add(east);
-	dock.setWidgetTopBottom(east, 0, PX, 0, PX);
-	dock.setWidgetRightWidth(east, 0, PX, 250, PX);
+	if (east != null) {
+	    dock.add(east);
+	    dock.setWidgetTopBottom(east, 0, PX, 0, PX);
+	    dock.setWidgetRightWidth(east, 0, PX, 250, PX);
+	    dock.animate(250);
+	}
+    }
+
+    @Override
+    public void setWest(Display display) {
+	if (this.west != null)
+	    dock.remove(west);
+	this.west = display.asWidget();
+	if (west != null) {
+	    dock.add(west);
+	    dock.setWidgetTopBottom(west, 0, PX, 0, PX);
+	    dock.setWidgetLeftWidth(west, 0, PX, 250, PX);
+	    dock.animate(250);
+	}
     }
 
 }

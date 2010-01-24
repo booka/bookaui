@@ -1,19 +1,10 @@
 package net.boklab.core.client;
 
 public interface BokSearchResults {
-    final BokSearchResults NONE = new BokSearchResults() {
-	@Override
-	public Bok get(int index) {
-	    return null;
-	}
 
-	@Override
-	public int getSize() {
-	    return 0;
-	}
-    };
+    Bok getBok();
 
-    Bok get(int index);
+    Bok getChildren(int index);
 
-    int getSize();
+    int getChildrenSize();
 }

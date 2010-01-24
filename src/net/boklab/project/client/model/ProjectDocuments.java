@@ -28,9 +28,9 @@ public class ProjectDocuments implements Iterable<Document> {
 
     private void setResults(BokSearchResults results) {
 	list.clear();
-	int total = results.getSize();
+	int total = results.getChildrenSize();
 	for (int index = 0; index < total; index++) {
-	    list.add(new Document(results.get(index)));
+	    list.add(new Document(results.getChildren(index)));
 	}
     }
 }

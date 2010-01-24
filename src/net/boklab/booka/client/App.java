@@ -1,5 +1,6 @@
 package net.boklab.booka.client;
 
+import net.boklab.archives.client.ArchivesPresenter;
 import net.boklab.booka.client.ui.app.BookaAppPresenter;
 import net.boklab.entrance.client.EntrancePresenter;
 import net.boklab.tools.client.place.Place;
@@ -9,6 +10,7 @@ import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.Router;
 import net.boklab.workspace.client.ui.WorkspacePresenter;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.inject.Inject;
 
@@ -33,6 +35,14 @@ public class App {
 	    }
 	});
 
+	router.when("^/archives.*", new PlaceRequestHandler() {
+	    @Override
+	    public void onPlaceRequest(PlaceRequestEvent event) {
+		GWT.log("SHOW ARCHIVES", null);
+		showArchives(booka, event.getPlace());
+	    }
+	});
+
 	placeManager.fireCurrentPlace();
     }
 
@@ -40,7 +50,15 @@ public class App {
 	WorkspacePresenter workspace = presenters.workspace.get();
 	EntrancePresenter entrancePresenter = presenters.entrance.get();
 	entrancePresenter.revealOn(workspace);
-	router.fire(place);
+	router.fireChanged(place);
+	booka.setContent(workspace);
+    }
+
+    protected void showArchives(BookaAppPresenter booka, Place place) {
+	WorkspacePresenter workspace = presenters.workspace.get();
+	ArchivesPresenter archivesPresenter = presenters.archives.get();
+	archivesPresenter.revealOn(workspace);
+	router.fireChanged(place);
 	booka.setContent(workspace);
     }
 

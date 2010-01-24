@@ -26,7 +26,8 @@ public class DocumentClips implements Iterable<Clip> {
 
 	this.document = document;
 	this.list = new ArrayList<Clip>();
-	setResults(results);
+	if (results != null)
+	    setResults(results);
     }
 
     public Document getDocument() {
@@ -40,9 +41,9 @@ public class DocumentClips implements Iterable<Clip> {
 
     private void setResults(BokSearchResults results) {
 	list.clear();
-	int total = results.getSize();
+	int total = results.getChildrenSize();
 	for (int index = 0; index < total; index++) {
-	    list.add(new Clip(results.get(index)));
+	    list.add(new Clip(results.getChildren(index)));
 	}
     }
 
