@@ -1,5 +1,6 @@
 package net.boklab.project.client;
 
+import net.boklab.entrance.client.EntrancePresenter;
 import net.boklab.project.client.action.DefaultProjectManager;
 import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.ui.ProjectDisplay;
@@ -17,6 +18,7 @@ public class ProjectModule extends AbstractGinModule {
 	bind(ProjectDisplay.class).to(ProjectWidget.class);
 	bind(ProjectManager.class).to(DefaultProjectManager.class).asEagerSingleton();
 	bind(ProjectRouter.class).asEagerSingleton();
+	bind(EntrancePresenter.class).asEagerSingleton();
     }
 
 }

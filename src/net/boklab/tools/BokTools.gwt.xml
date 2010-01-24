@@ -6,7 +6,9 @@
 
 	<!-- GWT-log -->
 	<inherits name="com.allen_sauer.gwt.log.gwt-log-DEBUG" />
+	<set-property name="log_RemoteLogger" value="DISABLED" />
 	<set-property name="log_DivLogger" value="DISABLED" />
-
+	<set-configuration-property name="log_pattern"
+		value="%m" />
 	<source path="client" />
 </module>

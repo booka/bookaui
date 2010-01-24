@@ -17,6 +17,12 @@ import com.google.inject.Inject;
 
 public class DefaultDocumentManager implements DocumentManager {
     private static final String RESOURCE = "boks";
+
+    public static void fireDocumentClips(EventBus eventBus, DocumentClips documentClips) {
+	DocumentClipsEvent event = new DocumentClipsEvent(documentClips);
+	eventBus.fireEvent(event);
+    }
+
     private final RestManager manager;
     private final EventBus eventBus;
 
@@ -34,7 +40,8 @@ public class DefaultDocumentManager implements DocumentManager {
 	    public void onSuccess(String text) {
 		BokJSO bok = JsonUtils.unsafeEval(text);
 		Document document = new Document(bok);
-		fireDocumentClips(new DocumentClips(document, null));
+		DefaultDocumentManager.fireDocumentClips(eventBus,
+			new DocumentClips(document, null));
 	    }
 	});
     }
@@ -50,9 +57,15 @@ public class DefaultDocumentManager implements DocumentManager {
 	    public void onSuccess(String text) {
 		BokRequestResultsJSO results = JsonUtils.unsafeEval(text);
 		Document document = new Document(results.getBok());
-		fireDocumentClips(new DocumentClips(document, results));
+		DefaultDocumentManager.fireDocumentClips(eventBus, new DocumentClips(document,
+			results));
 	    }
 	});
+    }
+
+    @Override
+    public void onDocumentClips(DocumentClipsHandler handler) {
+	eventBus.addHandler(DocumentClipsEvent.TYPE, handler);
     }
 
     @Override
@@ -65,13 +78,6 @@ public class DefaultDocumentManager implements DocumentManager {
 
 		    }
 		});
-
-	// onSaved.fire(new Document(bok));
-    }
-
-    private void fireDocumentClips(DocumentClips documentClips) {
-	DocumentClipsEvent event = new DocumentClipsEvent(documentClips);
-	eventBus.fireEvent(event);
     }
 
 }

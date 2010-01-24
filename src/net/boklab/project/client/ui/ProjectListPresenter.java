@@ -14,17 +14,17 @@ public class ProjectListPresenter extends AbstractPresenter<ProjectListDisplay> 
 
     @Inject
     public ProjectListPresenter(ProjectManager projects, final Provider<ProjectPresenter> provider,
-	    final ProjectListDisplay display) {
+	    final Provider<ProjectListDisplay> display) {
 	super(display);
 
 	projects.onProjectList(new ProjectListHandler() {
 	    @Override
 	    public void onProjectList(ArrayList<Project> list) {
-		display.clearList();
+		getDisplay().clearList();
 		for (Project project : list) {
 		    ProjectPresenter presenter = provider.get();
 		    presenter.setProject(project);
-		    display.add(presenter.getDisplay());
+		    getDisplay().add(presenter.getDisplay());
 		}
 
 	    }

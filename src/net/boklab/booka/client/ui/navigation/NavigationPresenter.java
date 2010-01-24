@@ -8,16 +8,18 @@ import net.boklab.tools.client.place.PlaceRequestEvent;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
     @Inject
-    public NavigationPresenter(final EventBus eventBus, NavigationDisplay display) {
-	super(display);
+    public NavigationPresenter(final EventBus eventBus, Provider<NavigationDisplay> displayProvider) {
+	super(displayProvider);
 
 	String[] names = new String[] { NavigationDisplay.CONTACT, NavigationDisplay.ACCOUNT,
 		NavigationDisplay.ARCHIVES, NavigationDisplay.BOOKA, NavigationDisplay.CALENDAR,
 		NavigationDisplay.EDITION, NavigationDisplay.ENTRANCE, NavigationDisplay.LOGIN };
 
+	NavigationDisplay display = getDisplay();
 	display.setVisible(NavigationDisplay.ARCHIVES, false);
 	display.setVisible(NavigationDisplay.EDITION, false);
 	display.setVisible(NavigationDisplay.BOOKA, false);

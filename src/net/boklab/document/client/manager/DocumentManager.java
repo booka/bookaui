@@ -10,4 +10,6 @@ public interface DocumentManager {
 
     public void update(Document document);
 
+    void onDocumentClips(DocumentClipsHandler handler);
+
 }

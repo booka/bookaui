@@ -11,6 +11,8 @@ public class RouterTester extends DefaultRouter {
 
     private final ArrayList<Place> requests;
     private final ArrayList<Place> changed;
+    private Place lastRequest;
+    private Place lastChanged;
 
     public RouterTester(EventBus eventBus) {
 	super(eventBus);
@@ -20,20 +22,24 @@ public class RouterTester extends DefaultRouter {
 
     @Override
     public void fireChanged(Place place) {
+	lastChanged = place;
 	changed.add(place);
 	super.fireChanged(place);
     }
 
     @Override
     public void fireRequest(Place place) {
+	lastRequest = place;
 	requests.add(place);
 	super.fireRequest(place);
     }
 
+    public Place getLastChanged() {
+	return lastChanged;
+    }
+
     public Place getLastRequest() {
-	int last = requests.size() - 1;
-	Place place = last >= 0 ? requests.get(last) : null;
-	return place;
+	return lastRequest;
     }
 
     @Override

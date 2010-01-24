@@ -4,7 +4,11 @@ import net.boklab.booka.client.ui.app.BookaAppDisplay;
 import net.boklab.booka.client.ui.navigation.NavigationDisplay;
 import net.boklab.browser.client.ui.DocumentBrowserDisplay;
 import net.boklab.browser.client.ui.DocumentItemDisplay;
+import net.boklab.document.client.manager.DefaultDocumentManager;
 import net.boklab.document.client.manager.DocumentManager;
+import net.boklab.document.client.ui.DocumentDisplay;
+import net.boklab.document.client.ui.clip.ClipDisplay;
+import net.boklab.project.client.action.DefaultProjectManager;
 import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.ui.ProjectDisplay;
 import net.boklab.project.client.ui.ProjectListDisplay;
@@ -43,6 +47,10 @@ public class BookaTester extends AbstractModule implements Module {
 	return injector.getInstance(modelClass);
     }
 
+    public DefaultEventBus getEventBus() {
+	return eventBus;
+    }
+
     public RouterTester getRouter() {
 	return router;
     }
@@ -63,12 +71,14 @@ public class BookaTester extends AbstractModule implements Module {
 	addDisplay(ProjectDisplay.class);
 	addDisplay(DocumentBrowserDisplay.class).in(Singleton.class);
 	addDisplay(DocumentItemDisplay.class);
+	addDisplay(DocumentDisplay.class).in(Singleton.class);
+	addDisplay(ClipDisplay.class);
     }
 
     private void configureManagers() {
 	addMock(RestManager.class);
-	addMock(DocumentManager.class);
-	addMock(ProjectManager.class);
+	bind(DocumentManager.class).to(DefaultDocumentManager.class).in(Singleton.class);
+	bind(ProjectManager.class).to(DefaultProjectManager.class).in(Singleton.class);
     }
 
     @Override

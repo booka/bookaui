@@ -7,8 +7,6 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 public interface DocumentBrowserDisplay extends Display {
 
-    DocumentItemPresenter createItem();
-
     HasClickHandlers getCreate();
 
     HasWidgets getList();

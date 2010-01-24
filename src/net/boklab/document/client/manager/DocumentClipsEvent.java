@@ -6,7 +6,7 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class DocumentClipsEvent extends GwtEvent<DocumentClipsHandler> {
 
-    private static final Type<DocumentClipsHandler> TYPE = new Type<DocumentClipsHandler>();
+    public static final Type<DocumentClipsHandler> TYPE = new Type<DocumentClipsHandler>();
     private final DocumentClips documentClips;
 
     public DocumentClipsEvent(DocumentClips documentClips) {

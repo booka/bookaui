@@ -10,7 +10,6 @@ import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
-import com.google.inject.Provider;
 
 public class DocumentBrowserWidget extends Composite implements DocumentBrowserDisplay {
 
@@ -26,22 +25,14 @@ public class DocumentBrowserWidget extends Composite implements DocumentBrowserD
     @UiField
     Anchor create;
 
-    private final Provider<DocumentItemPresenter> provider;
-
     @Inject
-    public DocumentBrowserWidget(Provider<DocumentItemPresenter> provider) {
-	this.provider = provider;
+    public DocumentBrowserWidget() {
 	initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
     public Widget asWidget() {
 	return this;
-    }
-
-    @Override
-    public DocumentItemPresenter createItem() {
-	return provider.get();
     }
 
     @Override

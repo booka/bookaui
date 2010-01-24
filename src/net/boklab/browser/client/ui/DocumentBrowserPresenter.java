@@ -11,6 +11,7 @@ import net.boklab.tools.client.mvp.AbstractPresenter;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserDisplay> {
 
@@ -18,8 +19,9 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
 
     @Inject
     public DocumentBrowserPresenter(final DocumentManager documents, final ProjectManager projects,
-	    final DocumentBrowserDisplay display) {
-	super(display);
+	    final Provider<DocumentBrowserDisplay> displayProvider,
+	    final Provider<DocumentItemPresenter> itemProvider) {
+	super(displayProvider);
 
 	this.currentProject = null;
 
@@ -27,17 +29,17 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
 	    @Override
 	    public void onProjectDocuments(ProjectDocuments documents) {
 		currentProject = documents.getProject();
-		display.getList().clear();
+		getDisplay().getList().clear();
 		for (Document d : documents) {
-		    DocumentItemPresenter item = display.createItem();
+		    DocumentItemPresenter item = itemProvider.get();
 		    item.setDocument(d);
-		    display.getList().add(item.getDisplay().asWidget());
+		    getDisplay().getList().add(item.getDisplay().asWidget());
 		}
-		display.setCreateVisible(true);
+		getDisplay().setCreateVisible(true);
 	    }
 	});
 
-	display.getCreate().addClickHandler(new ClickHandler() {
+	getDisplay().getCreate().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(ClickEvent event) {
 		assert currentProject != null : "You should receive onNewDocument event without documents loaded previously";
