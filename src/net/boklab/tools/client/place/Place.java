@@ -1,22 +1,20 @@
 package net.boklab.tools.client.place;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 /**
- * A Place in the history
+ * A place in history
  * 
- * @author David Peterson
+ * @author dani
+ * 
  */
 public class Place {
-    public static final String CONTROLLER = "controller";
-    public static final String ID = "id";
-    public static final Place ROOT = new Place();
-    public static final Place UNKNOWN = new Place("", "");
+    private static final String BLANK = "";
 
-    private final Map<String, String> params;
+    public static final Place ROOT = new Place();
+    public static final Place UNKNOWN = new Place(BLANK, BLANK);
+
+    public final String controller;
+    public final String resourceId;
+    public final String placeId;
 
     public Place() {
 	this(null, null);
@@ -26,37 +24,12 @@ public class Place {
 	this(controller, null);
     }
 
-    public Place(String controller, String id) {
-	this.params = new HashMap<String, String>();
-	if (controller != null)
-	    params.put(CONTROLLER, controller);
-	if (id != null)
-	    params.put(ID, id);
+    public Place(String controller, String resourceId) {
+	this.controller = controller;
+	this.resourceId = resourceId;
+	String c = controller == null ? BLANK : controller;
+	String i = resourceId == null ? BLANK : "/" + resourceId;
+	this.placeId = "/" + c + i;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-	if (obj instanceof Place) {
-	    Place req = (Place) obj;
-	    return params.equals(req.params);
-	}
-	return false;
-    }
-
-    public String getParameter(String key) {
-	return params.get(key);
-    }
-
-    public Set<String> getParameterNames() {
-	if (params != null) {
-	    return params.keySet();
-	} else {
-	    return Collections.emptySet();
-	}
-    }
-
-    @Override
-    public int hashCode() {
-	return 11 * (params.hashCode());
-    }
 }

@@ -1,6 +1,8 @@
 package net.boklab.project.client.ui;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
@@ -20,6 +22,11 @@ public class ProjectWidget extends Composite implements ProjectDisplay {
 
     public ProjectWidget() {
 	initWidget(uiBinder.createAndBindUi(this));
+    }
+
+    @Override
+    public HandlerRegistration addClickHandler(ClickHandler handler) {
+	return title.addClickHandler(handler);
     }
 
     @Override

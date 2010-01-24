@@ -19,15 +19,15 @@ public class RestPlaceTokenizerTests {
     @Test
     public void shouldGetControllerAndIdRequest() {
 	Place place = tokenizer.fromString("/archives/1");
-	assertEquals("archives", place.getParameter(Place.CONTROLLER));
-	assertEquals("1", place.getParameter(Place.ID));
+	assertEquals("archives", place.controller);
+	assertEquals("1", place.resourceId);
     }
 
     @Test
     public void shouldGetControllerRequest() {
 	Place place = tokenizer.fromString("/archives");
-	assertEquals("archives", place.getParameter(Place.CONTROLLER));
-	assertNull(place.getParameter(Place.ID));
+	assertEquals("archives", place.controller);
+	assertNull(place.resourceId);
     }
 
     @Test

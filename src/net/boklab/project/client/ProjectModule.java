@@ -1,5 +1,7 @@
 package net.boklab.project.client;
 
+import net.boklab.project.client.action.DefaultProjectManager;
+import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.ui.ProjectDisplay;
 import net.boklab.project.client.ui.ProjectListDisplay;
 import net.boklab.project.client.ui.ProjectListWidget;
@@ -13,7 +15,7 @@ public class ProjectModule extends AbstractGinModule {
     protected void configure() {
 	bind(ProjectListDisplay.class).to(ProjectListWidget.class);
 	bind(ProjectDisplay.class).to(ProjectWidget.class);
-	bind(ProjectActions.class).asEagerSingleton();
+	bind(ProjectManager.class).to(DefaultProjectManager.class).asEagerSingleton();
     }
 
 }

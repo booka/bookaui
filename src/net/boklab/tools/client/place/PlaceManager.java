@@ -2,6 +2,7 @@ package net.boklab.tools.client.place;
 
 import net.boklab.tools.client.eventbus.EventBus;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.user.client.History;
@@ -19,6 +20,7 @@ public class PlaceManager {
 	history.addValueChangeHandler(new ValueChangeHandler<String>() {
 	    @Override
 	    public void onValueChange(ValueChangeEvent<String> event) {
+		GWT.log("Token: " + event.getValue(), null);
 		Place place = tokenizer.fromString(event.getValue());
 		eventBus.fireEvent(new PlaceRequestEvent(place, true));
 	    }

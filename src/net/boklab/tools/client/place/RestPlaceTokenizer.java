@@ -23,10 +23,10 @@ public class RestPlaceTokenizer implements PlaceTokenizer {
     @Override
     public String toString(Place place) {
 	String token = "/";
-	String controller = place.getParameter(Place.CONTROLLER);
+	String controller = place.controller;
 	if (controller != null)
 	    token += controller;
-	String id = place.getParameter(Place.ID);
+	String id = place.resourceId;
 	if (id != null)
 	    token += "/" + id;
 	return token;

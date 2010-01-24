@@ -1,29 +1,35 @@
 package net.boklab.project.client.ui;
 
-import net.boklab.tools.client.dispatcher.Dispatcher;
-import net.boklab.tools.client.eventbus.EventBus;
-import net.boklab.tools.client.mvp.AbstractPresenter;
-import net.boklab.tools.client.place.PlaceChangedEvent;
-import net.boklab.tools.client.place.PlaceChangedHandler;
-import net.boklab.tools.client.place.Router;
+import java.util.ArrayList;
 
-import com.google.gwt.user.client.Window;
+import net.boklab.project.client.action.ProjectListHandler;
+import net.boklab.project.client.action.ProjectManager;
+import net.boklab.project.client.model.Project;
+import net.boklab.tools.client.mvp.AbstractPresenter;
+
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
 public class ProjectListPresenter extends AbstractPresenter<ProjectListDisplay> {
 
     @Inject
-    public ProjectListPresenter(EventBus eventBus, Dispatcher dispatcher, ProjectListDisplay display) {
+    public ProjectListPresenter(ProjectManager projects, final Provider<ProjectPresenter> provider,
+	    final ProjectListDisplay display) {
 	super(display);
 
-	eventBus.addHandler(PlaceChangedEvent.TYPE, new PlaceChangedHandler() {
+	projects.onProjectList(new ProjectListHandler() {
 	    @Override
-	    public void onPlaceChanged(PlaceChangedEvent event) {
-		if (Router.is(event.getPlace(), "archives")) {
-		    Window.alert("JODER!");
+	    public void onProjectList(ArrayList<Project> list) {
+		display.clearList();
+		for (Project project : list) {
+		    ProjectPresenter presenter = provider.get();
+		    presenter.setProject(project);
+		    display.add(presenter.getDisplay());
 		}
+
 	    }
 	});
+
     }
 
 }
