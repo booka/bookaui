@@ -1,4 +1,4 @@
-package net.boklab.archives.client;
+package net.boklab.booka.client.ui.archives;
 
 import net.boklab.browser.client.ui.DocumentBrowserPresenter;
 import net.boklab.document.client.manager.DocumentOpenedEvent;

@@ -1,4 +1,4 @@
-package net.boklab.entrance.client;
+package net.boklab.booka.client.ui.entrance;
 
 import java.util.ArrayList;
 

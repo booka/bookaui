@@ -1,6 +1,7 @@
 package net.boklab.archives.client;
 
 import static org.mockito.Mockito.verify;
+import net.boklab.booka.client.ui.archives.ArchivesPresenter;
 import net.boklab.browser.client.ui.DocumentBrowserDisplay;
 import net.boklab.project.client.action.ProjectOpenedEvent;
 import net.boklab.testing.Boky;

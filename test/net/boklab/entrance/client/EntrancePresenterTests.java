@@ -2,6 +2,7 @@ package net.boklab.entrance.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
+import net.boklab.booka.client.ui.entrance.EntrancePresenter;
 import net.boklab.project.client.action.GetProjectsEvent;
 import net.boklab.project.client.action.GotProjectsEvent;
 import net.boklab.project.client.action.OpenProjectEvent;

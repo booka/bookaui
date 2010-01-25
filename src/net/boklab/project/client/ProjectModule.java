@@ -1,6 +1,5 @@
 package net.boklab.project.client;
 
-import net.boklab.entrance.client.EntrancePresenter;
 import net.boklab.project.client.action.Projects;
 import net.boklab.project.client.action.ProjectsBridge;
 import net.boklab.project.client.action.ProjectsWorker;
@@ -23,7 +22,6 @@ public class ProjectModule extends AbstractGinModule {
 	bind(ProjectsWorker.class).asEagerSingleton();
 	bind(ProjectRouter.class).asEagerSingleton();
 
-	bind(EntrancePresenter.class).asEagerSingleton();
     }
 
 }
