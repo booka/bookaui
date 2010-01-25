@@ -20,7 +20,7 @@ public class BookaAppWidget extends Composite implements BookaAppDisplay {
     private static BookaAppWidgetUiBinder uiBinder = GWT.create(BookaAppWidgetUiBinder.class);
 
     @UiField
-    SimplePanel north;
+    SimplePanel north, emite;
 
     @UiField
     LayoutPanel center;
@@ -45,6 +45,11 @@ public class BookaAppWidget extends Composite implements BookaAppDisplay {
     @Override
     public void setContent(Display display) {
 	slideLayout.add(display.asWidget());
+    }
+
+    @Override
+    public void setEmite(Display display) {
+	emite.setWidget(display.asWidget());
     }
 
     @Override

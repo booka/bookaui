@@ -11,6 +11,7 @@ import net.boklab.tools.client.mvp.AbstractPresenter;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestEvent;
 
+import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
@@ -36,6 +37,7 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 	    navigation.getLink(name).addClickHandler(new ClickHandler() {
 		@Override
 		public void onClick(ClickEvent event) {
+		    Log.debug("Navigation:" + name);
 		    Place place = new Place(name);
 		    eventBus.fireEvent(new PlaceRequestEvent(place));
 		}

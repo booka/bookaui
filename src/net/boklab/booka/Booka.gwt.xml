@@ -5,6 +5,7 @@
 	<inherits name="net.boklab.core.BokCore" />
     <inherits name="net.boklab.entrance.BokEntrance" />
     <inherits name="net.boklab.archives.BokArchives" />
+    <inherits name="net.boklab.calendar.BokCalendar" />
     
 	<source path="client" />
 	<entry-point class="net.boklab.booka.client.BookaEntryPoint" />

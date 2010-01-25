@@ -23,7 +23,7 @@ import com.google.inject.Singleton;
 public class EntrancePresenter extends AbstractPresenter<WorkspaceDisplay> {
 
     @Inject
-    public EntrancePresenter(Router router, final Projects projects,
+    public EntrancePresenter(final Router router, final Projects projects,
 	    final ProjectListPresenter projectList, final Provider<WorkspaceDisplay> display) {
 	super(display);
 
@@ -31,6 +31,7 @@ public class EntrancePresenter extends AbstractPresenter<WorkspaceDisplay> {
 	    @Override
 	    public void onPlaceRequest(PlaceRequestEvent event) {
 		projects.getProjectList();
+		router.fireChanged(event.getPlace());
 	    }
 	});
 
@@ -40,6 +41,7 @@ public class EntrancePresenter extends AbstractPresenter<WorkspaceDisplay> {
 		Log.debug("ProjectRouter: get project documents");
 		Place place = event.getPlace();
 		projects.openProject(place.resourceId);
+		router.fireChanged(event.getPlace());
 	    }
 	});
 

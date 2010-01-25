@@ -7,6 +7,8 @@ public interface Projects {
 
     public boolean hasActiveProject();
 
+    public void onOpenProject(OpenProjectHandler handler);
+
     public void onProjectList(GotProjectsHandler handler);
 
     Project getActiveProject();

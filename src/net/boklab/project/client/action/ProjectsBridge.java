@@ -40,6 +40,11 @@ public class ProjectsBridge implements Projects {
     }
 
     @Override
+    public void onOpenProject(OpenProjectHandler handler) {
+	eventBus.addHandler(OpenProjectEvent.TYPE, handler);
+    }
+
+    @Override
     public void onProjectList(GotProjectsHandler handler) {
 	eventBus.addHandler(GotProjectsEvent.TYPE, handler);
     }

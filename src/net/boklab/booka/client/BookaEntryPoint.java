@@ -31,7 +31,7 @@ public class BookaEntryPoint implements EntryPoint {
 	injector.getProjects();
 	injector.getBookaRouter();
 
-	BookaAppPresenter booka = injector.getBookaAppPresenter();
+	final BookaAppPresenter booka = injector.getBookaAppPresenter();
 	RootLayoutPanel.get().add(booka.getDisplay().asWidget());
 
 	injector.getPlaceManager().fireCurrentPlace();

@@ -6,6 +6,8 @@ public interface BookaAppDisplay extends Display {
 
     void setContent(Display display);
 
+    void setEmite(Display display);
+
     void setNavigation(Display display);
 
 }
