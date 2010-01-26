@@ -4,7 +4,8 @@ import java.util.ArrayList;
 
 import net.boklab.core.client.SimpleBok;
 import net.boklab.core.client.model.Bok;
-import net.boklab.document.client.model.Document;
+import net.boklab.core.client.model.BokSearchResults;
+import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.project.client.model.Project;
 
@@ -14,15 +15,14 @@ public class Boky {
 
     public static Bok bok(String type) {
 	newModel();
-	SimpleBok bok = new SimpleBok(id(type), type);
-	bok.setTitle(id("title"));
-	bok.setDescription(id("description"));
+	SimpleBok bok = new SimpleBok(seq(type), type);
+	bok.setTitle(seq("title"));
+	bok.setDescription(seq("description"));
 	return bok;
     }
 
     public static Document document() {
-	Document document = new Document(bok(Document.TYPE));
-	return document;
+	return new Document(bok(Document.TYPE), results(Clip.TYPE));
     }
 
     public static Document emptyDocument() {
@@ -43,12 +43,16 @@ public class Boky {
 	return list;
     }
 
-    private static String id(String model) {
-	return model + "-" + id;
-    }
-
     private static void newModel() {
 	id++;
+    }
+
+    private static BokSearchResults results(String type) {
+	return null;
+    }
+
+    private static String seq(String model) {
+	return model + "-" + id;
     }
 
 }

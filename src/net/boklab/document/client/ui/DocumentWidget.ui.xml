@@ -6,10 +6,6 @@
 	</ui:style>
     <g:ScrollPanel styleName="bk-Document">
         <g:FlowPanel styleName="Page" ui:field="page">
-            <g:FlowPanel ui:field="properties">
-            <g:Label ui:field="title" styleName="title"></g:Label>
-            <g:Label ui:field="description" styleName="description"></g:Label>
-            </g:FlowPanel>
             <g:FlowPanel styleName="Content"
                 ui:field="content"></g:FlowPanel>
         </g:FlowPanel>

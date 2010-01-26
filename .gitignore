@@ -4,10 +4,9 @@ war/BokDocuments/**
 war/BokWorkspace/**
 war/Booka/**
 war/BokTools/**
-war/BokEntrance/**
 war/BokProjects/**
-war/BokArchives/**
 war/BokBrowser/**
+war/BokCalendar/**
 
 
 

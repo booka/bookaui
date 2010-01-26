@@ -7,6 +7,10 @@ import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.DefaultRouter;
 
+import com.google.inject.Inject;
+import com.google.inject.Singleton;
+
+@Singleton
 public class RouterTester extends DefaultRouter {
 
     private final ArrayList<Place> requests;
@@ -14,6 +18,7 @@ public class RouterTester extends DefaultRouter {
     private Place lastRequest;
     private Place lastChanged;
 
+    @Inject
     public RouterTester(EventBus eventBus) {
 	super(eventBus);
 	this.requests = new ArrayList<Place>();

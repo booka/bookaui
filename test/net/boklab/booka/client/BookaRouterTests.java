@@ -11,19 +11,21 @@ import net.boklab.workspace.client.ui.WorkspaceDisplay;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.google.inject.Inject;
+
 public class BookaRouterTests {
+    @Inject
     private RouterTester router;
+    @Inject
     private WorkspaceDisplay workspace;
-    private BookaTester tester;
+    @Inject
     private BookaAppDisplay booka;
+    @Inject
+    BookaRouter bookaRouter;
 
     @Before
     public void setup() {
-	tester = new BookaTester();
-	router = tester.getRouter();
-	workspace = tester.get(WorkspaceDisplay.class);
-	booka = tester.get(BookaAppDisplay.class);
-	tester.get(BookaRouter.class);
+	new BookaTester(this);
     }
 
     @Test

@@ -30,19 +30,26 @@ public class DocumentsWorker {
 	eventBus.addHandler(OpenDocumentEvent.TYPE, new OpenDocumentHandler() {
 	    @Override
 	    public void onOpenDocument(OpenDocumentEvent event) {
-		openDocument(event.getDocumentId());
+		open(event.getDocumentId());
 	    }
 	});
 
 	eventBus.addHandler(CreateDocumentEvent.TYPE, new CreateDocumentHandler() {
 	    @Override
 	    public void onCreateDocument(CreateDocumentEvent event) {
-		createDocument(event.getDocument());
+		create(event.getDocument());
+	    }
+	});
+
+	eventBus.addHandler(UpdateDocumentEvent.TYPE, new UpdateDocumentHandler() {
+	    @Override
+	    public void onUpdateDocument(Document document) {
+		update(document);
 	    }
 	});
     }
 
-    protected void createDocument(final Document document) {
+    protected void create(final Document document) {
 	Params params = BokToParams.encode(document, new Params());
 	manager.create("documents.create", RESOURCE, params, new RestCallback() {
 	    @Override
@@ -55,7 +62,7 @@ public class DocumentsWorker {
 	});
     }
 
-    protected void openDocument(String documentId) {
+    protected void open(String documentId) {
 	BokQuery query = new BokQuery();
 	query.bokParentEquals(documentId);
 	query.bokTypeEquals(Clip.TYPE);

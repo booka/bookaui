@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+    <g:HTMLPanel styleName="bk-DocumentInfoEditor Form">
+        <div class="FormRow">
+            <label class="FormLabel">Título:</label>
+            <g:TextBox ui:field="title">Título</g:TextBox>
+        </div>
+        <div class="FormRow">
+            <label class="FormLabel">Descripción:</label>
+            <g:TextArea ui:field="description">Título</g:TextArea>
+        </div>
+        <div class="FormRow Actions">
+            <g:Anchor ui:field="save" styleName="Action">Modificar</g:Anchor>
+            <g:Anchor ui:field="cancel" styleName="Action">Cancelar</g:Anchor>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder> 

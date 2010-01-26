@@ -7,6 +7,7 @@ import com.google.gwt.dev.util.collect.HashMap;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.inject.Provider;
 
 public class DisplayStubFactory {
@@ -33,6 +34,12 @@ public class DisplayStubFactory {
 	    @Override
 	    public HasClickHandlers get() {
 		return new HasClickHandlersStub();
+	    }
+	});
+	providers.put(HasWidgets.class, new Provider<HasWidgets>() {
+	    @Override
+	    public HasWidgets get() {
+		return new HasWidgetsStub();
 	    }
 	});
     }

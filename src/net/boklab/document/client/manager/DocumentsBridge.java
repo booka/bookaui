@@ -33,7 +33,7 @@ public class DocumentsBridge implements Documents {
 
     @Override
     public void update(Document document) {
-	assert false : "not implemented";
+	eventBus.fireEvent(new UpdateDocumentEvent(document));
     }
 
 }
