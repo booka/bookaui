@@ -44,13 +44,18 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
-    public int getPosition() {
+    public Integer getPosition() {
 	return delegate.getPosition();
     }
 
     @Override
     public String getTitle() {
 	return delegate.getTitle();
+    }
+
+    @Override
+    public String getUpdatedAt() {
+	return delegate.getUpdatedAt();
     }
 
     @Override

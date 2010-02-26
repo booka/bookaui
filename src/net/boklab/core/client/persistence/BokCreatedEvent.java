@@ -1,5 +1,6 @@
 package net.boklab.core.client.persistence;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.model.BokResponse;
 
 public class BokCreatedEvent extends BokResponseEvent<BokCreatedHandler> {
@@ -10,8 +11,8 @@ public class BokCreatedEvent extends BokResponseEvent<BokCreatedHandler> {
 	return TYPE;
     }
 
-    public BokCreatedEvent(final BokResponse response) {
-	super(response);
+    public BokCreatedEvent(final Bok bok, final BokResponse response) {
+	super(bok, response);
     }
 
     @Override

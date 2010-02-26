@@ -7,8 +7,8 @@ import net.boklab.document.client.clip.editor.ClipEditorDisplay;
 import net.boklab.document.client.content.ContentEditor;
 import net.boklab.document.client.content.ContentTypeManager;
 import net.boklab.document.client.content.slot.SlotContentHandler;
-import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Clip;
+import net.boklab.document.client.persistence.Documents;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;

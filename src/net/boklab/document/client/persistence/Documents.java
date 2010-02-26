@@ -1,4 +1,4 @@
-package net.boklab.document.client.manager;
+package net.boklab.document.client.persistence;
 
 import net.boklab.core.client.persistence.BokCreatedHandler;
 import net.boklab.document.client.model.Clip;
@@ -14,10 +14,10 @@ public interface Documents {
 
     public void updateClip(Clip clip);
 
-    void createClip(Clip clip, BokCreatedHandler handler);
+    void createClip(Clip clip, ClipCreatedHandler handler);
 
     boolean isUserLoggedIn();
 
-    void onDocumentOpened(DocumentOpenedHandler handler);
+    void onDocumentOpened(DocumentRetrievedHandler handler);
 
 }

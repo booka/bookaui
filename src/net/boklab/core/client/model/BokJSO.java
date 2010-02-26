@@ -43,13 +43,18 @@ public class BokJSO extends JavaScriptObject implements Bok {
     }-*/;
 
     @Override
-    public final native int getPosition() /*-{
+    public final native Integer getPosition() /*-{
         return this.bok.position;
     }-*/;
 
     @Override
     public final native String getTitle() /*-{
         return this.bok.title;
+    }-*/;
+
+    @Override
+    public final native String getUpdatedAt() /*-{
+        return this.bok.updated_at;
     }-*/;
 
     @Override

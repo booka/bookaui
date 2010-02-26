@@ -53,17 +53,25 @@ public class BokPersistence {
 	});
     }
 
+    private void fireUpdatedBoks(final BokResponseJSO response) {
+	final int total = response.getUpdatedSize();
+	for (int index = 0; index < total; index++) {
+	    eventBus.fireEvent(new BokUpdatedEvent(response.getUpdated(index), response));
+	}
+    }
+
     protected void create(final Bok bok, final BokCreatedHandler handler) {
 	final Params params = BokToParams.encode(bok, new Params());
 	manager.create("boks.create", RESOURCE, params, new RestCallback() {
 	    @Override
 	    public void onSuccess(final String text) {
 		final BokResponseJSO response = JsonUtils.unsafeEval(text);
-		final BokCreatedEvent event = new BokCreatedEvent(response);
+		final BokCreatedEvent event = new BokCreatedEvent(response.getBok(), response);
 		if (handler != null) {
 		    handler.onBokCreated(event);
 		}
 		eventBus.fireEvent(event);
+		fireUpdatedBoks(response);
 	    }
 	});
     }
@@ -88,7 +96,7 @@ public class BokPersistence {
 	    @Override
 	    public void onSuccess(final String content) {
 		final BokResponseJSO response = JsonUtils.unsafeEval(content);
-		final BokRetrievedEvent event = new BokRetrievedEvent(response);
+		final BokRetrievedEvent event = new BokRetrievedEvent(response.getBok(), response);
 		if (handler != null) {
 		    handler.onBokRetrieved(event);
 		}
@@ -104,7 +112,8 @@ public class BokPersistence {
 	    @Override
 	    public void onSuccess(final String text) {
 		final BokResponseJSO response = JsonUtils.unsafeEval(text);
-		eventBus.fireEvent(new BokUpdatedEvent(response));
+		eventBus.fireEvent(new BokUpdatedEvent(response.getBok(), response));
+		fireUpdatedBoks(response);
 	    }
 	});
     }

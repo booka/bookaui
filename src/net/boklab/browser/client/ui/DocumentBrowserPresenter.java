@@ -1,7 +1,7 @@
 package net.boklab.browser.client.ui;
 
-import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Document;
+import net.boklab.document.client.persistence.Documents;
 import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.action.ProjectOpenedEvent;
 import net.boklab.project.client.action.ProjectOpenedHandler;

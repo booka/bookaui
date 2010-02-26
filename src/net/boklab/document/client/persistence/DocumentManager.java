@@ -1,5 +1,6 @@
-package net.boklab.document.client.manager;
+package net.boklab.document.client.persistence;
 
+import net.boklab.core.client.persistence.BokCreatedEvent;
 import net.boklab.core.client.persistence.BokCreatedHandler;
 import net.boklab.core.client.persistence.BokRetrievedEvent;
 import net.boklab.core.client.persistence.BokRetrievedHandler;
@@ -15,20 +16,30 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class DocumentsBridge implements Documents {
+public class DocumentManager implements Documents {
 
     private final EventBus eventBus;
     private final Sessions sessions;
 
     @Inject
-    public DocumentsBridge(final EventBus eventBus, final Sessions sessions) {
+    public DocumentManager(final EventBus eventBus, final Sessions sessions) {
 	this.eventBus = eventBus;
 	this.sessions = sessions;
     }
 
     @Override
-    public void createClip(final Clip clip, final BokCreatedHandler handler) {
-	eventBus.fireEvent(new CreateBokEvent(clip, handler));
+    public void createClip(final Clip clip, final ClipCreatedHandler handler) {
+	eventBus.fireEvent(new CreateBokEvent(clip, new BokCreatedHandler() {
+	    @Override
+	    public void onBokCreated(final BokCreatedEvent event) {
+		final ClipCreatedEvent clipCreatedEvent = new ClipCreatedEvent(new Clip(event.getBok()), event
+			.getResponse());
+		if (handler != null) {
+		    handler.onClipCreated(clipCreatedEvent);
+		}
+		eventBus.fireEvent(clipCreatedEvent);
+	    }
+	}));
     }
 
     @Override
@@ -42,8 +53,8 @@ public class DocumentsBridge implements Documents {
     }
 
     @Override
-    public void onDocumentOpened(final DocumentOpenedHandler handler) {
-	eventBus.addHandler(DocumentOpenedEvent.TYPE, handler);
+    public void onDocumentOpened(final DocumentRetrievedHandler handler) {
+	eventBus.addHandler(DocumentRetrievedEvent.TYPE, handler);
     }
 
     @Override
@@ -52,7 +63,7 @@ public class DocumentsBridge implements Documents {
 	    @Override
 	    public void onBokRetrieved(final BokRetrievedEvent event) {
 		final Document document = new Document(event.getBok(), event.getChildren());
-		eventBus.fireEvent(new DocumentOpenedEvent(document));
+		eventBus.fireEvent(new DocumentRetrievedEvent(document));
 	    }
 	}));
     }

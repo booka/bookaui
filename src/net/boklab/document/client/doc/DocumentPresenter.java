@@ -4,11 +4,11 @@ import net.boklab.document.client.clip.ClipPresenter;
 import net.boklab.document.client.content.ContentTypeManager;
 import net.boklab.document.client.content.slot.SlotContentHandler;
 import net.boklab.document.client.info.DocInfoPresenter;
-import net.boklab.document.client.manager.DocumentOpenedEvent;
-import net.boklab.document.client.manager.DocumentOpenedHandler;
-import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
+import net.boklab.document.client.persistence.DocumentRetrievedEvent;
+import net.boklab.document.client.persistence.DocumentRetrievedHandler;
+import net.boklab.document.client.persistence.Documents;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.inject.Inject;
@@ -34,9 +34,9 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 
 	bind();
 
-	documents.onDocumentOpened(new DocumentOpenedHandler() {
+	documents.onDocumentOpened(new DocumentRetrievedHandler() {
 	    @Override
-	    public void onDocumentOpened(final DocumentOpenedEvent event) {
+	    public void onDocumentRetrieved(final DocumentRetrievedEvent event) {
 		setDocument(event.getDocument());
 	    }
 	});

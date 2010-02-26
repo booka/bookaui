@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import net.boklab.booka.client.BookaRouter;
 import net.boklab.booka.client.ui.navigation.NavigationDisplay;
 import net.boklab.booka.client.ui.navigation.NavigationPresenter;
-import net.boklab.document.client.manager.Documents;
+import net.boklab.document.client.persistence.Documents;
 import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.ui.ProjectListDisplay;
 import net.boklab.tools.client.place.PlaceManager;

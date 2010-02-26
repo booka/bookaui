@@ -2,10 +2,10 @@ package net.boklab.booka.client.ui.archives;
 
 import net.boklab.browser.client.ui.DocumentBrowserPresenter;
 import net.boklab.document.client.doc.DocumentPresenter;
-import net.boklab.document.client.manager.DocumentOpenedEvent;
-import net.boklab.document.client.manager.DocumentOpenedHandler;
-import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Document;
+import net.boklab.document.client.persistence.DocumentRetrievedEvent;
+import net.boklab.document.client.persistence.DocumentRetrievedHandler;
+import net.boklab.document.client.persistence.Documents;
 import net.boklab.project.client.action.ProjectManager;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 import net.boklab.tools.client.mvp.Display;
@@ -63,9 +63,9 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 	    }
 	});
 
-	documents.onDocumentOpened(new DocumentOpenedHandler() {
+	documents.onDocumentOpened(new DocumentRetrievedHandler() {
 	    @Override
-	    public void onDocumentOpened(final DocumentOpenedEvent event) {
+	    public void onDocumentRetrieved(final DocumentRetrievedEvent event) {
 		final Document document = event.getDocument();
 		projects.openProject(document.getParentId());
 	    }

@@ -29,7 +29,7 @@ public class RailsRestServiceAsync implements RestServiceAsync {
 	final String url = getPath(resource, null, format);
 	final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
-	GWT.log("POST: " + url);
+	GWT.log("POST: " + url + params.toString());
 	try {
 	    builder.sendRequest(params.toString(), callback);
 	} catch (final RequestException e) {

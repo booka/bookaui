@@ -21,4 +21,15 @@ public class BokResponseJSO extends JavaScriptObject implements BokResponse {
     public final native int getChildrenSize() /*-{
         return this[1]['boks'].length;
     }-*/;
+
+    @Override
+    public final native BokJSO getUpdated(int index) /*-{
+        return this[2]['updated'][index];
+    }-*/;
+
+    @Override
+    public final native int getUpdatedSize() /*-{
+        return this[2]['updated'].length;
+    }-*/;
+
 }

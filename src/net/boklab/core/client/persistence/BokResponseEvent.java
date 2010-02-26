@@ -10,17 +10,15 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public abstract class BokResponseEvent<T extends EventHandler> extends GwtEvent<T> {
     private final BokResponse response;
-    private Bok bok;
+    private final Bok bok;
     private ArrayList<Bok> children;
 
-    public BokResponseEvent(final BokResponse response) {
+    public BokResponseEvent(final Bok bok, final BokResponse response) {
+	this.bok = bok;
 	this.response = response;
     }
 
     public Bok getBok() {
-	if (bok == null) {
-	    bok = response.getBok();
-	}
 	return bok;
     }
 
@@ -41,7 +39,7 @@ public abstract class BokResponseEvent<T extends EventHandler> extends GwtEvent<
 
     @Override
     public String toDebugString() {
-	return super.toDebugString() + " " + getBok().getBokType() + "-" + getBok().getId() + " <"
-		+ getChildren().size() + ">";
+	final String postfix = bok != null ? " " + getBok().getBokType() + "-" + getBok().getId() : "";
+	return super.toDebugString() + postfix;
     }
 }

@@ -15,6 +15,7 @@ public class SimpleBok implements Bok {
     private final String id;
     private String contentType;
     private int position;
+    private final String updatedAt = "";
 
     public SimpleBok(final String id, final String bokType) {
 	this.id = id;
@@ -52,13 +53,18 @@ public class SimpleBok implements Bok {
     }
 
     @Override
-    public int getPosition() {
+    public Integer getPosition() {
 	return position;
     }
 
     @Override
     public String getTitle() {
 	return title;
+    }
+
+    @Override
+    public String getUpdatedAt() {
+	return updatedAt;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package net.boklab.document.client.clip;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.persistence.BokUpdatedEvent;
 import net.boklab.core.client.persistence.BokUpdatedHandler;
 import net.boklab.document.client.clip.action.ClipActionsPresenter;
@@ -39,8 +40,9 @@ public class ClipPresenter implements Presenter<ClipDisplay> {
 	    @Override
 	    public void onBokUpdated(final BokUpdatedEvent event) {
 		if (clip != null) {
-		    if (event.getBok().getId().equals(clip.getId())) {
-			setClip((Clip) event.getBok(), contentHandler);
+		    Bok bok = event.getBok();
+		    if (bok.getId().equals(clip.getId())) {
+			setClip(new Clip(bok), contentHandler);
 			setWaiting(false);
 		    }
 		}

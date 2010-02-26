@@ -20,8 +20,8 @@ import net.boklab.document.client.info.edit.DocInfoEditorDisplay;
 import net.boklab.document.client.info.edit.DocInfoEditorWidget;
 import net.boklab.document.client.info.view.DocInfoViewerDisplay;
 import net.boklab.document.client.info.view.DocInfoViewerWidget;
-import net.boklab.document.client.manager.Documents;
-import net.boklab.document.client.manager.DocumentsBridge;
+import net.boklab.document.client.persistence.Documents;
+import net.boklab.document.client.persistence.DocumentManager;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
@@ -36,7 +36,7 @@ public class DocumentsModule extends AbstractGinModule {
 	bind(ActionsRegistrator.class).asEagerSingleton();
 	bind(ContentTypeRegistry.class).in(Singleton.class);
 
-	bind(Documents.class).to(DocumentsBridge.class).in(Singleton.class);
+	bind(Documents.class).to(DocumentManager.class).in(Singleton.class);
 
 	bind(DocumentDisplay.class).to(DocumentWidget.class).in(Singleton.class);
 	bind(ClipDisplay.class).to(ClipWidget.class);

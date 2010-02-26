@@ -14,9 +14,11 @@ public interface Bok {
 
     String getParentId();
 
-    int getPosition();
+    Integer getPosition();
 
     String getTitle();
+
+    String getUpdatedAt();
 
     String getUserId();
 

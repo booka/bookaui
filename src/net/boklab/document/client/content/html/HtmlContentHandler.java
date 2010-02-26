@@ -27,7 +27,7 @@ public class HtmlContentHandler extends ContentHandler {
     @Override
     public String render(final Clip clip) {
 	final String debug = "<div class='debug'>{Bok:" + clip.getId() + " pos:" + clip.getPosition() + " ctype:"
-		+ clip.getContentType() + "}</div>";
+		+ clip.getContentType() + " updated: " + clip.getUpdatedAt() + "}</div>";
 
 	return debug + clip.getBody();
     }
