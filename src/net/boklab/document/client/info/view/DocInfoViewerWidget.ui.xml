@@ -4,7 +4,7 @@
 	<ui:style>
 		
 	</ui:style>
-	<g:FlowPanel ui:field="properties" styleName="properties">
+	<g:FlowPanel ui:field="properties" styleName="bk-DocInfoViewer">
 		<g:Label ui:field="title" styleName="title"></g:Label>
 		<g:Label ui:field="description" styleName="description"></g:Label>
 	</g:FlowPanel>

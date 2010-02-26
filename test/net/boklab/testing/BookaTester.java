@@ -7,10 +7,15 @@ import net.boklab.browser.client.ui.DocumentItemDisplay;
 import net.boklab.calendar.client.ui.CalendarDisplay;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.core.client.session.SessionsBridge;
+import net.boklab.document.client.clip.ClipDisplay;
+import net.boklab.document.client.content.ContentTypeListDisplay;
+import net.boklab.document.client.doc.DocumentDisplay;
+import net.boklab.document.client.info.DocInfoDisplay;
+import net.boklab.document.client.info.edit.DocInfoEditorDisplay;
+import net.boklab.document.client.info.view.DocInfoViewerDisplay;
 import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.manager.DocumentsBridge;
-import net.boklab.document.client.ui.DocumentDisplay;
-import net.boklab.document.client.ui.clip.ClipDisplay;
+import net.boklab.document.client.slot.SlotDisplay;
 import net.boklab.project.client.action.Projects;
 import net.boklab.project.client.action.ProjectsBridge;
 import net.boklab.project.client.ui.ProjectDisplay;
@@ -43,7 +48,7 @@ public class BookaTester extends AbstractModule implements Module {
 	this(null);
     }
 
-    public BookaTester(Object test) {
+    public BookaTester(final Object test) {
 	GWTMockUtilities.disarm();
 	eventBus = new EventBusTester();
 	router = new RouterTester(eventBus);
@@ -54,7 +59,7 @@ public class BookaTester extends AbstractModule implements Module {
 	}
     }
 
-    public <T> T get(Class<T> modelClass) {
+    public <T> T get(final Class<T> modelClass) {
 	return injector.getInstance(modelClass);
     }
 
@@ -66,11 +71,11 @@ public class BookaTester extends AbstractModule implements Module {
 	return router;
     }
 
-    private <T extends Display> ScopedBindingBuilder addDisplay(Class<T> type) {
+    private <T extends Display> ScopedBindingBuilder addDisplay(final Class<T> type) {
 	return bind(type).toProvider(DisplayProvider.get(type));
     }
 
-    private <T> ScopedBindingBuilder addMock(Class<T> type) {
+    private <T> ScopedBindingBuilder addMock(final Class<T> type) {
 	return bind(type).toProvider(MockProvider.get(type));
     }
 
@@ -85,6 +90,11 @@ public class BookaTester extends AbstractModule implements Module {
 	addDisplay(DocumentDisplay.class).in(Singleton.class);
 	addDisplay(ClipDisplay.class);
 	addDisplay(CalendarDisplay.class).in(Singleton.class);
+	addDisplay(DocInfoDisplay.class);
+	addDisplay(DocInfoViewerDisplay.class);
+	addDisplay(DocInfoEditorDisplay.class);
+	addDisplay(SlotDisplay.class);
+	addDisplay(ContentTypeListDisplay.class).in(Singleton.class);
     }
 
     private void configureManagers() {

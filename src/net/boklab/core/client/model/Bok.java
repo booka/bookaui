@@ -6,11 +6,15 @@ public interface Bok {
 
     String getBokType();
 
+    String getContentType();
+
     String getDescription();
 
     String getId();
 
     String getParentId();
+
+    int getPosition();
 
     String getTitle();
 
@@ -22,9 +26,13 @@ public interface Bok {
 
     void setBokType(String type);
 
+    void setContentType(String contentType);
+
     void setDescription(String text);
 
     void setParentId(String id);
+
+    void setPosition(int position);
 
     void setTitle(String title);
 

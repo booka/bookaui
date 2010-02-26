@@ -8,16 +8,16 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 
-public class DocInfoViewWidget extends Composite implements DocInfoViewDisplay {
+public class DocInfoViewerWidget extends Composite implements DocInfoViewerDisplay {
 
-    interface DocInfoViewWidgetUiBinder extends UiBinder<Widget, DocInfoViewWidget> {
+    interface DocInfoViewWidgetUiBinder extends UiBinder<Widget, DocInfoViewerWidget> {
     }
     @UiField
     Label title, description;
 
     private static DocInfoViewWidgetUiBinder uiBinder = GWT.create(DocInfoViewWidgetUiBinder.class);
 
-    public DocInfoViewWidget() {
+    public DocInfoViewerWidget() {
 	initWidget(uiBinder.createAndBindUi(this));
     }
 

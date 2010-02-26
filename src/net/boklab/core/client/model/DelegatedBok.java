@@ -3,7 +3,7 @@ package net.boklab.core.client.model;
 public class DelegatedBok implements Bok {
     protected final Bok delegate;
 
-    public DelegatedBok(Bok delegate, String bokType) {
+    public DelegatedBok(final Bok delegate, final String bokType) {
 	this.delegate = delegate;
 	assert bokType.equals(delegate.getBokType()) : "Bok type doesn't match! (" + bokType + " != "
 		+ delegate.getBokType() + ")";
@@ -17,6 +17,11 @@ public class DelegatedBok implements Bok {
     @Override
     public String getBokType() {
 	return delegate.getBokType();
+    }
+
+    @Override
+    public String getContentType() {
+	return delegate.getContentType();
     }
 
     @Override
@@ -39,6 +44,11 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
+    public int getPosition() {
+	return delegate.getPosition();
+    }
+
+    @Override
     public String getTitle() {
 	return delegate.getTitle();
     }
@@ -54,32 +64,42 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
-    public void setBody(String body) {
+    public void setBody(final String body) {
 	delegate.setBody(body);
     }
 
     @Override
-    public void setBokType(String type) {
+    public void setBokType(final String type) {
 	assert false : "Only subclasess can change bok type";
     }
 
     @Override
-    public void setDescription(String text) {
+    public void setContentType(final String contentType) {
+	delegate.setContentType(contentType);
+    }
+
+    @Override
+    public void setDescription(final String text) {
 	delegate.setDescription(text);
     }
 
     @Override
-    public void setParentId(String id) {
+    public void setParentId(final String id) {
 	delegate.setParentId(id);
     }
 
     @Override
-    public void setTitle(String title) {
+    public void setPosition(final int position) {
+	delegate.setPosition(position);
+    }
+
+    @Override
+    public void setTitle(final String title) {
 	delegate.setTitle(title);
     }
 
     @Override
-    public void setUserId(String id) {
+    public void setUserId(final String id) {
 	delegate.setUserId(id);
     }
 

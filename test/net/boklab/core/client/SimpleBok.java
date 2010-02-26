@@ -13,8 +13,10 @@ public class SimpleBok implements Bok {
     private String userName;
 
     private final String id;
+    private String contentType;
+    private int position;
 
-    public SimpleBok(String id, String bokType) {
+    public SimpleBok(final String id, final String bokType) {
 	this.id = id;
 	this.bokType = bokType;
     }
@@ -27,6 +29,11 @@ public class SimpleBok implements Bok {
     @Override
     public String getBokType() {
 	return bokType;
+    }
+
+    @Override
+    public String getContentType() {
+	return contentType;
     }
 
     @Override
@@ -45,6 +52,11 @@ public class SimpleBok implements Bok {
     }
 
     @Override
+    public int getPosition() {
+	return position;
+    }
+
+    @Override
     public String getTitle() {
 	return title;
     }
@@ -60,36 +72,46 @@ public class SimpleBok implements Bok {
     }
 
     @Override
-    public void setBody(String body) {
+    public void setBody(final String body) {
 	this.body = body;
     }
 
     @Override
-    public void setBokType(String bokType) {
+    public void setBokType(final String bokType) {
 	this.bokType = bokType;
     }
 
     @Override
-    public void setDescription(String description) {
+    public void setContentType(final String contentType) {
+	this.contentType = contentType;
+    }
+
+    @Override
+    public void setDescription(final String description) {
 	this.description = description;
     }
 
     @Override
-    public void setParentId(String parentId) {
+    public void setParentId(final String parentId) {
 	this.parentId = parentId;
     }
 
     @Override
-    public void setTitle(String title) {
+    public void setPosition(final int position) {
+	this.position = position;
+    }
+
+    @Override
+    public void setTitle(final String title) {
 	this.title = title;
     }
 
     @Override
-    public void setUserId(String userId) {
+    public void setUserId(final String userId) {
 	this.userId = userId;
     }
 
-    public void setUserName(String userName) {
+    public void setUserName(final String userName) {
 	this.userName = userName;
     }
 

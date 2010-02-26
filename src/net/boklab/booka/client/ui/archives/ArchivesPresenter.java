@@ -1,11 +1,11 @@
 package net.boklab.booka.client.ui.archives;
 
 import net.boklab.browser.client.ui.DocumentBrowserPresenter;
+import net.boklab.document.client.doc.DocumentPresenter;
 import net.boklab.document.client.manager.DocumentOpenedEvent;
 import net.boklab.document.client.manager.DocumentOpenedHandler;
 import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Document;
-import net.boklab.document.client.ui.DocumentPresenter;
 import net.boklab.project.client.action.OpenProjectEvent;
 import net.boklab.project.client.action.OpenProjectHandler;
 import net.boklab.project.client.action.Projects;

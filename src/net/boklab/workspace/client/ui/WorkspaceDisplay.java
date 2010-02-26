@@ -1,6 +1,6 @@
 package net.boklab.workspace.client.ui;
 
-import net.boklab.document.client.ui.DocumentDisplay;
+import net.boklab.document.client.doc.DocumentDisplay;
 import net.boklab.tools.client.mvp.Display;
 
 public interface WorkspaceDisplay extends Display {

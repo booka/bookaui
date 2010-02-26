@@ -5,7 +5,7 @@ import com.google.gwt.core.client.JsonUtils;
 
 public class BokJSO extends JavaScriptObject implements Bok {
 
-    public static BokJSO newInstance(String bokType) {
+    public static BokJSO newInstance(final String bokType) {
 	return JsonUtils.unsafeEval("{'bok':{'bok_type': '" + bokType + "'}}");
     }
 
@@ -23,6 +23,11 @@ public class BokJSO extends JavaScriptObject implements Bok {
     }-*/;
 
     @Override
+    public final native String getContentType() /*-{
+        return this.bok.content_type;
+    }-*/;
+
+    @Override
     public final native String getDescription() /*-{
         return this.bok.description;
     }-*/;
@@ -35,6 +40,11 @@ public class BokJSO extends JavaScriptObject implements Bok {
     @Override
     public final native String getParentId() /*-{
         return "" + this.bok.parent_id;
+    }-*/;
+
+    @Override
+    public final native int getPosition() /*-{
+        return this.bok.position;
     }-*/;
 
     @Override
@@ -63,6 +73,11 @@ public class BokJSO extends JavaScriptObject implements Bok {
     }-*/;
 
     @Override
+    public final native void setContentType(String contentType) /*-{
+        this.bok.content_type = contentType;
+    }-*/;
+
+    @Override
     public final native void setDescription(String text) /*-{
         this.bok.description = text;
     }-*/;
@@ -70,6 +85,11 @@ public class BokJSO extends JavaScriptObject implements Bok {
     @Override
     public final native void setParentId(String id) /*-{
         this.bok.parent_id = id;
+    }-*/;
+
+    @Override
+    public final native void setPosition(int position) /*-{
+        this.bok.position = position;
     }-*/;
 
     @Override
@@ -81,4 +101,5 @@ public class BokJSO extends JavaScriptObject implements Bok {
     public final native void setUserId(String id) /*-{
         this.bok.user_id = id;
     }-*/;
+
 }

@@ -1,10 +1,11 @@
 package net.boklab.document.client.ui;
 
-import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import net.boklab.document.client.doc.DocumentDisplay;
+import net.boklab.document.client.doc.DocumentPresenter;
 import net.boklab.document.client.manager.DocumentOpenedEvent;
 import net.boklab.testing.Boky;
 import net.boklab.testing.BookaTester;
-import net.boklab.testing.display.HasWidgetsStub;
 import net.boklab.tools.client.eventbus.EventBus;
 
 import org.junit.Before;
@@ -29,7 +30,6 @@ public class DocumentPresenterTests {
     @Test
     public void shouldClearContentsWhenDocumentOpened() {
 	eventBus.fireEvent(new DocumentOpenedEvent(Boky.document()));
-	HasWidgetsStub content = (HasWidgetsStub) display.getContents();
-	assertTrue(content.hasBeenCleared());
+	verify(display).clear();
     }
 }

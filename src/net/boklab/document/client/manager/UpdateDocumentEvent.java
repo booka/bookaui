@@ -8,7 +8,7 @@ public class UpdateDocumentEvent extends GwtEvent<UpdateDocumentHandler> {
     public static final Type<UpdateDocumentHandler> TYPE = new Type<UpdateDocumentHandler>();
     private final Document document;
 
-    public UpdateDocumentEvent(Document document) {
+    public UpdateDocumentEvent(final Document document) {
 	this.document = document;
     }
 
@@ -22,8 +22,8 @@ public class UpdateDocumentEvent extends GwtEvent<UpdateDocumentHandler> {
     }
 
     @Override
-    protected void dispatch(UpdateDocumentHandler handler) {
-	handler.onUpdateDocument(document);
+    protected void dispatch(final UpdateDocumentHandler handler) {
+	handler.onUpdateDocument(this);
     }
 
 }

@@ -23,72 +23,88 @@ public class DocumentsWorker {
     private final EventBus eventBus;
 
     @Inject
-    public DocumentsWorker(EventBus eventBus, RestManager manager) {
+    public DocumentsWorker(final EventBus eventBus, final RestManager manager) {
 	this.eventBus = eventBus;
 	this.manager = manager;
 
 	eventBus.addHandler(OpenDocumentEvent.TYPE, new OpenDocumentHandler() {
 	    @Override
-	    public void onOpenDocument(OpenDocumentEvent event) {
+	    public void onOpenDocument(final OpenDocumentEvent event) {
 		open(event.getDocumentId());
 	    }
 	});
 
 	eventBus.addHandler(CreateDocumentEvent.TYPE, new CreateDocumentHandler() {
 	    @Override
-	    public void onCreateDocument(CreateDocumentEvent event) {
+	    public void onCreateDocument(final CreateDocumentEvent event) {
 		create(event.getDocument());
 	    }
 	});
 
 	eventBus.addHandler(UpdateDocumentEvent.TYPE, new UpdateDocumentHandler() {
 	    @Override
-	    public void onUpdateDocument(Document document) {
-		update(document);
+	    public void onUpdateDocument(final UpdateDocumentEvent event) {
+		update(event.getDocument());
+	    }
+	});
+
+	eventBus.addHandler(CreateClipEvent.TYPE, new CreateClipHandler() {
+	    @Override
+	    public void onCreateClip(final CreateClipEvent event) {
+		createClip(event.getDocument(), event.getClip());
 	    }
 	});
     }
 
     protected void create(final Document document) {
-	Params params = BokToParams.encode(document, new Params());
+	final Params params = BokToParams.encode(document, new Params());
 	manager.create("documents.create", RESOURCE, params, new RestCallback() {
 	    @Override
-	    public void onSuccess(String text) {
-		BokJSO bok = JsonUtils.unsafeEval(text);
-		Document document = new Document(bok);
-		Document Document = new Document(document, null);
+	    public void onSuccess(final String text) {
+		final BokJSO bok = JsonUtils.unsafeEval(text);
+		final Document document = new Document(bok);
+		final Document Document = new Document(document, null);
 		eventBus.fireEvent(new DocumentOpenedEvent(Document));
 	    }
 	});
     }
 
-    protected void open(String documentId) {
-	BokQuery query = new BokQuery();
+    protected void createClip(final Document document, final Clip clip) {
+	clip.setParentId(document.getParentId());
+	final Params params = BokToParams.encode(clip, new Params());
+	manager.create("document.clip.create", RESOURCE, params, new RestCallback() {
+	    @Override
+	    public void onSuccess(final String content) {
+	    }
+	});
+    }
+
+    protected void open(final String documentId) {
+	final BokQuery query = new BokQuery();
 	query.bokParentEquals(documentId);
 	query.bokTypeEquals(Clip.TYPE);
-	Params params = query.toParams();
-	String url = RESOURCE + "/" + documentId + "/children";
+	final Params params = query.toParams();
+	final String url = RESOURCE + "/" + documentId + "/children";
 
 	manager.getList("documents.clips", url, params, new RestCallback() {
 	    @Override
-	    public void onSuccess(String text) {
-		BokRequestResultsJSO results = JsonUtils.unsafeEval(text);
-		Document document = new Document(results.getBok());
-		Document Document = new Document(document, results);
+	    public void onSuccess(final String text) {
+		final BokRequestResultsJSO results = JsonUtils.unsafeEval(text);
+		final Document document = new Document(results.getBok());
+		final Document Document = new Document(document, results);
 		eventBus.fireEvent(new DocumentOpenedEvent(Document));
 	    }
 	});
     }
 
-    protected void update(Document document) {
-	Params params = BokToParams.encode(document, new Params());
-	manager.update("documents.update", RESOURCE, document.getIdString(), params,
-		new RestCallback() {
-		    @Override
-		    public void onSuccess(String text) {
+    protected void update(final Document document) {
+	final Params params = BokToParams.encode(document, new Params());
+	manager.update("documents.update", RESOURCE, document.getIdString(), params, new RestCallback() {
+	    @Override
+	    public void onSuccess(final String text) {
 
-		    }
-		});
+	    }
+	});
     }
 
 }

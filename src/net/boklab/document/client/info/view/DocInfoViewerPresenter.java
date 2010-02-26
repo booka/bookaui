@@ -8,15 +8,15 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class DocInfoViewPresenter extends AbstractPresenter<DocInfoViewDisplay> {
+public class DocInfoViewerPresenter extends AbstractPresenter<DocInfoViewerDisplay> {
 
     @Inject
-    public DocInfoViewPresenter(Provider<DocInfoViewDisplay> provider) {
+    public DocInfoViewerPresenter(Provider<DocInfoViewerDisplay> provider) {
 	super(provider);
     }
 
     public void setDocument(Document document) {
-	DocInfoViewDisplay display = getDisplay();
+	DocInfoViewerDisplay display = getDisplay();
 	display.getDocumentTitle().setText(document.getTitle());
 	display.getDocumentDescription().setText(document.getDescription());
     }

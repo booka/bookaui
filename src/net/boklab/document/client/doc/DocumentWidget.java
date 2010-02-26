@@ -1,4 +1,4 @@
-package net.boklab.document.client.ui;
+package net.boklab.document.client.doc;
 
 import net.boklab.tools.client.mvp.Display;
 
@@ -7,7 +7,6 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DocumentWidget extends Composite implements DocumentDisplay {
@@ -27,17 +26,33 @@ public class DocumentWidget extends Composite implements DocumentDisplay {
     }
 
     @Override
+    public void add(final Display display) {
+	content.add(display.asWidget());
+    }
+
+    @Override
     public Widget asWidget() {
 	return this;
     }
 
     @Override
-    public HasWidgets getContents() {
-	return content;
+    public void clear() {
+	content.clear();
     }
 
     @Override
-    public void setInfoDisplay(Display infoDisplay) {
+    public void insert(final Display display, final Display beforeDisplay) {
+	final int index = content.getWidgetIndex(beforeDisplay.asWidget());
+	content.insert(display.asWidget(), index);
+    }
+
+    @Override
+    public void remove(final Display display) {
+	content.remove(display.asWidget());
+    }
+
+    @Override
+    public void setInfoDisplay(final Display infoDisplay) {
 	assert infoDisplay != null : "Info display can't be null";
 	assert this.infoDisplay == null : "Only one info display by document";
 

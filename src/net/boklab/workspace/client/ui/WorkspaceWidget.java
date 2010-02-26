@@ -1,7 +1,7 @@
 package net.boklab.workspace.client.ui;
 
 import static com.google.gwt.dom.client.Style.Unit.PX;
-import net.boklab.document.client.ui.DocumentDisplay;
+import net.boklab.document.client.doc.DocumentDisplay;
 import net.boklab.tools.client.mvp.Display;
 
 import com.allen_sauer.gwt.log.client.Log;

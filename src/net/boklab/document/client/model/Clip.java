@@ -12,7 +12,7 @@ public class Clip extends DelegatedBok {
 	super(BokJSO.newInstance(TYPE), TYPE);
     }
 
-    public Clip(Bok delegate) {
+    public Clip(final Bok delegate) {
 	super(delegate, TYPE);
     }
 

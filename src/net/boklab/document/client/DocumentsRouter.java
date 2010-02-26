@@ -5,9 +5,9 @@ import net.boklab.tools.client.router.Router;
 
 import com.google.inject.Inject;
 
-public class DocumentRouter {
+public class DocumentsRouter {
 
     @Inject
-    public DocumentRouter(Router router, final Documents manager) {
+    public DocumentsRouter(Router router, final Documents manager) {
     }
 }

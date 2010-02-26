@@ -4,8 +4,6 @@
 	<ui:style>
 		
 	</ui:style>
-	<g:FlowPanel styleName="bk-Clip">
-	   <g:HTML ui:field="body" styleName="body"></g:HTML>
-	</g:FlowPanel>
-	
+	<g:FocusPanel ui:field="self" styleName="bk-Slot">
+	</g:FocusPanel>
 </ui:UiBinder> 
