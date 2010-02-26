@@ -103,4 +103,10 @@ public class DelegatedBok implements Bok {
 	delegate.setUserId(id);
     }
 
+    public String toDebugString() {
+	String name = this.getClass().getName();
+	name = name.substring(name.lastIndexOf(".") + 1);
+	return name + "(" + getId() + "): ";
+    }
+
 }

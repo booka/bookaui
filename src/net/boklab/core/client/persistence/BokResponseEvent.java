@@ -41,6 +41,7 @@ public abstract class BokResponseEvent<T extends EventHandler> extends GwtEvent<
 
     @Override
     public String toDebugString() {
-	return super.toDebugString() + bok.getBokType() + bok.getId();
+	return super.toDebugString() + " " + getBok().getBokType() + "-" + getBok().getId() + " <"
+		+ getChildren().size() + ">";
     }
 }

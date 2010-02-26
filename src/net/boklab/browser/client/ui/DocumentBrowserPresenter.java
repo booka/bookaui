@@ -3,6 +3,7 @@ package net.boklab.browser.client.ui;
 import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Document;
 import net.boklab.project.client.action.ProjectManager;
+import net.boklab.project.client.action.ProjectOpenedEvent;
 import net.boklab.project.client.action.ProjectOpenedHandler;
 import net.boklab.project.client.model.Project;
 import net.boklab.tools.client.mvp.AbstractPresenter;
@@ -25,10 +26,11 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
 
 	projects.onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
-	    public void onProject(final Project project) {
+	    public void onProject(final ProjectOpenedEvent event) {
+		final Project project = event.getProject();
 		currentProject = project;
 		getDisplay().getList().clear();
-		for (final Document d : project) {
+		for (final Document d : project.getDocuments()) {
 		    final DocumentItemPresenter item = itemProvider.get();
 		    item.setDocument(d);
 		    getDisplay().getList().add(item.getDisplay().asWidget());

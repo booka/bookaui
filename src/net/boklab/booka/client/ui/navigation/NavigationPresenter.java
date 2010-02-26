@@ -4,8 +4,8 @@ import net.boklab.core.client.session.LoggedInEvent;
 import net.boklab.core.client.session.LoggedInHandler;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.project.client.action.ProjectManager;
+import net.boklab.project.client.action.ProjectOpenedEvent;
 import net.boklab.project.client.action.ProjectOpenedHandler;
-import net.boklab.project.client.model.Project;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 import net.boklab.tools.client.place.Place;
@@ -52,7 +52,7 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 
 	projects.onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
-	    public void onProject(final Project project) {
+	    public void onProject(final ProjectOpenedEvent event) {
 		showIcons(sessions.isLoggedIn(), projects.hasActiveProject());
 	    }
 	});

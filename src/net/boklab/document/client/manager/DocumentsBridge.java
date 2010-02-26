@@ -1,7 +1,10 @@
 package net.boklab.document.client.manager;
 
 import net.boklab.core.client.persistence.BokCreatedHandler;
+import net.boklab.core.client.persistence.BokRetrievedEvent;
+import net.boklab.core.client.persistence.BokRetrievedHandler;
 import net.boklab.core.client.persistence.CreateBokEvent;
+import net.boklab.core.client.persistence.RetrieveBokEvent;
 import net.boklab.core.client.persistence.UpdateBokEvent;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.model.Clip;
@@ -45,6 +48,13 @@ public class DocumentsBridge implements Documents {
 
     @Override
     public void openDocument(final String documentId) {
+	eventBus.fireEvent(new RetrieveBokEvent(documentId, new BokRetrievedHandler() {
+	    @Override
+	    public void onBokRetrieved(final BokRetrievedEvent event) {
+		final Document document = new Document(event.getBok(), event.getChildren());
+		eventBus.fireEvent(new DocumentOpenedEvent(document));
+	    }
+	}));
     }
 
     @Override

@@ -29,7 +29,7 @@ public class RailsRestServiceAsync implements RestServiceAsync {
 	final String url = getPath(resource, null, format);
 	final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
-
+	GWT.log("POST: " + url);
 	try {
 	    builder.sendRequest(params.toString(), callback);
 	} catch (final RequestException e) {
@@ -43,6 +43,7 @@ public class RailsRestServiceAsync implements RestServiceAsync {
 	final RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 	builder.setCallback(callback);
+	GWT.log("GET: " + url);
 	try {
 	    builder.send();
 	} catch (final RequestException e) {
@@ -64,6 +65,7 @@ public class RailsRestServiceAsync implements RestServiceAsync {
     public void getList(final String resource, final Params params, final RequestCallback callback) {
 	String url = getPath(resource, null, format);
 	url += params != null ? "?" + params.toString() : EMPTY;
+	GWT.log("GET: " + url);
 	final RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
 	try {
 	    builder.sendRequest(null, callback);
@@ -101,7 +103,7 @@ public class RailsRestServiceAsync implements RestServiceAsync {
 	final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 	params.put("_method", "put");
-
+	GWT.log("PUT: " + url);
 	try {
 	    final String data = params.toString();
 	    GWT.log("UPDATE " + url + ": " + data);

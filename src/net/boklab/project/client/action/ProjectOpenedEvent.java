@@ -6,21 +6,35 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class ProjectOpenedEvent extends GwtEvent<ProjectOpenedHandler> {
 
-    public static final Type<ProjectOpenedHandler> TYPE = new Type<ProjectOpenedHandler>();
-    private final Project Project;
+    private static final Type<ProjectOpenedHandler> TYPE = new Type<ProjectOpenedHandler>();
 
-    public ProjectOpenedEvent(Project Project) {
-	this.Project = Project;
+    public static Type<ProjectOpenedHandler> getType() {
+	return TYPE;
+    }
+
+    private final Project project;
+
+    public ProjectOpenedEvent(final Project project) {
+	this.project = project;
     }
 
     @Override
     public Type<ProjectOpenedHandler> getAssociatedType() {
-	return TYPE;
+	return getType();
+    }
+
+    public Project getProject() {
+	return project;
     }
 
     @Override
-    protected void dispatch(ProjectOpenedHandler handler) {
-	handler.onProject(Project);
+    public String toDebugString() {
+	return super.toDebugString() + project.toDebugString();
+    }
+
+    @Override
+    protected void dispatch(final ProjectOpenedHandler handler) {
+	handler.onProject(this);
     }
 
 }

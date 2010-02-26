@@ -4,7 +4,6 @@ import net.boklab.core.client.BokToParams;
 import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.model.BokQuery;
 import net.boklab.core.client.model.BokResponseJSO;
-import net.boklab.document.client.model.Clip;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.rest.Params;
 import net.boklab.tools.client.rest.RestCallback;
@@ -85,16 +84,10 @@ public class BokPersistence {
     }
 
     protected void retrieve(final String bokId, final BokRetrievedHandler handler) {
-	final BokQuery query = new BokQuery();
-	query.bokParentEquals(bokId);
-	query.bokTypeEquals(Clip.TYPE);
-	final Params params = query.toParams();
-	final String url = RESOURCE + "/" + bokId + "/children";
-
-	manager.getList("boks.get", url, params, new RestCallback() {
+	manager.get("boks.get", RESOURCE, bokId, new RestCallback() {
 	    @Override
-	    public void onSuccess(final String text) {
-		final BokResponseJSO response = JsonUtils.unsafeEval(text);
+	    public void onSuccess(final String content) {
+		final BokResponseJSO response = JsonUtils.unsafeEval(content);
 		final BokRetrievedEvent event = new BokRetrievedEvent(response);
 		if (handler != null) {
 		    handler.onBokRetrieved(event);
@@ -102,6 +95,7 @@ public class BokPersistence {
 		eventBus.fireEvent(event);
 	    }
 	});
+
     }
 
     protected void update(final Bok bok) {

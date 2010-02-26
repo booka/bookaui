@@ -63,7 +63,7 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	final DocumentDisplay display = getDisplay();
 	display.clear();
 	Clip last = null;
-	for (final Clip clip : document) {
+	for (final Clip clip : document.getClips()) {
 	    final ClipPresenter slot = createSlot(clip.getPosition(), document.getId());
 	    final ClipPresenter presenter = typeManager.newClip(clip);
 	    display.add(slot.getDisplay());

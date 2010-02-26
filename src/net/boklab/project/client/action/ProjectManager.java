@@ -27,8 +27,8 @@ public class ProjectManager {
 
 	onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
-	    public void onProject(final Project project) {
-		activeProject = project;
+	    public void onProject(final ProjectOpenedEvent event) {
+		activeProject = event.getProject();
 	    }
 	});
     }
@@ -56,7 +56,7 @@ public class ProjectManager {
     }
 
     public void onProjectOpened(final ProjectOpenedHandler handler) {
-	eventBus.addHandler(ProjectOpenedEvent.TYPE, handler);
+	eventBus.addHandler(ProjectOpenedEvent.getType(), handler);
     }
 
     public void openProject(final String projectId) {
@@ -64,7 +64,7 @@ public class ProjectManager {
 	    manager.retrieve(projectId, new BokRetrievedHandler() {
 		@Override
 		public void onBokRetrieved(final BokRetrievedEvent event) {
-		    final Project project = new Project(event.getBok());
+		    final Project project = new Project(event.getBok(), event.getChildren());
 		    eventBus.fireEvent(new ProjectOpenedEvent(project));
 		}
 	    });
