@@ -5,15 +5,18 @@
 		
 	</ui:style>
 	<g:LayoutPanel styleName="bk-DocumentBrowser">
-		<g:layer left="0" top="0" right="0" height="30px">
-			<g:FlowPanel styleName="Controls">
-				<g:Anchor ui:field="create" styleName="Action">Create document</g:Anchor>
-			</g:FlowPanel>
+		<g:layer left="0" top="0" right="0" height="10px">
+			<g:Label></g:Label>
 		</g:layer>
-		<g:layer left="3" top="30px" right="3" bottom="3">
+		<g:layer left="3px" top="10px" right="3px" bottom="33px">
 			<g:ScrollPanel styleName="Scroll">
 				<g:FlowPanel ui:field="list"></g:FlowPanel>
 			</g:ScrollPanel>
+		</g:layer>
+		<g:layer left="3px" bottom="0" right="0" height="30px">
+			<g:FlowPanel styleName="actions">
+				<g:Anchor ui:field="create">Nuevo documento</g:Anchor>
+			</g:FlowPanel>
 		</g:layer>
 	</g:LayoutPanel>
 </ui:UiBinder> 

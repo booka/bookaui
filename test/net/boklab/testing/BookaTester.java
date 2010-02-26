@@ -8,14 +8,12 @@ import net.boklab.calendar.client.ui.CalendarDisplay;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.core.client.session.SessionsBridge;
 import net.boklab.document.client.clip.ClipDisplay;
-import net.boklab.document.client.content.ContentTypeListDisplay;
 import net.boklab.document.client.doc.DocumentDisplay;
 import net.boklab.document.client.info.DocInfoDisplay;
 import net.boklab.document.client.info.edit.DocInfoEditorDisplay;
 import net.boklab.document.client.info.view.DocInfoViewerDisplay;
 import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.manager.DocumentsBridge;
-import net.boklab.document.client.slot.SlotDisplay;
 import net.boklab.project.client.action.Projects;
 import net.boklab.project.client.action.ProjectsBridge;
 import net.boklab.project.client.ui.ProjectDisplay;
@@ -93,8 +91,6 @@ public class BookaTester extends AbstractModule implements Module {
 	addDisplay(DocInfoDisplay.class);
 	addDisplay(DocInfoViewerDisplay.class);
 	addDisplay(DocInfoEditorDisplay.class);
-	addDisplay(SlotDisplay.class);
-	addDisplay(ContentTypeListDisplay.class).in(Singleton.class);
     }
 
     private void configureManagers() {

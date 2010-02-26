@@ -20,32 +20,32 @@ public class RailsRestServiceAsync implements RestServiceAsync {
     private String format;
 
     public RailsRestServiceAsync() {
-	this.hostPath = "/";
-	this.format = FORMAT_JSON;
+	hostPath = "/";
+	format = FORMAT_JSON;
     }
 
     @Override
-    public void create(String resource, Params params, RequestCallback callback) {
-	String url = getPath(resource, null, format);
-	RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
+    public void create(final String resource, final Params params, final RequestCallback callback) {
+	final String url = getPath(resource, null, format);
+	final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 
 	try {
 	    builder.sendRequest(params.toString(), callback);
-	} catch (RequestException e) {
+	} catch (final RequestException e) {
 	    callback.onError(null, e);
 	}
     }
 
     @Override
-    public void get(String resource, String id, RequestCallback callback) {
-	String url = getPath(resource, id, format);
-	RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
+    public void get(final String resource, final String id, final RequestCallback callback) {
+	final String url = getPath(resource, id, format);
+	final RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 	builder.setCallback(callback);
 	try {
 	    builder.send();
-	} catch (RequestException e) {
+	} catch (final RequestException e) {
 	    callback.onError(null, e);
 	}
     }
@@ -61,27 +61,27 @@ public class RailsRestServiceAsync implements RestServiceAsync {
     }
 
     @Override
-    public void getList(String resource, Params params, RequestCallback callback) {
+    public void getList(final String resource, final Params params, final RequestCallback callback) {
 	String url = getPath(resource, null, format);
-	url += (params != null) ? "?" + params.toString() : EMPTY;
-	RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
+	url += params != null ? "?" + params.toString() : EMPTY;
+	final RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, url);
 	try {
 	    builder.sendRequest(null, callback);
-	} catch (RequestException e) {
+	} catch (final RequestException e) {
 	    callback.onError(null, e);
 	}
 
     }
 
-    public String getPath(String resource, String id, String format) {
+    public String getPath(final String resource, final String id, final String format) {
 	assert resource != null : "Resource is required";
 	assert format != null : "Format is required";
-	String middle = (id != null) ? "/" + id : EMPTY;
+	final String middle = id != null ? "/" + id : EMPTY;
 	return hostPath + resource + middle + "." + format;
     }
 
     @Override
-    public void setCurrentFormat(String format) {
+    public void setCurrentFormat(final String format) {
 	this.format = format;
     }
 
@@ -96,15 +96,17 @@ public class RailsRestServiceAsync implements RestServiceAsync {
     }
 
     @Override
-    public void update(String resource, String id, Params params, RequestCallback callback) {
-	String url = getPath(resource, id, format);
-	RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
+    public void update(final String resource, final String id, final Params params, final RequestCallback callback) {
+	final String url = getPath(resource, id, format);
+	final RequestBuilder builder = new RequestBuilder(RequestBuilder.POST, url);
 	builder.setHeader("Content-type", "application/x-www-form-urlencoded");
 	params.put("_method", "put");
 
 	try {
-	    builder.sendRequest(params.toString(), callback);
-	} catch (RequestException e) {
+	    final String data = params.toString();
+	    GWT.log("UPDATE " + url + ": " + data);
+	    builder.sendRequest(data, callback);
+	} catch (final RequestException e) {
 	    callback.onError(null, e);
 	}
 

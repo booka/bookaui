@@ -20,4 +20,6 @@ public interface ClipDisplay extends Display {
     void setControls(Display display);
 
     void setViewVisible(boolean visible);
+
+    void setWaitingVisible(boolean visible);
 }

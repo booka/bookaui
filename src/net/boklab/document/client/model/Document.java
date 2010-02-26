@@ -13,13 +13,17 @@ public class Document extends DelegatedBok implements Iterable<Clip> {
     public static final String TYPE = "Document";
     private List<Clip> list;
 
-    public Document(Bok delegate) {
+    public Document(final Bok delegate) {
 	this(delegate, null);
     }
 
-    public Document(Bok delegate, BokSearchResults results) {
+    public Document(final Bok delegate, final BokSearchResults results) {
 	super(delegate, TYPE);
 	setResults(results);
+    }
+
+    public List<Clip> getClips() {
+	return list;
     }
 
     @Override
@@ -27,15 +31,17 @@ public class Document extends DelegatedBok implements Iterable<Clip> {
 	return list.iterator();
     }
 
-    private void setResults(BokSearchResults results) {
+    private void setResults(final BokSearchResults results) {
 	if (results != null) {
-	    this.list = new ArrayList<Clip>();
-	    int total = results.getChildrenSize();
+	    list = new ArrayList<Clip>();
+	    final int total = results.getChildrenSize();
 	    for (int index = 0; index < total; index++) {
-		list.add(new Clip(results.getChildren(index)));
+		final Clip clip = new Clip(results.getChildren(index));
+		clip.setDocument(this);
+		list.add(clip);
 	    }
 	} else {
-	    this.list = Collections.emptyList();
+	    list = Collections.emptyList();
 	}
     }
 }

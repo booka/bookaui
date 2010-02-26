@@ -3,32 +3,32 @@ package net.boklab.document.client.content;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import net.boklab.document.client.content.html.HtmlContentType;
+import net.boklab.document.client.content.html.HtmlContentHandler;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ContentTypeRegistry implements Iterable<ClipContentType> {
+public class ContentTypeRegistry implements Iterable<ContentHandler> {
 
-    private final HashMap<String, ClipContentType> types;
+    private final HashMap<String, ContentHandler> types;
 
     @Inject
     public ContentTypeRegistry() {
-	types = new HashMap<String, ClipContentType>();
+	types = new HashMap<String, ContentHandler>();
     }
 
-    public ClipContentType getType(final String contentType) {
-	final ClipContentType type = types.get(contentType);
-	return type != null ? type : types.get(HtmlContentType.TYPE);
+    public ContentHandler getType(final String contentType) {
+	final ContentHandler type = types.get(contentType);
+	return type != null ? type : types.get(HtmlContentHandler.TYPE);
     }
 
     @Override
-    public Iterator<ClipContentType> iterator() {
+    public Iterator<ContentHandler> iterator() {
 	return types.values().iterator();
     }
 
-    public void register(final ClipContentType contentType) {
+    public void register(final ContentHandler contentType) {
 	types.put(contentType.getType(), contentType);
     }
 }

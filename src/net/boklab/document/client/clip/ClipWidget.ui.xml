@@ -5,6 +5,7 @@
 		
 	</ui:style>
 	<g:FlowPanel styleName="bk-Clip">
+		<g:Label ui:field="waiting" styleName="waiting" />
 		<g:FocusPanel ui:field="view" styleName="view">
 			<g:HTML ui:field="body" styleName="body"></g:HTML>
 		</g:FocusPanel>

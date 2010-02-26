@@ -1,5 +1,7 @@
 package net.boklab.document.client.clip;
 
+import net.boklab.core.client.icons.Icons;
+import net.boklab.core.client.icons.res.BokIcon;
 import net.boklab.tools.client.mvp.Display;
 
 import com.google.gwt.core.client.GWT;
@@ -10,6 +12,7 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 
@@ -26,9 +29,13 @@ public class ClipWidget extends Composite implements ClipDisplay {
     FocusPanel view;
     @UiField
     SimplePanel controls;
+    @UiField
+    Label waiting;
 
     public ClipWidget() {
 	initWidget(uiBinder.createAndBindUi(this));
+	setWaitingVisible(false);
+	waiting.addStyleName(Icons.get(BokIcon.loading));
     }
 
     @Override
@@ -62,6 +69,11 @@ public class ClipWidget extends Composite implements ClipDisplay {
     @Override
     public void setViewVisible(final boolean visible) {
 	view.setVisible(visible);
+    }
+
+    @Override
+    public void setWaitingVisible(final boolean visible) {
+	waiting.setVisible(visible);
     }
 
 }

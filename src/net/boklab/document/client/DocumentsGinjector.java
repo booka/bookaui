@@ -1,7 +1,7 @@
 package net.boklab.document.client;
 
 import net.boklab.document.client.content.ContentTypeRegistry;
-import net.boklab.document.client.content.html.HtmlContentType;
+import net.boklab.document.client.content.html.HtmlContentHandler;
 import net.boklab.document.client.manager.Documents;
 
 import com.google.gwt.inject.client.GinModules;
@@ -12,5 +12,5 @@ public interface DocumentsGinjector {
 
     Documents getDocuments();
 
-    HtmlContentType getHtmlContentType();
+    HtmlContentHandler getHtmlContentType();
 }

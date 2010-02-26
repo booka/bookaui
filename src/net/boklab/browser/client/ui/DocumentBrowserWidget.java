@@ -16,8 +16,7 @@ public class DocumentBrowserWidget extends Composite implements DocumentBrowserD
     interface DocumentBrowserWidgetUiBinder extends UiBinder<Widget, DocumentBrowserWidget> {
     }
 
-    private static DocumentBrowserWidgetUiBinder uiBinder = GWT
-	    .create(DocumentBrowserWidgetUiBinder.class);
+    private static DocumentBrowserWidgetUiBinder uiBinder = GWT.create(DocumentBrowserWidgetUiBinder.class);
 
     @UiField
     FlowPanel list;
@@ -46,7 +45,7 @@ public class DocumentBrowserWidget extends Composite implements DocumentBrowserD
     }
 
     @Override
-    public void setCreateVisible(boolean visible) {
+    public void setCreateVisible(final boolean visible) {
 	create.setVisible(visible);
     }
 

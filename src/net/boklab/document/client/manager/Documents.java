@@ -11,7 +11,11 @@ public interface Documents {
 
     public void update(Document document);
 
-    void createClip(Document document, Clip clip);
+    public void updateClip(Clip clip);
+
+    void createClip(Clip clip);
+
+    boolean isUserLoggedIn();
 
     void onDocumentOpened(DocumentOpenedHandler handler);
 

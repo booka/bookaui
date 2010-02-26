@@ -1,12 +1,8 @@
 package net.boklab.document.client.doc;
 
 import net.boklab.document.client.clip.ClipPresenter;
-import net.boklab.document.client.content.ClipContentType;
 import net.boklab.document.client.content.ContentTypeManager;
-import net.boklab.document.client.content.CreateContentEvent;
-import net.boklab.document.client.content.CreateContentHandler;
-import net.boklab.document.client.content.editor.ClipEditorDisplay;
-import net.boklab.document.client.content.slot.SlotContentType;
+import net.boklab.document.client.content.slot.SlotContentHandler;
 import net.boklab.document.client.info.DocInfoPresenter;
 import net.boklab.document.client.manager.DocumentOpenedEvent;
 import net.boklab.document.client.manager.DocumentOpenedHandler;
@@ -15,8 +11,6 @@ import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
 import com.google.inject.Singleton;
@@ -47,12 +41,6 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	    }
 	});
 
-	typeManager.onCreateContent(new CreateContentHandler() {
-	    @Override
-	    public void onCreateContent(final CreateContentEvent event) {
-		createContentEditor(event.getContentType(), event.getClipPresenter());
-	    }
-	});
     }
 
     private void bind() {
@@ -60,36 +48,10 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	display.setInfoDisplay(docInfo.getDisplay());
     }
 
-    private void createContentEditor(final ClipContentType contentType, final ClipPresenter clipPresenter) {
-	final Clip clip = new Clip();
-	final ClipEditorDisplay editorDisplay = typeManager.newEditor(clip);
-
-	editorDisplay.getCancel().addClickHandler(new ClickHandler() {
-	    @Override
-	    public void onClick(final ClickEvent event) {
-		getDisplay().remove(editorDisplay);
-	    }
-	});
-
-	editorDisplay.getSave().addClickHandler(new ClickHandler() {
-	    @Override
-	    public void onClick(final ClickEvent event) {
-		documents.createClip(currentDocument, clip);
-		getDisplay().remove(editorDisplay);
-	    }
-	});
-
-	if (clipPresenter != null) {
-	    getDisplay().insert(editorDisplay, clipPresenter.getDisplay());
-	} else {
-	    getDisplay().add(editorDisplay);
-	}
-    }
-
     private ClipPresenter createSlot(final int position) {
 	final Clip slotClip = new Clip();
 	slotClip.setPosition(position);
-	slotClip.setContentType(SlotContentType.TYPE);
+	slotClip.setContentType(SlotContentHandler.TYPE);
 	final ClipPresenter slot = typeManager.newClip(slotClip);
 	return slot;
     }

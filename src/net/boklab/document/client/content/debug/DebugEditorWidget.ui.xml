@@ -1,0 +1,17 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel>
+		<label>Info: </label>
+		<g:Label ui:field="info"></g:Label>
+		<label>Title:</label>
+		<g:TextBox ui:field="bokTitle"></g:TextBox>
+		<label>Content type:</label>
+		<g:TextBox ui:field="contentType"></g:TextBox>
+		<label>Position:</label>
+		<g:TextBox ui:field="position"></g:TextBox>
+	</g:HTMLPanel>
+</ui:UiBinder> 

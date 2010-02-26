@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style type="net.boklab.core.client.icons.res.SharedCssIcons">
+		@sprite .loadingIcon {
+			gwt-image: 'loading';
+			margin: 0 auto;
+		}
+	</ui:style>
+	
+	<g:HTMLPanel></g:HTMLPanel>
+	
+	<ui:image field="loading" src="loading.gif"></ui:image>
+</ui:UiBinder> 
