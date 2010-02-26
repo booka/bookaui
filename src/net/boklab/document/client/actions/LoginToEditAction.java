@@ -1,7 +1,7 @@
 package net.boklab.document.client.actions;
 
-import static net.boklab.document.client.DocumentsI18n.i18n;
 import net.boklab.core.client.session.Sessions;
+import net.boklab.document.client.I18nDocs;
 import net.boklab.document.client.clip.ClipPresenter;
 import net.boklab.document.client.clip.action.ClipAction;
 
@@ -15,7 +15,7 @@ public class LoginToEditAction extends ClipAction {
 
     @Inject
     public LoginToEditAction(final Sessions sessions) {
-	super(TYPE, i18n().loginToEdit());
+	super(TYPE, I18nDocs.t.loginToEdit());
 	this.sessions = sessions;
     }
 

@@ -1,7 +1,7 @@
 package net.boklab.document.client;
 
 import static org.junit.Assert.assertEquals;
-import net.boklab.document.client.manager.GetBokEvent;
+import net.boklab.core.client.persistence.RetrieveBokEvent;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.EventBusTester;
 import net.boklab.tools.client.place.Place;
@@ -23,7 +23,7 @@ public class DocumentRouterTest {
     @Test
     public void shouldLoadDocument() {
 	test.router.fireRequest(new Place("documents", "1"));
-	assertEquals(GetBokEvent.class, bus.getLastEventType());
+	assertEquals(RetrieveBokEvent.class, bus.getLastEventType());
     }
 
 }

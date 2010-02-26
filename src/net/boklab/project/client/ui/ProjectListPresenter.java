@@ -1,9 +1,8 @@
 package net.boklab.project.client.ui;
 
-import java.util.ArrayList;
-
-import net.boklab.project.client.action.GotProjectsHandler;
-import net.boklab.project.client.action.Projects;
+import net.boklab.project.client.action.ProjectListRetrievedEvent;
+import net.boklab.project.client.action.ProjectListRetrievedHandler;
+import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.model.Project;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
@@ -13,16 +12,17 @@ import com.google.inject.Provider;
 public class ProjectListPresenter extends AbstractPresenter<ProjectListDisplay> {
 
     @Inject
-    public ProjectListPresenter(Projects projects, final Provider<ProjectPresenter> provider,
+    public ProjectListPresenter(final ProjectManager projects, final Provider<ProjectPresenter> provider,
 	    final Provider<ProjectListDisplay> display) {
 	super(display);
 
-	projects.onProjectList(new GotProjectsHandler() {
+	projects.onProjectList(new ProjectListRetrievedHandler() {
+
 	    @Override
-	    public void onProjectList(ArrayList<Project> list) {
+	    public void onProjectList(final ProjectListRetrievedEvent event) {
 		getDisplay().clearList();
-		for (Project project : list) {
-		    ProjectPresenter presenter = provider.get();
+		for (final Project project : event.getList()) {
+		    final ProjectPresenter presenter = provider.get();
 		    presenter.setProject(project);
 		    getDisplay().add(presenter.getDisplay());
 		}

@@ -18,7 +18,7 @@ public class ContentTypeRegistry implements Iterable<ContentHandler> {
 	types = new HashMap<String, ContentHandler>();
     }
 
-    public ContentHandler getType(final String contentType) {
+    public ContentHandler getHandler(final String contentType) {
 	final ContentHandler type = types.get(contentType);
 	return type != null ? type : types.get(HtmlContentHandler.TYPE);
     }

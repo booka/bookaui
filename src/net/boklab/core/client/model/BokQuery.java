@@ -13,12 +13,14 @@ public class BokQuery {
 	query = new HashMap<String, String>();
     }
 
-    public void bokParentEquals(String id) {
+    public BokQuery bokParentEquals(final String id) {
 	query.put("parent_id_equals", "" + id);
+	return this;
     }
 
-    public void bokTypeEquals(String bokType) {
+    public BokQuery bokTypeEquals(final String bokType) {
 	query.put("bok_type_equals", bokType);
+	return this;
     }
 
     public Map<String, String> getMap() {
@@ -26,8 +28,8 @@ public class BokQuery {
     }
 
     public Params toParams() {
-	Params p = new Params();
-	for (String key : query.keySet()) {
+	final Params p = new Params();
+	for (final String key : query.keySet()) {
 	    p.put("search[" + key + "]", query.get(key));
 	}
 	return p;

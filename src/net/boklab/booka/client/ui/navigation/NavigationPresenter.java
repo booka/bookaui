@@ -3,8 +3,8 @@ package net.boklab.booka.client.ui.navigation;
 import net.boklab.core.client.session.LoggedInEvent;
 import net.boklab.core.client.session.LoggedInHandler;
 import net.boklab.core.client.session.Sessions;
+import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.action.ProjectOpenedHandler;
-import net.boklab.project.client.action.Projects;
 import net.boklab.project.client.model.Project;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.AbstractPresenter;
@@ -20,14 +20,13 @@ import com.google.inject.Provider;
 public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
     private final NavigationDisplay navigation;
 
-    final static String[] NAMES = new String[] { NavigationDisplay.CONTACT,
-	    NavigationDisplay.ACCOUNT, NavigationDisplay.ARCHIVES, NavigationDisplay.BOOKA,
-	    NavigationDisplay.CALENDAR, NavigationDisplay.EDITION, NavigationDisplay.ENTRANCE,
-	    NavigationDisplay.LOGIN };
+    final static String[] NAMES = new String[] { NavigationDisplay.CONTACT, NavigationDisplay.ACCOUNT,
+	    NavigationDisplay.ARCHIVES, NavigationDisplay.BOOKA, NavigationDisplay.CALENDAR, NavigationDisplay.EDITION,
+	    NavigationDisplay.ENTRANCE, NavigationDisplay.LOGIN };
 
     @Inject
-    public NavigationPresenter(final EventBus eventBus, final Sessions sessions,
-	    final Projects projects, Provider<NavigationDisplay> displayProvider) {
+    public NavigationPresenter(final EventBus eventBus, final Sessions sessions, final ProjectManager projects,
+	    final Provider<NavigationDisplay> displayProvider) {
 	super(displayProvider);
 	navigation = getDisplay();
 
@@ -36,9 +35,9 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 	for (final String name : NAMES) {
 	    navigation.getLink(name).addClickHandler(new ClickHandler() {
 		@Override
-		public void onClick(ClickEvent event) {
+		public void onClick(final ClickEvent event) {
 		    Log.debug("Navigation:" + name);
-		    Place place = new Place(name);
+		    final Place place = new Place(name);
 		    eventBus.fireEvent(new PlaceRequestEvent(place));
 		}
 	    });
@@ -46,21 +45,21 @@ public class NavigationPresenter extends AbstractPresenter<NavigationDisplay> {
 
 	sessions.onLoggedIn(new LoggedInHandler() {
 	    @Override
-	    public void onLoggedIn(LoggedInEvent event) {
+	    public void onLoggedIn(final LoggedInEvent event) {
 		showIcons(true, projects.hasActiveProject());
 	    }
 	});
 
 	projects.onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
-	    public void onProject(Project project) {
+	    public void onProject(final Project project) {
 		showIcons(sessions.isLoggedIn(), projects.hasActiveProject());
 	    }
 	});
 
     }
 
-    private NavigationDisplay showIcons(boolean loggedIn, boolean hasProject) {
+    private NavigationDisplay showIcons(final boolean loggedIn, final boolean hasProject) {
 	navigation.setVisible(NavigationDisplay.ARCHIVES, hasProject);
 	navigation.setVisible(NavigationDisplay.EDITION, hasProject);
 	navigation.setVisible(NavigationDisplay.BOOKA, hasProject);

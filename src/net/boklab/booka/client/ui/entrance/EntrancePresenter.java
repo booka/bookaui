@@ -1,10 +1,8 @@
 package net.boklab.booka.client.ui.entrance;
 
-import java.util.ArrayList;
-
-import net.boklab.project.client.action.GotProjectsHandler;
-import net.boklab.project.client.action.Projects;
-import net.boklab.project.client.model.Project;
+import net.boklab.project.client.action.ProjectListRetrievedEvent;
+import net.boklab.project.client.action.ProjectListRetrievedHandler;
+import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.ui.ProjectListPresenter;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 import net.boklab.tools.client.mvp.Display;
@@ -23,13 +21,13 @@ import com.google.inject.Singleton;
 public class EntrancePresenter extends AbstractPresenter<WorkspaceDisplay> {
 
     @Inject
-    public EntrancePresenter(final Router router, final Projects projects,
+    public EntrancePresenter(final Router router, final ProjectManager projects,
 	    final ProjectListPresenter projectList, final Provider<WorkspaceDisplay> display) {
 	super(display);
 
 	router.onRequest("^/entrance$", new PlaceRequestHandler() {
 	    @Override
-	    public void onPlaceRequest(PlaceRequestEvent event) {
+	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		projects.getProjectList();
 		router.fireChanged(event.getPlace());
 	    }
@@ -37,18 +35,17 @@ public class EntrancePresenter extends AbstractPresenter<WorkspaceDisplay> {
 
 	router.onRequest("^/archives/\\w+$", new PlaceRequestHandler() {
 	    @Override
-	    public void onPlaceRequest(PlaceRequestEvent event) {
+	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		Log.debug("ProjectRouter: get project documents");
-		Place place = event.getPlace();
+		final Place place = event.getPlace();
 		projects.openProject(place.resourceId);
 		router.fireChanged(event.getPlace());
 	    }
 	});
 
-	projects.onProjectList(new GotProjectsHandler() {
+	projects.onProjectList(new ProjectListRetrievedHandler() {
 	    @Override
-	    public void onProjectList(ArrayList<Project> list) {
-		Log.debug("EntrancePresenter: project list!");
+	    public void onProjectList(final ProjectListRetrievedEvent event) {
 		getDisplay().setLeft(projectList.getDisplay());
 		getDisplay().setRight(Display.NONE);
 	    }

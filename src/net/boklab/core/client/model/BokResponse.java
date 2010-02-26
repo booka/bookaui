@@ -1,6 +1,7 @@
 package net.boklab.core.client.model;
 
-public interface BokSearchResults {
+
+public interface BokResponse {
 
     Bok getBok();
 

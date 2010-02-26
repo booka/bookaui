@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import net.boklab.core.client.SimpleBok;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.model.BokSearchResults;
+import net.boklab.core.client.model.BokResponse;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.project.client.model.Project;
@@ -47,7 +47,7 @@ public class Boky {
 	id++;
     }
 
-    private static BokSearchResults results(String type) {
+    private static BokResponse results(String type) {
 	return null;
     }
 

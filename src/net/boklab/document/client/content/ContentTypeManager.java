@@ -23,9 +23,13 @@ public class ContentTypeManager {
 	this.editorDisplayProvider = editorDisplayProvider;
     }
 
+    public ContentHandler getHandler(final Clip clip) {
+	return registry.getHandler(clip.getContentType());
+    }
+
     public ClipPresenter newClip(final Clip clip) {
 	final ClipPresenter clipPresenter = clipProvider.get();
-	final ContentHandler contentType = registry.getType(clip.getContentType());
+	final ContentHandler contentType = registry.getHandler(clip.getContentType());
 	clipPresenter.setClip(clip, contentType);
 	return clipPresenter;
     }
@@ -35,7 +39,7 @@ public class ContentTypeManager {
     }
 
     public ClipEditorDisplay newEditor(final Clip clip, final String contentType) {
-	final ContentHandler handler = registry.getType(contentType);
+	final ContentHandler handler = registry.getHandler(contentType);
 	final ContentEditor<?> editor = handler.newClipEditor(clip);
 	final ClipEditorDisplay editorDisplay = editorDisplayProvider.get();
 	editorDisplay.setEditor(editor);

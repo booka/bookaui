@@ -7,7 +7,7 @@ import java.util.List;
 
 import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.model.BokJSO;
-import net.boklab.core.client.model.BokSearchResults;
+import net.boklab.core.client.model.BokResponse;
 import net.boklab.core.client.model.DelegatedBok;
 import net.boklab.document.client.model.Document;
 
@@ -19,7 +19,7 @@ public class Project extends DelegatedBok implements Iterable<Document> {
 	this(bok, null);
     }
 
-    public Project(Bok bok, BokSearchResults results) {
+    public Project(Bok bok, BokResponse results) {
 	super(bok, TYPE);
 	setResults(results);
     }
@@ -41,7 +41,7 @@ public class Project extends DelegatedBok implements Iterable<Document> {
 	return document;
     }
 
-    private void setResults(BokSearchResults results) {
+    private void setResults(BokResponse results) {
 	if (results != null) {
 	    this.list = new ArrayList<Document>();
 	    int total = results.getChildrenSize();

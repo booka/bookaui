@@ -1,5 +1,6 @@
 package net.boklab.core.client;
 
+import net.boklab.core.client.persistence.BokPersistence;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.core.client.session.SessionsBridge;
 import net.boklab.core.client.session.SessionsWorker;
@@ -13,6 +14,7 @@ public class BokCoreModule extends AbstractGinModule {
     protected void configure() {
 	bind(Sessions.class).to(SessionsBridge.class).in(Singleton.class);
 	bind(SessionsWorker.class).asEagerSingleton();
+	bind(BokPersistence.class).asEagerSingleton();
     }
 
 }

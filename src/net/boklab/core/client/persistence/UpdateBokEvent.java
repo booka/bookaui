@@ -1,15 +1,22 @@
-package net.boklab.document.client.manager;
+package net.boklab.core.client.persistence;
 
 import net.boklab.core.client.model.Bok;
 
 import com.google.gwt.event.shared.GwtEvent;
 
 public class UpdateBokEvent extends GwtEvent<UpdateBokHandler> {
-    public static final Type<UpdateBokHandler> TYPE = new Type<UpdateBokHandler>();
+    private static final Type<UpdateBokHandler> TYPE = new Type<UpdateBokHandler>();
+
+    public static Type<UpdateBokHandler> getType() {
+	return TYPE;
+    }
     private final Bok bok;
 
-    public UpdateBokEvent(final Bok bok) {
+    private final BokUpdatedHandler handler;
+
+    public UpdateBokEvent(final Bok bok, final BokUpdatedHandler handler) {
 	this.bok = bok;
+	this.handler = handler;
     }
 
     @Override
@@ -19,6 +26,10 @@ public class UpdateBokEvent extends GwtEvent<UpdateBokHandler> {
 
     public Bok getBok() {
 	return bok;
+    }
+
+    public BokUpdatedHandler getHandler() {
+	return handler;
     }
 
     public boolean isBokType(final String type) {

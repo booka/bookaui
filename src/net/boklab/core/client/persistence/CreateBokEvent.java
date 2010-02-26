@@ -1,4 +1,4 @@
-package net.boklab.document.client.manager;
+package net.boklab.core.client.persistence;
 
 import net.boklab.core.client.model.Bok;
 
@@ -8,9 +8,11 @@ public class CreateBokEvent extends GwtEvent<CreateBokHandler> {
 
     public static final Type<CreateBokHandler> TYPE = new Type<CreateBokHandler>();
     private final Bok bok;
+    private final BokCreatedHandler handler;
 
-    public CreateBokEvent(final Bok bok) {
+    public CreateBokEvent(final Bok bok, final BokCreatedHandler handler) {
 	this.bok = bok;
+	this.handler = handler;
     }
 
     @Override
@@ -20,6 +22,10 @@ public class CreateBokEvent extends GwtEvent<CreateBokHandler> {
 
     public Bok getBok() {
 	return bok;
+    }
+
+    public BokCreatedHandler getHandler() {
+	return handler;
     }
 
     public boolean isBokType(final String bokType) {

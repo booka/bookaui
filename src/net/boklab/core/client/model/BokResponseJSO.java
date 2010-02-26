@@ -2,9 +2,9 @@ package net.boklab.core.client.model;
 
 import com.google.gwt.core.client.JavaScriptObject;
 
-public class BokRequestResultsJSO extends JavaScriptObject implements BokSearchResults {
+public class BokResponseJSO extends JavaScriptObject implements BokResponse {
 
-    protected BokRequestResultsJSO() {
+    protected BokResponseJSO() {
     }
 
     @Override

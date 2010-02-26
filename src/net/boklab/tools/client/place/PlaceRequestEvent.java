@@ -8,11 +8,11 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler> {
     private final Place place;
     private final boolean isFromHistory;
 
-    public PlaceRequestEvent(Place place) {
+    public PlaceRequestEvent(final Place place) {
 	this(place, false);
     }
 
-    public PlaceRequestEvent(Place place, boolean isFromHistory) {
+    public PlaceRequestEvent(final Place place, final boolean isFromHistory) {
 	this.place = place;
 	this.isFromHistory = isFromHistory;
     }
@@ -31,7 +31,12 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler> {
     }
 
     @Override
-    protected void dispatch(PlaceRequestHandler handler) {
+    public String toDebugString() {
+	return super.toDebugString() + place + "(" + isFromHistory + ")";
+    }
+
+    @Override
+    protected void dispatch(final PlaceRequestHandler handler) {
 	handler.onPlaceRequest(this);
     }
 

@@ -1,10 +1,10 @@
 package net.boklab.document.client.clip;
 
+import net.boklab.core.client.persistence.BokUpdatedEvent;
+import net.boklab.core.client.persistence.BokUpdatedHandler;
 import net.boklab.document.client.clip.action.ClipActionsPresenter;
 import net.boklab.document.client.clip.editor.ClipEditorDisplay;
 import net.boklab.document.client.content.ContentHandler;
-import net.boklab.document.client.manager.BokUpdatedEvent;
-import net.boklab.document.client.manager.BokUpdatedHandler;
 import net.boklab.document.client.model.Clip;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Presenter;
@@ -16,7 +16,7 @@ import com.google.inject.Inject;
 public class ClipPresenter implements Presenter<ClipDisplay> {
 
     private Clip clip;
-    private ContentHandler contentType;
+    private ContentHandler contentHandler;
     private final ClipDisplay display;
 
     @Inject
@@ -40,7 +40,7 @@ public class ClipPresenter implements Presenter<ClipDisplay> {
 	    public void onBokUpdated(final BokUpdatedEvent event) {
 		if (clip != null) {
 		    if (event.getBok().getId().equals(clip.getId())) {
-			setClip((Clip) event.getBok(), contentType);
+			setClip((Clip) event.getBok(), contentHandler);
 			setWaiting(false);
 		    }
 		}
@@ -54,7 +54,7 @@ public class ClipPresenter implements Presenter<ClipDisplay> {
     }
 
     public ContentHandler getContentType() {
-	return contentType;
+	return contentHandler;
     }
 
     @Override
@@ -66,10 +66,10 @@ public class ClipPresenter implements Presenter<ClipDisplay> {
 	return clip.getContentType().equals(type);
     }
 
-    public void setClip(final Clip clip, final ContentHandler contentType) {
+    public void setClip(final Clip clip, final ContentHandler contentHandler) {
 	this.clip = clip;
-	this.contentType = contentType;
-	final String body = contentType.render(clip);
+	this.contentHandler = contentHandler;
+	final String body = contentHandler.render(clip);
 	getDisplay().getBody().setHTML(body);
     }
 
@@ -85,6 +85,7 @@ public class ClipPresenter implements Presenter<ClipDisplay> {
     }
 
     public void setWaiting(final boolean waiting) {
+	setEditor(null);
 	display.setViewVisible(!waiting);
 	display.setWaitingVisible(waiting);
     }

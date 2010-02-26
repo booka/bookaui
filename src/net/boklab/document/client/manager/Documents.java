@@ -1,11 +1,12 @@
 package net.boklab.document.client.manager;
 
+import net.boklab.core.client.persistence.BokCreatedHandler;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 
 public interface Documents {
 
-    public void createDocument(Document document);
+    public void createDocument(Document document, BokCreatedHandler handler);
 
     public void openDocument(String documentId);
 
@@ -13,7 +14,7 @@ public interface Documents {
 
     public void updateClip(Clip clip);
 
-    void createClip(Clip clip);
+    void createClip(Clip clip, BokCreatedHandler handler);
 
     boolean isUserLoggedIn();
 

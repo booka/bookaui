@@ -48,8 +48,9 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	display.setInfoDisplay(docInfo.getDisplay());
     }
 
-    private ClipPresenter createSlot(final int position) {
+    private ClipPresenter createSlot(final int position, final String parentId) {
 	final Clip slotClip = new Clip();
+	slotClip.setParentId(parentId);
 	slotClip.setPosition(position);
 	slotClip.setContentType(SlotContentHandler.TYPE);
 	final ClipPresenter slot = typeManager.newClip(slotClip);
@@ -63,14 +64,14 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	display.clear();
 	Clip last = null;
 	for (final Clip clip : document) {
-	    final ClipPresenter slot = createSlot(clip.getPosition());
+	    final ClipPresenter slot = createSlot(clip.getPosition(), document.getId());
 	    final ClipPresenter presenter = typeManager.newClip(clip);
 	    display.add(slot.getDisplay());
 	    display.add(presenter.getDisplay());
 	    last = clip;
 	}
 	final int position = last != null ? last.getPosition() + 1 : 1;
-	final ClipPresenter slot = createSlot(position);
+	final ClipPresenter slot = createSlot(position, document.getId());
 	display.add(slot.getDisplay());
     }
 }

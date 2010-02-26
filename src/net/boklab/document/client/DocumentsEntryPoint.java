@@ -7,7 +7,7 @@ public class DocumentsEntryPoint implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-	DocumentsI18n.set((DocumentMessages) GWT.create(DocumentMessages.class));
+	I18nDocs.set((DocumentMessages) GWT.create(DocumentMessages.class));
     }
 
 }

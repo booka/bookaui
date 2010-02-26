@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.model.BokSearchResults;
+import net.boklab.core.client.model.BokResponse;
 import net.boklab.core.client.model.DelegatedBok;
 
 public class Document extends DelegatedBok implements Iterable<Clip> {
@@ -17,7 +17,7 @@ public class Document extends DelegatedBok implements Iterable<Clip> {
 	this(delegate, null);
     }
 
-    public Document(final Bok delegate, final BokSearchResults results) {
+    public Document(final Bok delegate, final BokResponse results) {
 	super(delegate, TYPE);
 	setResults(results);
     }
@@ -31,7 +31,7 @@ public class Document extends DelegatedBok implements Iterable<Clip> {
 	return list.iterator();
     }
 
-    private void setResults(final BokSearchResults results) {
+    private void setResults(final BokResponse results) {
 	if (results != null) {
 	    list = new ArrayList<Clip>();
 	    final int total = results.getChildrenSize();

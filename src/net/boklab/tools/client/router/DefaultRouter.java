@@ -19,20 +19,19 @@ public class DefaultRouter implements Router {
     private final ArrayList<PlaceMatcher> matchers;
 
     @Inject
-    public DefaultRouter(EventBus eventBus) {
+    public DefaultRouter(final EventBus eventBus) {
 	this.eventBus = eventBus;
-	this.matchers = new ArrayList<PlaceMatcher>();
+	matchers = new ArrayList<PlaceMatcher>();
 
 	GWT.log("ROUTER!", null);
 
 	eventBus.addHandler(PlaceRequestEvent.TYPE, new PlaceRequestHandler() {
 	    @Override
-	    public void onPlaceRequest(PlaceRequestEvent event) {
-		Place place = event.getPlace();
+	    public void onPlaceRequest(final PlaceRequestEvent event) {
+		final Place place = event.getPlace();
 		GWT.log("PLACE REQUEST: " + place.placeId, null);
-		for (PlaceMatcher matcher : matchers) {
+		for (final PlaceMatcher matcher : matchers) {
 		    if (matcher.matches(place)) {
-			GWT.log("Matcher for place: " + place.placeId, null);
 			matcher.handler.onPlaceRequest(event);
 		    }
 		}
@@ -41,12 +40,12 @@ public class DefaultRouter implements Router {
     }
 
     @Override
-    public void fireChanged(Place place) {
+    public void fireChanged(final Place place) {
 	eventBus.fireEvent(new PlaceChangedEvent(place));
     }
 
     @Override
-    public void fireRequest(Place place) {
+    public void fireRequest(final Place place) {
 	eventBus.fireEvent(new PlaceRequestEvent(place));
     }
 

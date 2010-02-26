@@ -6,9 +6,7 @@ import net.boklab.document.client.manager.DocumentOpenedEvent;
 import net.boklab.document.client.manager.DocumentOpenedHandler;
 import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.model.Document;
-import net.boklab.project.client.action.OpenProjectEvent;
-import net.boklab.project.client.action.OpenProjectHandler;
-import net.boklab.project.client.action.Projects;
+import net.boklab.project.client.action.ProjectManager;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 import net.boklab.tools.client.mvp.Display;
 import net.boklab.tools.client.place.Place;
@@ -26,9 +24,9 @@ import com.google.inject.Singleton;
 public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 
     @Inject
-    public ArchivesPresenter(final Router router, final Projects projects,
-	    final Documents documents, final DocumentBrowserPresenter browser,
-	    final Provider<WorkspaceDisplay> displayProvider, DocumentPresenter documentPresenter) {
+    public ArchivesPresenter(final Router router, final ProjectManager projects, final Documents documents,
+	    final DocumentBrowserPresenter browser, final Provider<WorkspaceDisplay> displayProvider,
+	    final DocumentPresenter documentPresenter) {
 	super(displayProvider);
 
 	final WorkspaceDisplay display = getDisplay();
@@ -36,7 +34,7 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 
 	router.onRequest("^/archives$", new PlaceRequestHandler() {
 	    @Override
-	    public void onPlaceRequest(PlaceRequestEvent event) {
+	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		Log.debug("ArchivesPresenter: Redirect to project id");
 		if (projects.hasActiveProject()) {
 		    router.fireRequest(new Place("archives", projects.getActiveProject().getId()));
@@ -46,8 +44,8 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 
 	router.onRequest("^/archives/\\w+$", new PlaceRequestHandler() {
 	    @Override
-	    public void onPlaceRequest(PlaceRequestEvent event) {
-		Place place = event.getPlace();
+	    public void onPlaceRequest(final PlaceRequestEvent event) {
+		final Place place = event.getPlace();
 		Log.debug("ArchivesPresenter opens project");
 		projects.openProject(place.resourceId);
 		show(browser, display);
@@ -57,26 +55,18 @@ public class ArchivesPresenter extends AbstractPresenter<WorkspaceDisplay> {
 
 	router.onRequest("^/documents/\\w+$", new PlaceRequestHandler() {
 	    @Override
-	    public void onPlaceRequest(PlaceRequestEvent event) {
-		String documentId = event.getPlace().resourceId;
+	    public void onPlaceRequest(final PlaceRequestEvent event) {
+		final String documentId = event.getPlace().resourceId;
 		documents.openDocument(documentId);
 		show(browser, display);
 		router.fireChanged(event.getPlace());
 	    }
 	});
 
-	projects.onOpenProject(new OpenProjectHandler() {
-	    @Override
-	    public void onOpenProject(OpenProjectEvent event) {
-		Log.debug("OPEN PROJECT");
-	    }
-
-	});
-
 	documents.onDocumentOpened(new DocumentOpenedHandler() {
 	    @Override
-	    public void onDocumentOpened(DocumentOpenedEvent event) {
-		Document document = event.getDocument();
+	    public void onDocumentOpened(final DocumentOpenedEvent event) {
+		final Document document = event.getDocument();
 		projects.openProject(document.getParentId());
 	    }
 	});

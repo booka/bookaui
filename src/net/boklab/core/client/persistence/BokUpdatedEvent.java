@@ -1,10 +1,8 @@
-package net.boklab.document.client.manager;
+package net.boklab.core.client.persistence;
 
-import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.model.BokResponse;
 
-import com.google.gwt.event.shared.GwtEvent;
-
-public class BokUpdatedEvent extends GwtEvent<BokUpdatedHandler> {
+public class BokUpdatedEvent extends BokResponseEvent<BokUpdatedHandler> {
 
     private static final Type<BokUpdatedHandler> TYPE = new Type<BokUpdatedHandler>();
 
@@ -12,19 +10,13 @@ public class BokUpdatedEvent extends GwtEvent<BokUpdatedHandler> {
 	return TYPE;
     }
 
-    private final Bok bok;
-
-    public BokUpdatedEvent(final Bok bok) {
-	this.bok = bok;
+    public BokUpdatedEvent(final BokResponse response) {
+	super(response);
     }
 
     @Override
     public Type<BokUpdatedHandler> getAssociatedType() {
 	return TYPE;
-    }
-
-    public Bok getBok() {
-	return bok;
     }
 
     @Override

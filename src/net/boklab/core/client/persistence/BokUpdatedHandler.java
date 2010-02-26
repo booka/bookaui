@@ -1,4 +1,4 @@
-package net.boklab.document.client.manager;
+package net.boklab.core.client.persistence;
 
 import com.google.gwt.event.shared.EventHandler;
 

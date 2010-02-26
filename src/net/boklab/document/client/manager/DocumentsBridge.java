@@ -1,5 +1,8 @@
 package net.boklab.document.client.manager;
 
+import net.boklab.core.client.persistence.BokCreatedHandler;
+import net.boklab.core.client.persistence.CreateBokEvent;
+import net.boklab.core.client.persistence.UpdateBokEvent;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
@@ -21,13 +24,13 @@ public class DocumentsBridge implements Documents {
     }
 
     @Override
-    public void createClip(final Clip clip) {
-	eventBus.fireEvent(new CreateBokEvent(clip));
+    public void createClip(final Clip clip, final BokCreatedHandler handler) {
+	eventBus.fireEvent(new CreateBokEvent(clip, handler));
     }
 
     @Override
-    public void createDocument(final Document document) {
-	eventBus.fireEvent(new CreateBokEvent(document));
+    public void createDocument(final Document document, final BokCreatedHandler handler) {
+	eventBus.fireEvent(new CreateBokEvent(document, handler));
     }
 
     @Override
@@ -42,17 +45,16 @@ public class DocumentsBridge implements Documents {
 
     @Override
     public void openDocument(final String documentId) {
-	eventBus.fireEvent(new GetBokEvent(documentId, Document.TYPE));
     }
 
     @Override
     public void update(final Document document) {
-	eventBus.fireEvent(new UpdateBokEvent(document));
+	eventBus.fireEvent(new UpdateBokEvent(document, null));
     }
 
     @Override
     public void updateClip(final Clip clip) {
-	eventBus.fireEvent(new UpdateBokEvent(clip));
+	eventBus.fireEvent(new UpdateBokEvent(clip, null));
     }
 
 }

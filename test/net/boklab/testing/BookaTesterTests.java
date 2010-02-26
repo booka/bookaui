@@ -5,7 +5,7 @@ import net.boklab.booka.client.BookaRouter;
 import net.boklab.booka.client.ui.navigation.NavigationDisplay;
 import net.boklab.booka.client.ui.navigation.NavigationPresenter;
 import net.boklab.document.client.manager.Documents;
-import net.boklab.project.client.action.Projects;
+import net.boklab.project.client.action.ProjectManager;
 import net.boklab.project.client.ui.ProjectListDisplay;
 import net.boklab.tools.client.place.PlaceManager;
 
@@ -29,7 +29,7 @@ public class BookaTesterTests {
     @Test
     public void shouldCreateManagers() {
 	assertNotNull(test.get(Documents.class));
-	assertNotNull(test.get(Projects.class));
+	assertNotNull(test.get(ProjectManager.class));
 	assertNotNull(test.get(PlaceManager.class));
     }
 

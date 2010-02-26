@@ -14,8 +14,6 @@ import net.boklab.document.client.info.edit.DocInfoEditorDisplay;
 import net.boklab.document.client.info.view.DocInfoViewerDisplay;
 import net.boklab.document.client.manager.Documents;
 import net.boklab.document.client.manager.DocumentsBridge;
-import net.boklab.project.client.action.Projects;
-import net.boklab.project.client.action.ProjectsBridge;
 import net.boklab.project.client.ui.ProjectDisplay;
 import net.boklab.project.client.ui.ProjectListDisplay;
 import net.boklab.tools.client.eventbus.EventBus;
@@ -96,7 +94,6 @@ public class BookaTester extends AbstractModule implements Module {
     private void configureManagers() {
 	addMock(RestManager.class);
 	bind(Documents.class).to(DocumentsBridge.class).in(Singleton.class);
-	bind(Projects.class).to(ProjectsBridge.class).in(Singleton.class);
 	bind(Sessions.class).to(SessionsBridge.class).in(Singleton.class);
     }
 
