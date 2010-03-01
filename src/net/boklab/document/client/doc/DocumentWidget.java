@@ -41,9 +41,18 @@ public class DocumentWidget extends Composite implements DocumentDisplay {
     }
 
     @Override
-    public void insert(final Display display, final Display beforeDisplay) {
-	final int index = content.getWidgetIndex(beforeDisplay.asWidget());
-	content.insert(display.asWidget(), index);
+    public int getBokCount() {
+	return content.getWidgetCount();
+    }
+
+    @Override
+    public int getDisplayIndex(final Display display) {
+	return content.getWidgetIndex(display.asWidget());
+    }
+
+    @Override
+    public void insert(final Display display, final int beforeIndex) {
+	content.insert(display.asWidget(), beforeIndex);
     }
 
     @Override

@@ -13,13 +13,14 @@ public class BokToParams {
 	save(p, "bok[user_id]", bok.getUserId());
 	save(p, "bok[body]", bok.getBody());
 	save(p, "bok[content_type]", bok.getContentType());
-	save(p, "bok[position]", bok.getPosition());
+	final String position = bok.getPosition() > 0 ? "" + bok.getPosition() : null;
+	save(p, "bok[position]", position);
 	return p;
     }
 
-    private static void save(final Params p, final String name, final Object value) {
+    private static void save(final Params p, final String name, final String value) {
 	if (value != null) {
-	    p.put(name, value.toString());
+	    p.put(name, value);
 	}
     }
 

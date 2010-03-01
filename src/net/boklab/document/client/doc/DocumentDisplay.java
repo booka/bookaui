@@ -8,9 +8,14 @@ public interface DocumentDisplay extends Display {
 
     void clear();
 
-    void insert(Display display, Display beforeDisplay);
+    int getBokCount();
+
+    int getDisplayIndex(Display display);
+
+    void insert(Display display, int beforeIndex);
 
     void remove(Display display);
 
     void setInfoDisplay(Display display);
+
 }

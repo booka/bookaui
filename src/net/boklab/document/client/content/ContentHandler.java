@@ -1,6 +1,6 @@
 package net.boklab.document.client.content;
 
-import net.boklab.document.client.model.Clip;
+import net.boklab.core.client.model.Bok;
 
 public abstract class ContentHandler {
 
@@ -14,8 +14,8 @@ public abstract class ContentHandler {
 	return type;
     }
 
-    public abstract ContentEditor<?> newClipEditor(final Clip clip);
+    public abstract ContentEditor<?> newClipEditor(final Bok bok);
 
-    public abstract String render(final Clip clip);
+    public abstract String render(final Bok bok);
 
 }

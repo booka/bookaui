@@ -1,13 +1,6 @@
 war/WEB-INF/classes
-war/BokCore/**
-war/BokDocuments/**
-war/BokWorkspace/**
 war/Booka/**
-war/BokTools/**
-war/BokProjects/**
-war/BokBrowser/**
-war/BokCalendar/**
-war/BokEmite/**
+war/net.**/**
 
 
 

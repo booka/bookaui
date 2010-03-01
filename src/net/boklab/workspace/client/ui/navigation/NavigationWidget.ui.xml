@@ -1,0 +1,106 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		.icon {
+			display: block;
+			float: left;
+			width: 64px;
+			height: 64px;
+			margin: 7px 0 0 10px;
+			cursor: pointer;
+		}
+		
+		.content {
+			background-color: #C6C8CA;
+		}
+		
+		.status {
+			display: block;
+			width: 100%;
+			padding: 1px 10px;
+			font-size: 90%;
+			background-color: black;
+			color: #C6C8CA;
+		}
+		
+		.right {
+			float: right;
+			margin: 7px 10px 0 0;
+		}
+		
+		@sprite .entrance {
+			gwt-image: 'entranceImage';
+		}
+		
+		@sprite .archives {
+			gwt-image: 'archivesImage';
+		}
+		
+		@sprite .edition {
+			gwt-image: 'editionImage';
+		}
+		
+		@sprite .booka {
+			gwt-image: 'bookaImage';
+		}
+		
+		@sprite .account {
+			gwt-image: 'accountImage';
+		}
+		
+		@sprite .contact {
+			gwt-image: 'contactImage';
+		}
+		
+		@sprite .calendar {
+			gwt-image: 'calendarImage';
+		}
+		
+		@sprite .login {
+			gwt-image: 'loginImage';
+		}
+	</ui:style>
+
+	<ui:image field="entranceImage" src="resources/entrance.icon.png"></ui:image>
+	<ui:image field="archivesImage" src="resources/archives.icon.png"></ui:image>
+	<ui:image field="editionImage" src="resources/edition.icon.png"></ui:image>
+	<ui:image field="bookaImage" src="resources/booka.icon.png"></ui:image>
+	<ui:image field="accountImage" src="resources/account.icon.png"></ui:image>
+	<ui:image field="contactImage" src="resources/contact.icon.png"></ui:image>
+	<ui:image field="calendarImage" src="resources/calendar.icon.png"></ui:image>
+	<ui:image field="loginImage" src="resources/login.icon.png"></ui:image>
+
+	<g:LayoutPanel styleName="bk-Navigation">
+		<g:layer left="0" top="0" width="250px" bottom="0">
+			<g:FlowPanel>
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.entrance}"
+					ui:field="entrance" />
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.archives}"
+					ui:field="archives" />
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.edition}"
+					ui:field="edition" />
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.booka}"
+					ui:field="booka" />
+			</g:FlowPanel>
+		</g:layer>
+		<g:layer>
+			<g:FlowPanel>
+				<g:Label ui:field="title"></g:Label>
+				<g:Label ui:field="message"></g:Label>
+			</g:FlowPanel>
+		</g:layer>
+		<g:layer top="0" bottom="0" width="200px" right="0">
+			<g:FlowPanel>
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.calendar}"
+					ui:field="calendar" />
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.account}"
+					ui:field="account" />
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.login}"
+					ui:field="login" />
+				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.contact}"
+					ui:field="contact" />
+			</g:FlowPanel>
+		</g:layer>
+	</g:LayoutPanel>
+</ui:UiBinder> 

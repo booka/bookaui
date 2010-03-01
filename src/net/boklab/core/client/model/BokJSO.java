@@ -43,8 +43,8 @@ public class BokJSO extends JavaScriptObject implements Bok {
     }-*/;
 
     @Override
-    public final native Integer getPosition() /*-{
-        return this.bok.position;
+    public final native int getPosition() /*-{
+        return this.bok.position != null ? this.bok.position : -1;
     }-*/;
 
     @Override
@@ -65,6 +65,11 @@ public class BokJSO extends JavaScriptObject implements Bok {
     @Override
     public final native String getUserName() /*-{
         return this.bok.user_name;
+    }-*/;
+
+    @Override
+    public final native String getWrapperType() /*-{
+        return 'bokJSO';
     }-*/;
 
     @Override

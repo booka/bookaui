@@ -40,8 +40,8 @@ public class DefaultRouter implements Router {
     }
 
     @Override
-    public void fireChanged(final Place place) {
-	eventBus.fireEvent(new PlaceChangedEvent(place));
+    public void fireChanged(final String description, final Place place) {
+	eventBus.fireEvent(new PlaceChangedEvent(description, place));
     }
 
     @Override

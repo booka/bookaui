@@ -1,9 +1,11 @@
 package net.boklab.document.client.doc;
 
-import net.boklab.document.client.clip.ClipPresenter;
+import java.util.ArrayList;
+
+import net.boklab.core.client.model.Bok;
+import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.BokPresenter.InsertHandler;
 import net.boklab.document.client.content.ContentTypeManager;
-import net.boklab.document.client.content.slot.SlotContentHandler;
-import net.boklab.document.client.info.DocInfoPresenter;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.document.client.persistence.DocumentRetrievedEvent;
@@ -16,23 +18,18 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
+public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> implements InsertHandler {
 
-    private final DocInfoPresenter docInfo;
     private final ContentTypeManager typeManager;
-    private final Documents documents;
-    private Document currentDocument;
+    private final ArrayList<BokPresenter> boks;
 
     @Inject
     public DocumentPresenter(final Documents documents, final ContentTypeManager typeManager,
-	    final DocInfoPresenter docInfo, final Provider<DocumentDisplay> displayProvider) {
+	    final Provider<DocumentDisplay> displayProvider) {
 	super(displayProvider);
-	this.documents = documents;
+
+	boks = new ArrayList<BokPresenter>();
 	this.typeManager = typeManager;
-
-	this.docInfo = docInfo;
-
-	bind();
 
 	documents.onDocumentOpened(new DocumentRetrievedHandler() {
 	    @Override
@@ -43,35 +40,46 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 
     }
 
-    private void bind() {
+    @Override
+    public void onInsert(final BokPresenter bokPresenter, final boolean insertBefore) {
+	final BokPresenter presenter = typeManager.newBokPresenter(null, this);
+	presenter.setActionsVisible(true);
 	final DocumentDisplay display = getDisplay();
-	display.setInfoDisplay(docInfo.getDisplay());
+	final int currentIndex = display.getDisplayIndex(bokPresenter.getDisplay());
+	if (insertBefore) {
+	    display.insert(presenter.getDisplay(), currentIndex);
+	} else {
+	    final int last = display.getBokCount() - 1;
+	    if (currentIndex == last) {
+		display.add(presenter.getDisplay());
+	    } else {
+		display.insert(presenter.getDisplay(), currentIndex + 1);
+	    }
+	}
     }
 
-    private ClipPresenter createSlot(final int position, final String parentId) {
-	final Clip slotClip = new Clip();
-	slotClip.setParentId(parentId);
-	slotClip.setPosition(position);
-	slotClip.setContentType(SlotContentHandler.TYPE);
-	final ClipPresenter slot = typeManager.newClip(slotClip);
-	return slot;
+    @Override
+    public void remove(final BokPresenter bokPresenter) {
+	boks.remove(bokPresenter);
+	getDisplay().remove(bokPresenter.getDisplay());
+    }
+
+    private BokPresenter createBokPresenter(final Bok bok) {
+	final BokPresenter bokPresenter = typeManager.newBokPresenter(bok, this);
+	boks.add(bokPresenter);
+	return bokPresenter;
     }
 
     protected void setDocument(final Document document) {
-	currentDocument = document;
-	docInfo.setDocument(document);
 	final DocumentDisplay display = getDisplay();
+
 	display.clear();
-	Clip last = null;
+	boks.clear();
+
+	display.add(createBokPresenter(document).getDisplay());
+
 	for (final Clip clip : document.getClips()) {
-	    final ClipPresenter slot = createSlot(clip.getPosition(), document.getId());
-	    final ClipPresenter presenter = typeManager.newClip(clip);
-	    display.add(slot.getDisplay());
-	    display.add(presenter.getDisplay());
-	    last = clip;
+	    display.add(createBokPresenter(clip).getDisplay());
 	}
-	final int position = last != null ? last.getPosition() + 1 : 1;
-	final ClipPresenter slot = createSlot(position, document.getId());
-	display.add(slot.getDisplay());
     }
 }

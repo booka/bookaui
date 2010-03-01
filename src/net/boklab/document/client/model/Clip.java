@@ -7,6 +7,16 @@ import net.boklab.core.client.model.DelegatedBok;
 public class Clip extends DelegatedBok {
 
     public static final String TYPE = "Clip";
+
+    public static Clip asClip(final Bok bok) {
+	if (bok.getWrapperType() == TYPE) {
+	    return (Clip) bok;
+	} else {
+	    return new Clip(bok);
+	}
+
+    }
+
     private Document document;
 
     public Clip() {

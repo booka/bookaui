@@ -2,11 +2,11 @@ package net.boklab.booka.client;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
-import net.boklab.booka.client.ui.app.BookaAppDisplay;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.RouterTester;
 import net.boklab.tools.client.place.Place;
 import net.boklab.workspace.client.ui.WorkspaceDisplay;
+import net.boklab.workspace.client.ui.app.BookaAppDisplay;
 
 import org.junit.Before;
 import org.junit.Test;

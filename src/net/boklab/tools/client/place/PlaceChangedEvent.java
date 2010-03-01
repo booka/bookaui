@@ -6,8 +6,10 @@ public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
 
     public static final Type<PlaceChangedHandler> TYPE = new Type<PlaceChangedHandler>();
     private final Place place;
+    private final String description;
 
-    public PlaceChangedEvent(Place place) {
+    public PlaceChangedEvent(final String description, final Place place) {
+	this.description = description;
 	this.place = place;
     }
 
@@ -16,12 +18,16 @@ public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
 	return TYPE;
     }
 
+    public String getDescription() {
+	return description;
+    }
+
     public Place getPlace() {
 	return place;
     }
 
     @Override
-    protected void dispatch(PlaceChangedHandler handler) {
+    protected void dispatch(final PlaceChangedHandler handler) {
 	handler.onPlaceChanged(this);
     }
 

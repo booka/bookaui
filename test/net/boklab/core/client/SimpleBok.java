@@ -4,6 +4,7 @@ import net.boklab.core.client.model.Bok;
 
 public class SimpleBok implements Bok {
 
+    private static final String WRAPPER = "SimpleBok";
     private String userId;
     private String title;
     private String parentId;
@@ -53,7 +54,7 @@ public class SimpleBok implements Bok {
     }
 
     @Override
-    public Integer getPosition() {
+    public int getPosition() {
 	return position;
     }
 
@@ -75,6 +76,11 @@ public class SimpleBok implements Bok {
     @Override
     public String getUserName() {
 	return userName;
+    }
+
+    @Override
+    public String getWrapperType() {
+	return WRAPPER;
     }
 
     @Override

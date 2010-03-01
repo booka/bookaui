@@ -2,14 +2,14 @@ package net.boklab.document.client.actions;
 
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.I18nDocs;
-import net.boklab.document.client.clip.ClipPresenter;
-import net.boklab.document.client.clip.action.ClipAction;
+import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.action.BokAction;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class LoginToEditAction extends ClipAction {
+public class LoginToEditAction extends BokAction {
     private static final String TYPE = "LoginToEdit";
     private final Sessions sessions;
 
@@ -20,13 +20,13 @@ public class LoginToEditAction extends ClipAction {
     }
 
     @Override
-    public void execute(final ClipPresenter presenter) {
+    public void execute(final BokPresenter presenter) {
 	sessions.login("Test", "secret");
 	presenter.setEditor(null);
     }
 
     @Override
-    public boolean isApplicable(final ClipPresenter presenter) {
+    public boolean isApplicable(final BokPresenter presenter) {
 	return !sessions.isLoggedIn();
     }
 

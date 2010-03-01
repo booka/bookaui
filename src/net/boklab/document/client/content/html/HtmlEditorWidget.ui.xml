@@ -4,7 +4,7 @@
 	<ui:style>
 		
 	</ui:style>
-	<g:HTMLPanel styleName="bk-HtmlEditor .clipEditor">
+	<g:HTMLPanel styleName="bk-HtmlEditor clipEditor">
 		<g:TextArea ui:field="body"></g:TextArea>
 	</g:HTMLPanel>
 </ui:UiBinder> 

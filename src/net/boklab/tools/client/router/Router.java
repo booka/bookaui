@@ -5,7 +5,7 @@ import net.boklab.tools.client.place.PlaceRequestHandler;
 
 public interface Router {
 
-    void fireChanged(Place place);
+    void fireChanged(String description, Place place);
 
     void fireRequest(Place place);
 

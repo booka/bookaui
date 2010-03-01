@@ -1,7 +1,7 @@
 package net.boklab.booka.client;
 
-import net.boklab.booka.client.ui.app.BookaAppPresenter;
 import net.boklab.tools.client.rest.RestServiceAsync;
+import net.boklab.workspace.client.ui.app.BookaAppPresenter;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;

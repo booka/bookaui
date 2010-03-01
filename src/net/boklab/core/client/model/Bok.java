@@ -14,7 +14,7 @@ public interface Bok {
 
     String getParentId();
 
-    Integer getPosition();
+    int getPosition();
 
     String getTitle();
 
@@ -23,6 +23,8 @@ public interface Bok {
     String getUserId();
 
     String getUserName();
+
+    String getWrapperType();
 
     void setBody(String body);
 

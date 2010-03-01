@@ -1,14 +1,14 @@
 package net.boklab.document.client.content.debug;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.content.ContentEditor;
-import net.boklab.document.client.model.Clip;
 
 import com.google.inject.Inject;
 
 public class DebugEditorPresenter implements ContentEditor<DebugEditorDisplay> {
 
     private final DebugEditorDisplay display;
-    private Clip clip;
+    private Bok bok;
 
     @Inject
     public DebugEditorPresenter(final DebugEditorDisplay display) {
@@ -16,8 +16,8 @@ public class DebugEditorPresenter implements ContentEditor<DebugEditorDisplay> {
     }
 
     @Override
-    public Clip getClip() {
-	return clip;
+    public Bok getBok() {
+	return bok;
     }
 
     @Override
@@ -26,12 +26,12 @@ public class DebugEditorPresenter implements ContentEditor<DebugEditorDisplay> {
     }
 
     @Override
-    public void setClip(final Clip clip) {
-	this.clip = clip;
-	display.getInfo().setText("Clip: " + clip.getId() + "(parent: " + clip.getParentId() + ")");
-	display.getClipTitle().setText(clip.getTitle());
-	display.getContentType().setText(clip.getContentType());
-	display.getPosition().setText("" + clip.getPosition());
+    public void setBok(final Bok bok) {
+	this.bok = bok;
+	display.getInfo().setText(bok.getBokType() + ": " + bok.getId() + "(parent: " + bok.getParentId() + ")");
+	display.getClipTitle().setText(bok.getTitle());
+	display.getContentType().setText(bok.getContentType());
+	display.getPosition().setText("" + bok.getPosition());
     }
 
     @Override

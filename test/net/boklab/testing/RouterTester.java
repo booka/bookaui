@@ -19,21 +19,21 @@ public class RouterTester extends DefaultRouter {
     private Place lastChanged;
 
     @Inject
-    public RouterTester(EventBus eventBus) {
+    public RouterTester(final EventBus eventBus) {
 	super(eventBus);
-	this.requests = new ArrayList<Place>();
-	this.changed = new ArrayList<Place>();
+	requests = new ArrayList<Place>();
+	changed = new ArrayList<Place>();
     }
 
     @Override
-    public void fireChanged(Place place) {
+    public void fireChanged(final String description, final Place place) {
 	lastChanged = place;
 	changed.add(place);
-	super.fireChanged(place);
+	super.fireChanged(description, place);
     }
 
     @Override
-    public void fireRequest(Place place) {
+    public void fireRequest(final Place place) {
 	lastRequest = place;
 	requests.add(place);
 	super.fireRequest(place);
@@ -48,7 +48,7 @@ public class RouterTester extends DefaultRouter {
     }
 
     @Override
-    public void onRequest(String regex, PlaceRequestHandler handler) {
+    public void onRequest(final String regex, final PlaceRequestHandler handler) {
 	super.onRequest(regex, handler);
     }
 

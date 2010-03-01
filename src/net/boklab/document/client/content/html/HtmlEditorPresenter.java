@@ -1,14 +1,14 @@
 package net.boklab.document.client.content.html;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.content.ContentEditor;
-import net.boklab.document.client.model.Clip;
 
 import com.google.inject.Inject;
 
 public class HtmlEditorPresenter implements ContentEditor<HtmlEditorDisplay> {
 
     private final HtmlEditorDisplay display;
-    private Clip clip;
+    private Bok bok;
 
     @Inject
     public HtmlEditorPresenter(final HtmlEditorDisplay display) {
@@ -16,8 +16,8 @@ public class HtmlEditorPresenter implements ContentEditor<HtmlEditorDisplay> {
     }
 
     @Override
-    public Clip getClip() {
-	return clip;
+    public Bok getBok() {
+	return bok;
     }
 
     @Override
@@ -25,14 +25,14 @@ public class HtmlEditorPresenter implements ContentEditor<HtmlEditorDisplay> {
 	return display;
     }
 
-    public void setClip(final Clip clip) {
-	this.clip = clip;
+    public void setBok(final Bok clip) {
+	bok = clip;
 	display.getBody().setText(clip.getBody());
     }
 
     @Override
     public void updateClip() {
-	clip.setBody(display.getBody().getText());
+	bok.setBody(display.getBody().getText());
     }
 
 }

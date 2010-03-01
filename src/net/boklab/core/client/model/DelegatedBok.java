@@ -2,11 +2,13 @@ package net.boklab.core.client.model;
 
 public class DelegatedBok implements Bok {
     protected final Bok delegate;
+    private final String bokType;
 
     public DelegatedBok(final Bok delegate, final String bokType) {
-	this.delegate = delegate;
 	assert bokType.equals(delegate.getBokType()) : "Bok type doesn't match! (" + bokType + " != "
 		+ delegate.getBokType() + ")";
+	this.delegate = delegate;
+	this.bokType = bokType;
     }
 
     @Override
@@ -44,7 +46,7 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
-    public Integer getPosition() {
+    public int getPosition() {
 	return delegate.getPosition();
     }
 
@@ -66,6 +68,11 @@ public class DelegatedBok implements Bok {
     @Override
     public String getUserName() {
 	return delegate.getUserName();
+    }
+
+    @Override
+    public String getWrapperType() {
+	return bokType;
     }
 
     @Override

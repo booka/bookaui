@@ -1,8 +1,8 @@
 package net.boklab.document.client.content.debug;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.content.ContentEditor;
 import net.boklab.document.client.content.ContentHandler;
-import net.boklab.document.client.model.Clip;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -21,14 +21,14 @@ public class DebugContentHandler extends ContentHandler {
     }
 
     @Override
-    public ContentEditor<?> newClipEditor(final Clip clip) {
+    public ContentEditor<?> newClipEditor(final Bok bok) {
 	final DebugEditorPresenter editor = provider.get();
-	editor.setClip(clip);
+	editor.setBok(bok);
 	return editor;
     }
 
     @Override
-    public String render(final Clip clip) {
+    public String render(final Bok bok) {
 	return "debug";
     }
 

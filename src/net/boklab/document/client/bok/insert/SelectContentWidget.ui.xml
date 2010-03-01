@@ -1,0 +1,14 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:FlowPanel styleName="bk-SelectContent">
+		<g:FlowPanel ui:field="types" styleName="list"></g:FlowPanel>
+		<g:FlowPanel styleName="actions">
+			<g:Anchor ui:field="accept">Aceptar</g:Anchor>
+			<g:Anchor ui:field="cancel">Cancelar</g:Anchor>
+		</g:FlowPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

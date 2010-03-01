@@ -1,19 +1,15 @@
 package net.boklab.testing;
 
-import net.boklab.booka.client.ui.app.BookaAppDisplay;
-import net.boklab.booka.client.ui.navigation.NavigationDisplay;
 import net.boklab.browser.client.ui.DocumentBrowserDisplay;
 import net.boklab.browser.client.ui.DocumentItemDisplay;
 import net.boklab.calendar.client.ui.CalendarDisplay;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.core.client.session.SessionsBridge;
-import net.boklab.document.client.clip.ClipDisplay;
+import net.boklab.document.client.bok.BokDisplay;
+import net.boklab.document.client.content.info.InfoEditorDisplay;
 import net.boklab.document.client.doc.DocumentDisplay;
-import net.boklab.document.client.info.DocInfoDisplay;
-import net.boklab.document.client.info.edit.DocInfoEditorDisplay;
-import net.boklab.document.client.info.view.DocInfoViewerDisplay;
-import net.boklab.document.client.persistence.Documents;
 import net.boklab.document.client.persistence.DocumentManager;
+import net.boklab.document.client.persistence.Documents;
 import net.boklab.project.client.ui.ProjectDisplay;
 import net.boklab.project.client.ui.ProjectListDisplay;
 import net.boklab.tools.client.eventbus.EventBus;
@@ -24,6 +20,8 @@ import net.boklab.tools.client.place.RestPlaceTokenizer;
 import net.boklab.tools.client.rest.RestManager;
 import net.boklab.tools.client.router.Router;
 import net.boklab.workspace.client.ui.WorkspaceDisplay;
+import net.boklab.workspace.client.ui.app.BookaAppDisplay;
+import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
 
 import com.google.gwt.junit.GWTMockUtilities;
 import com.google.inject.AbstractModule;
@@ -84,11 +82,9 @@ public class BookaTester extends AbstractModule implements Module {
 	addDisplay(DocumentBrowserDisplay.class).in(Singleton.class);
 	addDisplay(DocumentItemDisplay.class);
 	addDisplay(DocumentDisplay.class).in(Singleton.class);
-	addDisplay(ClipDisplay.class);
+	addDisplay(BokDisplay.class);
 	addDisplay(CalendarDisplay.class).in(Singleton.class);
-	addDisplay(DocInfoDisplay.class);
-	addDisplay(DocInfoViewerDisplay.class);
-	addDisplay(DocInfoEditorDisplay.class);
+	addDisplay(InfoEditorDisplay.class);
     }
 
     private void configureManagers() {

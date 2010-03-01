@@ -1,10 +1,8 @@
 package net.boklab.workspace.client.ui;
 
 import static com.google.gwt.dom.client.Style.Unit.PX;
-import net.boklab.document.client.doc.DocumentDisplay;
 import net.boklab.tools.client.mvp.Display;
 
-import com.allen_sauer.gwt.log.client.Log;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
@@ -16,12 +14,9 @@ public class WorkspaceWidget extends Composite implements WorkspaceDisplay {
     private static final int DOCK_WEST = 250;
 
     private final LayoutPanel dock;
-    private Widget left;
-    private Widget right;
-    private Widget center;
 
     public WorkspaceWidget() {
-	this.dock = new LayoutPanel();
+	dock = new LayoutPanel();
 	dock.setStyleName("bk-Workspace");
 	initWidget(dock);
     }
@@ -32,61 +27,35 @@ public class WorkspaceWidget extends Composite implements WorkspaceDisplay {
     }
 
     @Override
-    public void setCenter(DocumentDisplay display) {
-	Widget widget = display.asWidget();
-	if (widget != center) {
-	    if (this.center != null)
-		dock.remove(center);
-
-	    this.center = widget;
-	    if (center != null) {
-		dock.add(center);
-		dock.setWidgetTopBottom(center, 0, PX, 0, PX);
-		dock.setWidgetLeftRight(center, DOCK_WEST, PX, DOCK_EAST, PX);
-		dock.animate(250);
-	    }
-	}
+    public void remove(final Display display) {
+	dock.remove(display.asWidget());
     }
 
     @Override
-    public void setCenterVisible(boolean visible) {
-
+    public void setCenter(final Display display) {
+	final Widget center = display.asWidget();
+	dock.add(center);
+	dock.setWidgetTopBottom(center, 0, PX, 0, PX);
+	dock.setWidgetLeftRight(center, DOCK_WEST, PX, DOCK_EAST, PX);
+	dock.animate(250);
     }
 
     @Override
-    public void setLeft(Display display) {
-	Widget widget = display.asWidget();
-	if (widget != left) {
-	    if (this.left != null)
-		dock.remove(left);
-
-	    this.left = widget;
-	    if (left != null) {
-		Log.debug("WorkspaceWidget: set east");
-		dock.add(left);
-		dock.setWidgetTopBottom(left, 0, PX, 0, PX);
-		dock.setWidgetRightWidth(left, 0, PX, DOCK_EAST, PX);
-		dock.animate(250);
-	    }
-	}
+    public void setLeft(final Display display) {
+	final Widget widget = display.asWidget();
+	dock.add(widget);
+	dock.setWidgetTopBottom(widget, 0, PX, 0, PX);
+	dock.setWidgetLeftWidth(widget, 0, PX, DOCK_WEST, PX);
+	dock.animate(250);
     }
 
     @Override
-    public void setRight(Display display) {
-	Widget widget = display.asWidget();
-	if (right != widget) {
-	    if (this.right != null)
-		dock.remove(right);
-
-	    this.right = widget;
-	    if (right != null) {
-		Log.debug("WorkspaceWidget: setWest");
-		dock.add(right);
-		dock.setWidgetTopBottom(right, 0, PX, 0, PX);
-		dock.setWidgetLeftWidth(right, 0, PX, DOCK_WEST, PX);
-		dock.animate(250);
-	    }
-	}
+    public void setRight(final Display display) {
+	final Widget widget = display.asWidget();
+	dock.add(widget);
+	dock.setWidgetTopBottom(widget, 0, PX, 0, PX);
+	dock.setWidgetRightWidth(widget, 0, PX, DOCK_EAST, PX);
+	dock.animate(250);
     }
 
 }

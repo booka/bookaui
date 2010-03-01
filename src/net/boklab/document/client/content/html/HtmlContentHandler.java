@@ -1,7 +1,7 @@
 package net.boklab.document.client.content.html;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.content.ContentHandler;
-import net.boklab.document.client.model.Clip;
 
 import com.google.inject.Inject;
 import com.google.inject.Provider;
@@ -18,17 +18,17 @@ public class HtmlContentHandler extends ContentHandler {
     }
 
     @Override
-    public HtmlEditorPresenter newClipEditor(final Clip clip) {
+    public HtmlEditorPresenter newClipEditor(final Bok bok) {
 	final HtmlEditorPresenter presenter = provider.get();
-	presenter.setClip(clip);
+	presenter.setBok(bok);
 	return presenter;
     }
 
     @Override
-    public String render(final Clip clip) {
-	final String debug = "<div class='debug'>{Bok:" + clip.getId() + " pos:" + clip.getPosition() + " ctype:"
-		+ clip.getContentType() + " updated: " + clip.getUpdatedAt() + "}</div>";
+    public String render(final Bok bok) {
+	final String debug = "<div class='debug'>{" + bok.getBokType() + ":" + bok.getId() + " pos:"
+		+ bok.getPosition() + " ctype:" + bok.getContentType() + " updated: " + bok.getUpdatedAt() + "}</div>";
 
-	return debug + clip.getBody();
+	return debug + bok.getBody();
     }
 }

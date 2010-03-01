@@ -1,0 +1,19 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:FocusPanel ui:field="self" styleName="bk-Bok">
+		<g:FlowPanel>
+			<g:Anchor ui:field="insertBefore" styleName="slot" />
+			<g:Label ui:field="waiting" styleName="waiting" />
+			<g:FocusPanel ui:field="view" styleName="view">
+				<g:HTML ui:field="body" styleName="body"></g:HTML>
+			</g:FocusPanel>
+			<g:SimplePanel ui:field="controls" />
+			<g:Anchor ui:field="insertAfter" styleName="slot" />
+		</g:FlowPanel>
+	</g:FocusPanel>
+
+</ui:UiBinder> 

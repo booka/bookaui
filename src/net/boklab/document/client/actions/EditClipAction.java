@@ -1,14 +1,15 @@
 package net.boklab.document.client.actions;
 
 import net.boklab.core.client.I18nBok;
-import net.boklab.document.client.clip.ClipPresenter;
-import net.boklab.document.client.clip.action.ClipAction;
-import net.boklab.document.client.clip.editor.ClipEditorDisplay;
+import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.persistence.UpdateBokEvent;
+import net.boklab.core.client.session.Sessions;
+import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.action.BokAction;
+import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.content.ContentEditor;
 import net.boklab.document.client.content.ContentTypeManager;
-import net.boklab.document.client.content.slot.SlotContentHandler;
-import net.boklab.document.client.model.Clip;
-import net.boklab.document.client.persistence.Documents;
+import net.boklab.tools.client.eventbus.EventBus;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -16,23 +17,25 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class EditClipAction extends ClipAction {
+public class EditClipAction extends BokAction {
 
     private static final String TYPE = "EditClipAction";
     private final ContentTypeManager manager;
-    private final Documents documents;
+    private final EventBus eventBus;
+    private final Sessions sessions;
 
     @Inject
-    public EditClipAction(final ContentTypeManager manager, final Documents documents) {
-	super(TYPE, I18nBok.t.saveAction());
+    public EditClipAction(final EventBus eventBus, final Sessions sessions, final ContentTypeManager manager) {
+	super(TYPE, I18nBok.t.editAction());
+	this.eventBus = eventBus;
+	this.sessions = sessions;
 	this.manager = manager;
-	this.documents = documents;
     }
 
     @Override
-    public void execute(final ClipPresenter presenter) {
-	final Clip clip = presenter.getClip();
-	final ClipEditorDisplay editor = manager.newEditor(clip);
+    public void execute(final BokPresenter presenter) {
+	final Bok clip = presenter.getBok();
+	final BokEditorDisplay editor = manager.newEditor(clip);
 	editor.getCancel().setText(I18nBok.t.cancelAction());
 	editor.getSave().setText(I18nBok.t.saveAction());
 	editor.getSaveAction().addClickHandler(new ClickHandler() {
@@ -40,7 +43,7 @@ public class EditClipAction extends ClipAction {
 	    public void onClick(final ClickEvent event) {
 		final ContentEditor<?> contentEditor = editor.getEditor();
 		contentEditor.updateClip();
-		documents.updateClip(clip);
+		eventBus.fireEvent(new UpdateBokEvent(clip, null));
 		presenter.setEditor(null);
 		presenter.setWaiting(true);
 	    }
@@ -55,8 +58,8 @@ public class EditClipAction extends ClipAction {
     }
 
     @Override
-    public boolean isApplicable(final ClipPresenter presenter) {
-	return documents.isUserLoggedIn() && !presenter.isClipType(SlotContentHandler.TYPE);
+    public boolean isApplicable(final BokPresenter presenter) {
+	return sessions.isLoggedIn() && presenter.getBok() != null;
     }
 
 }

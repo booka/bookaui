@@ -12,6 +12,9 @@ public interface BokCoreMessages extends Messages {
     @DefaultMessage("Cerrar")
     String closeAction();
 
+    @DefaultMessage("Editar")
+    String editAction();
+
     @DefaultMessage("Guardar")
     String saveAction();
 }

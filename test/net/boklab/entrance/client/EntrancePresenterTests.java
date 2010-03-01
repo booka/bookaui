@@ -1,7 +1,7 @@
 package net.boklab.entrance.client;
 
 import static org.junit.Assert.assertEquals;
-import net.boklab.booka.client.ui.entrance.EntrancePresenter;
+import net.boklab.booka.client.BokEntranceInstaller;
 import net.boklab.core.client.persistence.RetrieveBokEvent;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.EventBusTester;
@@ -22,7 +22,7 @@ public class EntrancePresenterTests {
 	tester = new BookaTester();
 	router = tester.getRouter();
 	eventBus = tester.getEventBus();
-	tester.get(EntrancePresenter.class);
+	tester.get(BokEntranceInstaller.class);
     }
 
     @Test

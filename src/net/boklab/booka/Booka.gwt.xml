@@ -3,11 +3,13 @@
 <module rename-to="Booka">
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="net.boklab.core.BokCore" />
+    <inherits name="net.boklab.workspace.BokWorkspace" />
     <inherits name="net.boklab.browser.BokBrowser" />
     <inherits name="net.boklab.calendar.BokCalendar" />
     <inherits name="net.boklab.document.BokDocuments" />
     <inherits name="net.boklab.project.BokProjects" />
-    <inherits name="net.boklab.workspace.BokWorkspace" />
+    <inherits name="net.boklab.user.BokUser" />
+    <inherits name="net.boklab.entrance.BokEntrance" />
     
 	<source path="client" />
 	<entry-point class="net.boklab.booka.client.BookaEntryPoint" />

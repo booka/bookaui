@@ -1,13 +1,12 @@
 package net.boklab.workspace.client.ui;
 
-import net.boklab.document.client.doc.DocumentDisplay;
 import net.boklab.tools.client.mvp.Display;
 
 public interface WorkspaceDisplay extends Display {
 
-    void setCenter(DocumentDisplay display);
+    void remove(Display display);
 
-    void setCenterVisible(boolean visible);
+    void setCenter(Display display);
 
     void setLeft(Display display);
 

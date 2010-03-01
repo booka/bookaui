@@ -2,14 +2,13 @@ package net.boklab.document.client.actions;
 
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.I18nDocs;
-import net.boklab.document.client.clip.ClipPresenter;
-import net.boklab.document.client.clip.action.ClipAction;
-import net.boklab.document.client.clip.editor.ClipEditorDisplay;
+import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.action.BokAction;
+import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.content.ContentEditor;
 import net.boklab.document.client.content.ContentHandler;
 import net.boklab.document.client.content.ContentTypeManager;
 import net.boklab.document.client.content.html.HtmlContentHandler;
-import net.boklab.document.client.content.slot.SlotContentHandler;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.persistence.ClipCreatedEvent;
 import net.boklab.document.client.persistence.ClipCreatedHandler;
@@ -21,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class CreateHtmlAction extends ClipAction {
+public class CreateHtmlAction extends BokAction {
 
     public static final String TYPE = "CreateHtml";
     private final ContentTypeManager manager;
@@ -37,14 +36,14 @@ public class CreateHtmlAction extends ClipAction {
     }
 
     @Override
-    public void execute(final ClipPresenter presenter) {
-	final Clip clip = presenter.getClip();
+    public void execute(final BokPresenter presenter) {
+	final Clip clip = new Clip();
 	clip.setContentType(HtmlContentHandler.TYPE);
-	final ClipEditorDisplay editorDisplay = manager.newEditor(clip);
+	final BokEditorDisplay editorDisplay = manager.newEditor(clip);
 	editorDisplay.getCancelAction().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {
-		presenter.setEditor(null);
+		presenter.destroy();
 	    }
 	});
 	editorDisplay.getSaveAction().addClickHandler(new ClickHandler() {
@@ -57,11 +56,11 @@ public class CreateHtmlAction extends ClipAction {
     }
 
     @Override
-    public boolean isApplicable(final ClipPresenter presenter) {
-	return sessions.isLoggedIn() && presenter.isClipType(SlotContentHandler.TYPE);
+    public boolean isApplicable(final BokPresenter presenter) {
+	return sessions.isLoggedIn();
     }
 
-    private void save(final ClipPresenter presenter, final Clip clip, final ClipEditorDisplay editorDisplay) {
+    private void save(final BokPresenter presenter, final Clip clip, final BokEditorDisplay editorDisplay) {
 	final ContentEditor<?> editor = editorDisplay.getEditor();
 	editor.updateClip();
 	documents.createClip(clip, new ClipCreatedHandler() {
@@ -69,7 +68,7 @@ public class CreateHtmlAction extends ClipAction {
 	    public void onClipCreated(final ClipCreatedEvent event) {
 		final Clip newClip = event.getClip();
 		final ContentHandler contentHandler = manager.getHandler(newClip);
-		presenter.setClip(newClip, contentHandler);
+		presenter.setBok(newClip, contentHandler);
 		presenter.setWaiting(false);
 	    }
 	});

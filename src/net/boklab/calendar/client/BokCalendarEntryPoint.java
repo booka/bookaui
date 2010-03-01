@@ -1,13 +1,14 @@
 package net.boklab.calendar.client;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 
 public class BokCalendarEntryPoint implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-	// TODO Auto-generated method stub
-
+	final CalendarMessages messages = GWT.create(CalendarMessages.class);
+	I18nCalendar.setMessages(messages);
     }
 
 }

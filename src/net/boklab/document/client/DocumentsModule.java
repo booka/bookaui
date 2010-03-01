@@ -1,27 +1,26 @@
 package net.boklab.document.client;
 
 import net.boklab.document.client.actions.ActionsRegistrator;
-import net.boklab.document.client.clip.ClipDisplay;
-import net.boklab.document.client.clip.ClipWidget;
-import net.boklab.document.client.clip.action.ClipActionsDisplay;
-import net.boklab.document.client.clip.action.ClipActionsWidget;
-import net.boklab.document.client.clip.editor.ClipEditorDisplay;
-import net.boklab.document.client.clip.editor.ClipEditorWidget;
-import net.boklab.document.client.content.ContentTypeRegistry;
+import net.boklab.document.client.bok.BokDisplay;
+import net.boklab.document.client.bok.BokWidget;
+import net.boklab.document.client.bok.action.BokActionsDisplay;
+import net.boklab.document.client.bok.action.BokActionsWidget;
+import net.boklab.document.client.bok.editor.BokEditorDisplay;
+import net.boklab.document.client.bok.editor.BokEditorWidget;
+import net.boklab.document.client.bok.insert.SelectContentDisplay;
+import net.boklab.document.client.bok.insert.SelectContentWidget;
+import net.boklab.document.client.content.ContentHandlerRegistrator;
+import net.boklab.document.client.content.ContentHandlerRegistry;
 import net.boklab.document.client.content.debug.DebugEditorDisplay;
 import net.boklab.document.client.content.debug.DebugEditorWidget;
 import net.boklab.document.client.content.html.HtmlEditorDisplay;
 import net.boklab.document.client.content.html.HtmlEditorWidget;
+import net.boklab.document.client.content.info.InfoEditorDisplay;
+import net.boklab.document.client.content.info.InfoEditorWidget;
 import net.boklab.document.client.doc.DocumentDisplay;
 import net.boklab.document.client.doc.DocumentWidget;
-import net.boklab.document.client.info.DocInfoDisplay;
-import net.boklab.document.client.info.DocInfoWidget;
-import net.boklab.document.client.info.edit.DocInfoEditorDisplay;
-import net.boklab.document.client.info.edit.DocInfoEditorWidget;
-import net.boklab.document.client.info.view.DocInfoViewerDisplay;
-import net.boklab.document.client.info.view.DocInfoViewerWidget;
-import net.boklab.document.client.persistence.Documents;
 import net.boklab.document.client.persistence.DocumentManager;
+import net.boklab.document.client.persistence.Documents;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
@@ -32,21 +31,20 @@ public class DocumentsModule extends AbstractGinModule {
     protected void configure() {
 	bind(DocumentsRouter.class).asEagerSingleton();
 
-	bind(ContentTypeRegistrator.class).asEagerSingleton();
+	bind(ContentHandlerRegistrator.class).asEagerSingleton();
 	bind(ActionsRegistrator.class).asEagerSingleton();
-	bind(ContentTypeRegistry.class).in(Singleton.class);
+	bind(ContentHandlerRegistry.class).in(Singleton.class);
 
 	bind(Documents.class).to(DocumentManager.class).in(Singleton.class);
 
 	bind(DocumentDisplay.class).to(DocumentWidget.class).in(Singleton.class);
-	bind(ClipDisplay.class).to(ClipWidget.class);
-	bind(DocInfoEditorDisplay.class).to(DocInfoEditorWidget.class);
-	bind(DocInfoDisplay.class).to(DocInfoWidget.class);
-	bind(DocInfoViewerDisplay.class).to(DocInfoViewerWidget.class);
-	bind(ClipActionsDisplay.class).to(ClipActionsWidget.class);
+	bind(BokDisplay.class).to(BokWidget.class);
+	bind(InfoEditorDisplay.class).to(InfoEditorWidget.class);
+	bind(BokActionsDisplay.class).to(BokActionsWidget.class);
+	bind(SelectContentDisplay.class).to(SelectContentWidget.class);
 
 	bind(HtmlEditorDisplay.class).to(HtmlEditorWidget.class);
-	bind(ClipEditorDisplay.class).to(ClipEditorWidget.class);
+	bind(BokEditorDisplay.class).to(BokEditorWidget.class);
 	bind(DebugEditorDisplay.class).to(DebugEditorWidget.class);
     }
 

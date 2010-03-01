@@ -1,6 +1,7 @@
 package net.boklab.booka.client.ui.navigation;
 
 import net.boklab.testing.BookaTester;
+import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
 import org.junit.Before;
 
