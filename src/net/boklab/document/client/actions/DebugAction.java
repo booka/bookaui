@@ -1,11 +1,11 @@
 package net.boklab.document.client.actions;
 
-import net.boklab.core.client.I18nBok;
+import net.boklab.core.client.I18nCore;
 import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.bok.BokPresenter;
 import net.boklab.document.client.bok.action.BokAction;
 import net.boklab.document.client.bok.editor.BokEditorDisplay;
-import net.boklab.document.client.content.ContentTypeManager;
+import net.boklab.document.client.content.ContentManager;
 import net.boklab.document.client.content.debug.DebugContentHandler;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -16,10 +16,10 @@ import com.google.inject.Singleton;
 @Singleton
 public class DebugAction extends BokAction {
     private static final String TYPE = "DebugAction";
-    private final ContentTypeManager manager;
+    private final ContentManager manager;
 
     @Inject
-    public DebugAction(final ContentTypeManager manager) {
+    public DebugAction(final ContentManager manager) {
 	super(TYPE, "Debug");
 	this.manager = manager;
     }
@@ -29,7 +29,7 @@ public class DebugAction extends BokAction {
 	final Bok bok = presenter.getBok();
 	final BokEditorDisplay editor = manager.newEditor(bok, DebugContentHandler.TYPE);
 	editor.setSaveVisible(false);
-	editor.getCancel().setText(I18nBok.t.closeAction());
+	editor.getCancel().setText(I18nCore.t.closeAction());
 	editor.getCancelAction().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {

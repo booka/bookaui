@@ -1,0 +1,29 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:HTMLPanel styleName="bk-LinkEditor clipEditor">
+		<h1>Añadir un enlace</h1>
+		<div ui:field="help" style="display: none">
+			<p>Puedes copiar y pegar aquí enlaces a cualquier cosa (vídeos,
+				imágenes, otras páginas, lo que desees).
+				La previsualización te muestra cómo quedaría una vez insertado en el
+				documento.</p>
+		</div>
+		<p>
+			<label>Título del enlace:</label>
+			<g:TextBox ui:field="title" />
+		</p>
+		<p>
+			<label>Introduce el enlace aquí:</label>
+			<g:TextArea ui:field="body"></g:TextArea>
+			<g:Button ui:field="previewAction">Previsualizar</g:Button>
+		</p>
+		<p>
+			<label>Previsualización:</label>
+			<div ui:field="preview" class="preview" />
+		</p>
+	</g:HTMLPanel>
+</ui:UiBinder> 

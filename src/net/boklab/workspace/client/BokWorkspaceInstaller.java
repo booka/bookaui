@@ -1,6 +1,8 @@
 package net.boklab.workspace.client;
 
 import net.boklab.tools.client.eventbus.EventBus;
+import net.boklab.tools.client.place.PlaceChangedEvent;
+import net.boklab.tools.client.place.PlaceChangedHandler;
 import net.boklab.workspace.client.event.UserMessageEvent;
 import net.boklab.workspace.client.event.UserMessageHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
@@ -18,6 +20,13 @@ public class BokWorkspaceInstaller {
 	    @Override
 	    public void onUserMessage(final UserMessageEvent event) {
 		navigation.setMessage(event.getMessage());
+	    }
+	});
+
+	eventBus.addHandler(PlaceChangedEvent.getType(), new PlaceChangedHandler() {
+	    @Override
+	    public void onPlaceChanged(final PlaceChangedEvent event) {
+		navigation.setPlace(event.getDescription());
 	    }
 	});
 

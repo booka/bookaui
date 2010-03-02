@@ -12,7 +12,9 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
 import com.google.inject.Provider;
+import com.google.inject.Singleton;
 
+@Singleton
 public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserDisplay> {
 
     private Project currentProject;

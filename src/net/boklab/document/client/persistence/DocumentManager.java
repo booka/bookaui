@@ -8,9 +8,12 @@ import net.boklab.core.client.persistence.CreateBokEvent;
 import net.boklab.core.client.persistence.RetrieveBokEvent;
 import net.boklab.core.client.persistence.UpdateBokEvent;
 import net.boklab.core.client.session.Sessions;
+import net.boklab.document.client.I18nDocs;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.tools.client.eventbus.EventBus;
+import net.boklab.workspace.client.event.UserMessageEvent;
+import net.boklab.workspace.client.event.UserMessageEvent.Level;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -54,16 +57,18 @@ public class DocumentManager implements Documents {
 
     @Override
     public void onDocumentOpened(final DocumentRetrievedHandler handler) {
-	eventBus.addHandler(DocumentRetrievedEvent.TYPE, handler);
+	eventBus.addHandler(DocumentRetrievedEvent.getType(), handler);
     }
 
     @Override
     public void openDocument(final String documentId) {
+	eventBus.fireEvent(new UserMessageEvent(I18nDocs.t.openingDocument(), Level.working));
 	eventBus.fireEvent(new RetrieveBokEvent(documentId, new BokRetrievedHandler() {
 	    @Override
 	    public void onBokRetrieved(final BokRetrievedEvent event) {
 		final Document document = new Document(event.getBok(), event.getChildren());
 		eventBus.fireEvent(new DocumentRetrievedEvent(document));
+		eventBus.fireEvent(new UserMessageEvent(I18nDocs.t.documentOpened(document.getTitle())));
 	    }
 	}));
     }

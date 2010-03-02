@@ -15,6 +15,9 @@ public interface BokCoreMessages extends Messages {
     @DefaultMessage("Editar")
     String editAction();
 
+    @DefaultMessage("Bienvenidx {0}")
+    String loggedInMessage(String userName);
+
     @DefaultMessage("Guardar")
     String saveAction();
 }

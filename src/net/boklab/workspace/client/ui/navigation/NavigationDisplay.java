@@ -21,6 +21,12 @@ public interface NavigationDisplay extends Display {
 
     HasText getMessage();
 
+    HasText getPlace();
+
+    HasText getProject();
+
+    HasText getUser();
+
     void setVisible(String item, boolean visible);
 
 }

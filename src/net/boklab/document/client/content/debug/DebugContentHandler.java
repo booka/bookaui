@@ -21,9 +21,8 @@ public class DebugContentHandler extends ContentHandler {
     }
 
     @Override
-    public ContentEditor<?> newClipEditor(final Bok bok) {
+    public ContentEditor<?> newClipEditor() {
 	final DebugEditorPresenter editor = provider.get();
-	editor.setBok(bok);
 	return editor;
     }
 

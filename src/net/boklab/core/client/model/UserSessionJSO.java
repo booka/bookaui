@@ -12,8 +12,8 @@ public class UserSessionJSO extends JavaScriptObject implements UserSession {
     }-*/;
 
     @Override
-    public final native int getUserId() /*-{
-        return this.user_id;
+    public final native String getUserId() /*-{
+        return this.user_id == null ? null : "" + this.user_id;
     }-*/;
 
     @Override

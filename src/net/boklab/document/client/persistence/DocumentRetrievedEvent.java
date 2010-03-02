@@ -6,7 +6,7 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class DocumentRetrievedEvent extends GwtEvent<DocumentRetrievedHandler> {
 
-    public static final Type<DocumentRetrievedHandler> TYPE = new Type<DocumentRetrievedHandler>();
+    private static final Type<DocumentRetrievedHandler> TYPE = new Type<DocumentRetrievedHandler>();
     private final Document document;
 
     public DocumentRetrievedEvent(Document document) {
@@ -15,7 +15,7 @@ public class DocumentRetrievedEvent extends GwtEvent<DocumentRetrievedHandler> {
 
     @Override
     public Type<DocumentRetrievedHandler> getAssociatedType() {
-	return TYPE;
+	return getType();
     }
 
     public Document getDocument() {
@@ -25,6 +25,10 @@ public class DocumentRetrievedEvent extends GwtEvent<DocumentRetrievedHandler> {
     @Override
     protected void dispatch(DocumentRetrievedHandler handler) {
 	handler.onDocumentRetrieved(this);
+    }
+
+    public static Type<DocumentRetrievedHandler> getType() {
+	return TYPE;
     }
 
 }

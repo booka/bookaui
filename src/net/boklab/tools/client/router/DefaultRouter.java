@@ -8,7 +8,6 @@ import net.boklab.tools.client.place.PlaceChangedEvent;
 import net.boklab.tools.client.place.PlaceRequestEvent;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -23,13 +22,10 @@ public class DefaultRouter implements Router {
 	this.eventBus = eventBus;
 	matchers = new ArrayList<PlaceMatcher>();
 
-	GWT.log("ROUTER!", null);
-
 	eventBus.addHandler(PlaceRequestEvent.TYPE, new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		final Place place = event.getPlace();
-		GWT.log("PLACE REQUEST: " + place.placeId, null);
 		for (final PlaceMatcher matcher : matchers) {
 		    if (matcher.matches(place)) {
 			matcher.handler.onPlaceRequest(event);
@@ -51,7 +47,6 @@ public class DefaultRouter implements Router {
 
     @Override
     public void onRequest(final String name, final PlaceRequestHandler handler) {
-	GWT.log("New matcher for place: " + name, null);
 	matchers.add(new PlaceMatcher(name, handler));
     }
 

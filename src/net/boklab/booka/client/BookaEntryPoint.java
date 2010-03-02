@@ -23,9 +23,9 @@ public class BookaEntryPoint implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-	BookaGinjector injector = GWT.<BookaGinjector> create(BookaGinjector.class);
-	RestServiceAsync restService = injector.getRestServiceAsync();
-	String hostPath = getMeta(CONFIG_HOST);
+	final BookaGinjector injector = GWT.<BookaGinjector> create(BookaGinjector.class);
+	final RestServiceAsync restService = injector.getRestServiceAsync();
+	final String hostPath = getMeta(CONFIG_HOST);
 	restService.setHostPath(hostPath);
 
 	injector.getProjects();
@@ -34,6 +34,7 @@ public class BookaEntryPoint implements EntryPoint {
 	final BookaAppPresenter booka = injector.getBookaAppPresenter();
 	RootLayoutPanel.get().add(booka.getDisplay().asWidget());
 
+	injector.getUserSessionPersistence().requestUserSession();
 	injector.getPlaceManager().fireCurrentPlace();
     }
 

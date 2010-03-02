@@ -11,7 +11,9 @@ import com.google.gwt.user.client.ui.LayoutPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 public class BookaAppWidget extends Composite implements BookaAppDisplay {
 
     interface BookaAppWidgetUiBinder extends UiBinder<Widget, BookaAppWidget> {

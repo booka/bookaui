@@ -11,7 +11,7 @@ import com.google.inject.Singleton;
 @Singleton
 public class WorkspaceWidget extends Composite implements WorkspaceDisplay {
     private static final int DOCK_EAST = 200;
-    private static final int DOCK_WEST = 250;
+    private static final int DOCK_WEST = 300;
 
     private final LayoutPanel dock;
 

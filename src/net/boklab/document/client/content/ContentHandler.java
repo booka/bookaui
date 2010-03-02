@@ -14,7 +14,7 @@ public abstract class ContentHandler {
 	return type;
     }
 
-    public abstract ContentEditor<?> newClipEditor(final Bok bok);
+    public abstract ContentEditor<?> newClipEditor();
 
     public abstract String render(final Bok bok);
 

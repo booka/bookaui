@@ -4,7 +4,7 @@ public interface UserSession {
 
     String getToken();
 
-    int getUserId();
+    String getUserId();
 
     String getUserName();
 

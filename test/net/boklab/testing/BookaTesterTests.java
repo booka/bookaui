@@ -4,7 +4,7 @@ import static org.junit.Assert.assertNotNull;
 import net.boklab.booka.client.BookaRouter;
 import net.boklab.document.client.persistence.Documents;
 import net.boklab.project.client.action.ProjectManager;
-import net.boklab.project.client.ui.ProjectListDisplay;
+import net.boklab.project.client.ui.ProjectBrowserDisplay;
 import net.boklab.tools.client.place.PlaceManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
@@ -23,7 +23,7 @@ public class BookaTesterTests {
     @Test
     public void shouldCreateDisplays() {
 	assertNotNull(test.get(NavigationDisplay.class));
-	assertNotNull(test.get(ProjectListDisplay.class));
+	assertNotNull(test.get(ProjectBrowserDisplay.class));
     }
 
     @Test

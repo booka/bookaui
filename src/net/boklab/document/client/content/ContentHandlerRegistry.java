@@ -3,8 +3,6 @@ package net.boklab.document.client.content;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import net.boklab.document.client.content.html.HtmlContentHandler;
-
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -20,7 +18,7 @@ public class ContentHandlerRegistry implements Iterable<ContentHandler> {
 
     public ContentHandler getHandler(final String contentType) {
 	final ContentHandler type = types.get(contentType);
-	return type != null ? type : types.get(HtmlContentHandler.TYPE);
+	return type;
     }
 
     @Override

@@ -15,6 +15,6 @@ public class BokCoreEntryPoint implements EntryPoint {
 	final SharedCssIcons css = new SharedIcons().style;
 	Icons.set(BokIcon.loading, css.loadingIcon());
 	final BokCoreMessages messages = GWT.create(BokCoreMessages.class);
-	I18nBok.set(messages);
+	I18nCore.set(messages);
     }
 }

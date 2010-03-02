@@ -1,7 +1,7 @@
 package net.boklab.booka.client;
 
 import net.boklab.project.client.action.ProjectManager;
-import net.boklab.project.client.ui.ProjectListPresenter;
+import net.boklab.project.client.ui.ProjectBrowserPresenter;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestEvent;
 import net.boklab.tools.client.place.PlaceRequestHandler;
@@ -15,7 +15,7 @@ public class BokEntranceInstaller {
 
     @Inject
     public BokEntranceInstaller(final Router router, final ProjectManager projects,
-	    final ProjectListPresenter projectList) {
+	    final ProjectBrowserPresenter projectList) {
 
 	router.onRequest("^/archives/\\w+$", new PlaceRequestHandler() {
 	    @Override

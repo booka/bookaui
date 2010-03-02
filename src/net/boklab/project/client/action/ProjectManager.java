@@ -1,13 +1,13 @@
 package net.boklab.project.client.action;
 
-import net.boklab.core.client.model.BokQuery;
-import net.boklab.core.client.persistence.BokListRetrievedEvent;
-import net.boklab.core.client.persistence.BokListRetrievedHandler;
 import net.boklab.core.client.persistence.BokManager;
 import net.boklab.core.client.persistence.BokRetrievedEvent;
 import net.boklab.core.client.persistence.BokRetrievedHandler;
+import net.boklab.project.client.I18nProject;
 import net.boklab.project.client.model.Project;
 import net.boklab.tools.client.eventbus.EventBus;
+import net.boklab.workspace.client.event.UserMessageEvent;
+import net.boklab.workspace.client.event.UserMessageEvent.Level;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -37,12 +37,13 @@ public class ProjectManager {
 	return activeProject;
     }
 
-    public void getProjectList() {
-	final BokQuery query = new BokQuery().bokTypeEquals(Project.TYPE);
-	manager.list(query, new BokListRetrievedHandler() {
+    public void getSite() {
+	eventBus.fireEvent(new UserMessageEvent(I18nProject.t.loadingSite(), Level.working));
+	manager.retrieve("1", new BokRetrievedHandler() {
 	    @Override
-	    public void onBokListRetrieved(final BokListRetrievedEvent event) {
-		eventBus.fireEvent(new ProjectListRetrievedEvent(event.getChildren()));
+	    public void onBokRetrieved(final BokRetrievedEvent event) {
+		eventBus.fireEvent(new SiteRetrievedEvent(event.getBok(), event.getChildren()));
+		eventBus.fireEvent(new UserMessageEvent(I18nProject.t.siteLoaded()));
 	    }
 	});
     }
@@ -51,21 +52,23 @@ public class ProjectManager {
 	return activeProject != null;
     }
 
-    public void onProjectList(final ProjectListRetrievedHandler handler) {
-	eventBus.addHandler(ProjectListRetrievedEvent.TYPE, handler);
-    }
-
     public void onProjectOpened(final ProjectOpenedHandler handler) {
 	eventBus.addHandler(ProjectOpenedEvent.getType(), handler);
     }
 
+    public void onSiteRetrieved(final SiteRetrievedHandler handler) {
+	eventBus.addHandler(SiteRetrievedEvent.TYPE, handler);
+    }
+
     public void openProject(final String projectId) {
+	eventBus.fireEvent(new UserMessageEvent(I18nProject.t.openingProject(), Level.working));
 	if (activeProject == null || !activeProject.getId().equals(projectId)) {
 	    manager.retrieve(projectId, new BokRetrievedHandler() {
 		@Override
 		public void onBokRetrieved(final BokRetrievedEvent event) {
 		    final Project project = new Project(event.getBok(), event.getChildren());
 		    eventBus.fireEvent(new ProjectOpenedEvent(project));
+		    eventBus.fireEvent(new UserMessageEvent(I18nProject.t.projectOpened(project.getTitle())));
 		}
 	    });
 	}

@@ -2,33 +2,6 @@
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
 	xmlns:g="urn:import:com.google.gwt.user.client.ui">
 	<ui:style>
-		.icon {
-			display: block;
-			float: left;
-			width: 64px;
-			height: 64px;
-			margin: 7px 0 0 10px;
-			cursor: pointer;
-		}
-		
-		.content {
-			background-color: #C6C8CA;
-		}
-		
-		.status {
-			display: block;
-			width: 100%;
-			padding: 1px 10px;
-			font-size: 90%;
-			background-color: black;
-			color: #C6C8CA;
-		}
-		
-		.right {
-			float: right;
-			margin: 7px 10px 0 0;
-		}
-		
 		@sprite .entrance {
 			gwt-image: 'entranceImage';
 		}
@@ -72,34 +45,28 @@
 	<ui:image field="loginImage" src="resources/login.icon.png"></ui:image>
 
 	<g:LayoutPanel styleName="bk-Navigation">
-		<g:layer left="0" top="0" width="250px" bottom="0">
-			<g:FlowPanel>
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.entrance}"
-					ui:field="entrance" />
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.archives}"
-					ui:field="archives" />
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.edition}"
-					ui:field="edition" />
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.booka}"
-					ui:field="booka" />
+		<g:layer left="0" top="0" width="300px" bottom="0">
+			<g:FlowPanel styleName="work">
+				<g:Anchor styleName="{style.entrance}" ui:field="entrance" />
+				<g:Anchor styleName="{style.archives}" ui:field="archives" />
+				<g:Anchor styleName="{style.edition}" ui:field="edition" />
+				<g:Anchor styleName="{style.booka}" ui:field="booka" />
 			</g:FlowPanel>
 		</g:layer>
-		<g:layer>
-			<g:FlowPanel>
-				<g:Label ui:field="title"></g:Label>
-				<g:Label ui:field="message"></g:Label>
+		<g:layer left="350px" top="0" right="300px" bottom="0">
+			<g:FlowPanel styleName="info">
+				<g:Label ui:field="user" styleName="user">Visitante</g:Label>
+				<g:Label ui:field="project"  styleName="project"/>
+				<g:Label ui:field="place"  styleName="place"/>
+				<g:Label ui:field="message"  styleName="message"/>
 			</g:FlowPanel>
 		</g:layer>
-		<g:layer top="0" bottom="0" width="200px" right="0">
-			<g:FlowPanel>
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.calendar}"
-					ui:field="calendar" />
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.account}"
-					ui:field="account" />
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.login}"
-					ui:field="login" />
-				<g:Anchor styleName="bk-Anchor {style.icon} {style.right} {style.contact}"
-					ui:field="contact" />
+		<g:layer top="0" bottom="0" width="300px" right="0">
+			<g:FlowPanel styleName="social">
+				<g:Anchor styleName="{style.calendar}" ui:field="calendar" />
+				<g:Anchor styleName="{style.account}" ui:field="account" />
+				<g:Anchor styleName="{style.login}" ui:field="login" />
+				<g:Anchor styleName="{style.contact}" ui:field="contact" />
 			</g:FlowPanel>
 		</g:layer>
 	</g:LayoutPanel>

@@ -12,13 +12,14 @@ import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestEvent;
 
 import com.allen_sauer.gwt.log.client.Log;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 public class NavigationPresenter implements Presenter<NavigationDisplay> {
-    private final NavigationDisplay navigation;
-
     final static String[] NAMES = new String[] { NavigationDisplay.CONTACT, NavigationDisplay.ACCOUNT,
 	    NavigationDisplay.ARCHIVES, NavigationDisplay.BOOKA, NavigationDisplay.CALENDAR, NavigationDisplay.EDITION,
 	    NavigationDisplay.ENTRANCE, NavigationDisplay.LOGIN };
@@ -29,12 +30,14 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
     public NavigationPresenter(final EventBus eventBus, final Sessions sessions, final ProjectManager projects,
 	    final NavigationDisplay display) {
 	this.display = display;
-	navigation = getDisplay();
 
-	showIcons(false, projects.hasActiveProject());
+	GWT.log("NAVI PRESENTER");
+
+	setProjectIconsVisible(projects.hasActiveProject());
+	setUserIconsVisible(false);
 
 	for (final String name : NAMES) {
-	    navigation.getLink(name).addClickHandler(new ClickHandler() {
+	    display.getLink(name).addClickHandler(new ClickHandler() {
 		@Override
 		public void onClick(final ClickEvent event) {
 		    Log.debug("Navigation:" + name);
@@ -47,17 +50,21 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	sessions.onLoggedIn(new LoggedInHandler() {
 	    @Override
 	    public void onLoggedIn(final LoggedInEvent event) {
-		showIcons(true, projects.hasActiveProject());
+		setUserIconsVisible(true);
+		setUser(event.getUserSession().getUserName());
 	    }
 	});
 
 	projects.onProjectOpened(new ProjectOpenedHandler() {
 	    @Override
 	    public void onProject(final ProjectOpenedEvent event) {
-		showIcons(sessions.isLoggedIn(), projects.hasActiveProject());
+		setProjectIconsVisible(projects.hasActiveProject());
 	    }
 	});
 
+	setUserIconsVisible(sessions.isLoggedIn());
+	setUser(sessions.getUserName());
+	setProjectIconsVisible(projects.hasActiveProject());
     }
 
     @Override
@@ -69,14 +76,27 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	display.getMessage().setText(message);
     }
 
-    private NavigationDisplay showIcons(final boolean loggedIn, final boolean hasProject) {
-	navigation.setVisible(NavigationDisplay.ARCHIVES, hasProject);
-	navigation.setVisible(NavigationDisplay.EDITION, hasProject);
-	navigation.setVisible(NavigationDisplay.BOOKA, hasProject);
+    public void setPlace(final String placeDescription) {
+	display.getPlace().setText(placeDescription);
+    }
 
-	navigation.setVisible(NavigationDisplay.ACCOUNT, loggedIn);
-	navigation.setVisible(NavigationDisplay.CALENDAR, loggedIn);
-	navigation.setVisible(NavigationDisplay.LOGIN, !loggedIn);
-	return navigation;
+    public void setProject(final String projectName) {
+	display.getProject().setText(projectName);
+    }
+
+    private void setProjectIconsVisible(final boolean hasProject) {
+	display.setVisible(NavigationDisplay.ARCHIVES, hasProject);
+	display.setVisible(NavigationDisplay.EDITION, hasProject);
+	display.setVisible(NavigationDisplay.BOOKA, hasProject);
+    }
+
+    private void setUserIconsVisible(final boolean loggedIn) {
+	display.setVisible(NavigationDisplay.ACCOUNT, loggedIn);
+	display.setVisible(NavigationDisplay.CALENDAR, loggedIn);
+	display.setVisible(NavigationDisplay.LOGIN, !loggedIn);
+    }
+
+    protected void setUser(final String userName) {
+	display.getUser().setText(userName);
     }
 }

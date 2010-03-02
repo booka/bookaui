@@ -45,7 +45,6 @@ public class BokArchivesInstaller {
 		final Place place = event.getPlace();
 		projects.openProject(place.resourceId);
 		show(browserProvider.get(), workspaceProvider.get());
-		router.fireChanged("I18n", place);
 	    }
 	});
 
@@ -55,7 +54,6 @@ public class BokArchivesInstaller {
 		final String documentId = event.getPlace().resourceId;
 		documents.openDocument(documentId);
 		show(browserProvider.get(), workspaceProvider.get());
-		router.fireChanged("i18n", event.getPlace());
 	    }
 	});
 
@@ -64,13 +62,14 @@ public class BokArchivesInstaller {
 	    public void onDocumentRetrieved(final DocumentRetrievedEvent event) {
 		final Document document = event.getDocument();
 		projects.openProject(document.getParentId());
+		router.fireChanged(document.getTitle(), new Place("documents", document.getId()));
 	    }
 	});
     }
 
     private void show(final DocumentBrowserPresenter browser, final WorkspacePresenter workspace) {
 	workspace.setCenter(documentProvider.get());
-	workspace.setRight(browser);
-	workspace.setLeft(null);
+	workspace.setLeft(browser);
+	workspace.setRight(null);
     }
 }

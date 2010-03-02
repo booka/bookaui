@@ -19,7 +19,7 @@ public class LoginPresenter implements Presenter<LoginDisplay> {
 	display.getLogin().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {
-		sessions.login("Test", "secret");
+		sessions.login("test@plataformabooka.net", "entrar");
 	    }
 	});
 

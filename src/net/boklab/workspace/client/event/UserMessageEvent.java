@@ -5,7 +5,7 @@ import com.google.gwt.event.shared.GwtEvent;
 public class UserMessageEvent extends GwtEvent<UserMessageHandler> {
 
     public static enum Level {
-	info, error
+	info, error, working
     }
 
     private static final Type<UserMessageHandler> TYPE = new Type<UserMessageHandler>();
@@ -15,6 +15,7 @@ public class UserMessageEvent extends GwtEvent<UserMessageHandler> {
     }
 
     private final String message;
+    private final Level level;
 
     public UserMessageEvent(final String message) {
 	this(message, Level.info);
@@ -22,6 +23,7 @@ public class UserMessageEvent extends GwtEvent<UserMessageHandler> {
 
     public UserMessageEvent(final String message, final Level level) {
 	this.message = message;
+	this.level = level;
     }
 
     @Override
@@ -29,8 +31,17 @@ public class UserMessageEvent extends GwtEvent<UserMessageHandler> {
 	return getType();
     }
 
+    public Level getLevel() {
+	return level;
+    }
+
     public String getMessage() {
 	return message;
+    }
+
+    @Override
+    public String toDebugString() {
+	return super.toDebugString() + message + "(" + level + ")";
     }
 
     @Override

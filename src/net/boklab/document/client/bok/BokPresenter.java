@@ -39,7 +39,19 @@ public class BokPresenter implements Presenter<BokDisplay> {
 	this.actions = actions;
 
 	display.setSlotsVisible(false);
-	setInsertable(true);
+
+	display.getMouseOver().addMouseOverHandler(new MouseOverHandler() {
+	    @Override
+	    public void onMouseOver(final MouseOverEvent event) {
+		setActive(!display.hasControls());
+	    }
+	});
+	display.getMouseOut().addMouseOutHandler(new MouseOutHandler() {
+	    @Override
+	    public void onMouseOut(final MouseOutEvent event) {
+		setActive(false);
+	    }
+	});
 
 	display.getActive().addClickHandler(new ClickHandler() {
 	    @Override
@@ -84,7 +96,7 @@ public class BokPresenter implements Presenter<BokDisplay> {
 	return bok;
     }
 
-    public ContentHandler getContentType() {
+    public ContentHandler getContentHandler() {
 	return contentHandler;
     }
 
@@ -112,8 +124,12 @@ public class BokPresenter implements Presenter<BokDisplay> {
     public void setBok(final Bok clip, final ContentHandler contentHandler) {
 	bok = clip;
 	this.contentHandler = contentHandler;
-	final String body = contentHandler.render(clip);
-	getDisplay().getBody().setHTML(body);
+	final boolean hasContent = contentHandler != null;
+	if (hasContent) {
+	    final String body = contentHandler.render(clip);
+	    display.getBody().setHTML(body);
+	}
+	getDisplay().setViewVisible(hasContent);
     }
 
     public void setEditor(final BokEditorDisplay editor) {
@@ -124,24 +140,6 @@ public class BokPresenter implements Presenter<BokDisplay> {
 	    display.addStyleName("editor");
 	} else {
 	    display.removeStyleName("editor");
-	}
-    }
-
-    // FIXME
-    public void setInsertable(final boolean editable) {
-	if (editable) {
-	    display.getMouseOver().addMouseOverHandler(new MouseOverHandler() {
-		@Override
-		public void onMouseOver(final MouseOverEvent event) {
-		    setActive(!display.hasControls());
-		}
-	    });
-	    display.getMouseOut().addMouseOutHandler(new MouseOutHandler() {
-		@Override
-		public void onMouseOut(final MouseOutEvent event) {
-		    setActive(false);
-		}
-	    });
 	}
     }
 

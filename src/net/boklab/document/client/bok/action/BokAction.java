@@ -5,17 +5,17 @@ import net.boklab.document.client.bok.BokPresenter;
 public abstract class BokAction {
 
     private final String type;
-    private final String label;
+    protected String actionLabel;
 
     public BokAction(final String type, final String label) {
 	this.type = type;
-	this.label = label;
+	this.actionLabel = label;
     }
 
     public abstract void execute(BokPresenter presenter);
 
     public String getLabel() {
-	return label;
+	return actionLabel;
     }
 
     public String getType() {

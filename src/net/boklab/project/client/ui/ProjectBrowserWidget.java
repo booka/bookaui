@@ -7,10 +7,12 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
-public class ProjectListWidget extends Composite implements ProjectListDisplay {
+@Singleton
+public class ProjectBrowserWidget extends Composite implements ProjectBrowserDisplay {
 
-    interface ProjectListWidgetUiBinder extends UiBinder<Widget, ProjectListWidget> {
+    interface ProjectListWidgetUiBinder extends UiBinder<Widget, ProjectBrowserWidget> {
     }
 
     private static ProjectListWidgetUiBinder uiBinder = GWT.create(ProjectListWidgetUiBinder.class);
@@ -19,12 +21,12 @@ public class ProjectListWidget extends Composite implements ProjectListDisplay {
     FlowPanel list;
 
     @Inject
-    public ProjectListWidget() {
+    public ProjectBrowserWidget() {
 	initWidget(uiBinder.createAndBindUi(this));
     }
 
     @Override
-    public void add(ProjectDisplay projectDisplay) {
+    public void add(final ProjectDisplay projectDisplay) {
 	list.add(projectDisplay.asWidget());
     }
 
@@ -40,7 +42,7 @@ public class ProjectListWidget extends Composite implements ProjectListDisplay {
 
     @Override
     public ProjectDisplay createProjectDisplay() {
-	ProjectWidget projectWidget = new ProjectWidget();
+	final ProjectWidget projectWidget = new ProjectWidget();
 	return projectWidget;
     }
 

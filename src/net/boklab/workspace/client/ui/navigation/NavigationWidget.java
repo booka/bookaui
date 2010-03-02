@@ -12,7 +12,9 @@ import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
+import com.google.inject.Singleton;
 
+@Singleton
 public class NavigationWidget extends Composite implements NavigationDisplay {
 
     interface NavigationWidgetUiBinder extends UiBinder<Widget, NavigationWidget> {
@@ -24,7 +26,7 @@ public class NavigationWidget extends Composite implements NavigationDisplay {
     Anchor entrance, archives, edition, booka, calendar, account, contact, login;
 
     @UiField
-    Label title, message;
+    Label place, message, project, user;
 
     private final HashMap<String, Anchor> items;
 
@@ -55,6 +57,21 @@ public class NavigationWidget extends Composite implements NavigationDisplay {
     @Override
     public HasText getMessage() {
 	return message;
+    }
+
+    @Override
+    public HasText getPlace() {
+	return place;
+    }
+
+    @Override
+    public HasText getProject() {
+	return project;
+    }
+
+    @Override
+    public HasText getUser() {
+	return user;
     }
 
     @Override

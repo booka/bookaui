@@ -82,7 +82,7 @@ public class DelegatedBok implements Bok {
 
     @Override
     public void setBokType(final String type) {
-	assert false : "Only subclasess can change bok type";
+	delegate.setBokType(type);
     }
 
     @Override

@@ -4,8 +4,8 @@
 	<ui:style>
 		
 	</ui:style>
-	<g:FlowPanel styleName="bk-Login Form">
-		<g:HTMLPanel>
+	<g:FlowPanel styleName="bk-Login bk-Form">
+		<g:HTMLPanel styleName="fields">
 			<h1>Entrar</h1>
 			<p>
 				<label>Email:</label>

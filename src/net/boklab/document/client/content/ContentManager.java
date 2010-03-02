@@ -10,18 +10,27 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ContentTypeManager {
+public class ContentManager {
 
     private final Provider<BokPresenter> clipProvider;
     private final ContentHandlerRegistry registry;
     private final Provider<BokEditorDisplay> editorDisplayProvider;
 
     @Inject
-    public ContentTypeManager(final ContentHandlerRegistry registry, final Provider<BokPresenter> clipProvider,
+    public ContentManager(final ContentHandlerRegistry registry, final Provider<BokPresenter> clipProvider,
 	    final Provider<BokEditorDisplay> editorDisplayProvider) {
 	this.registry = registry;
 	this.clipProvider = clipProvider;
 	this.editorDisplayProvider = editorDisplayProvider;
+    }
+
+    public String getContentType(final Bok bok) {
+	final String contentType = bok.getContentType();
+	if (contentType == null || "".equals(contentType)) {
+	    return bok.getBokType();
+	} else {
+	    return contentType;
+	}
     }
 
     public ContentHandler getHandler(final Bok bok) {
@@ -43,17 +52,13 @@ public class ContentTypeManager {
 	return newEditor(bok, getContentType(bok));
     }
 
-    public BokEditorDisplay newEditor(final Bok clip, final String contentType) {
+    public BokEditorDisplay newEditor(final Bok bok, final String contentType) {
 	final ContentHandler handler = registry.getHandler(contentType);
-	final ContentEditor<?> editor = handler.newClipEditor(clip);
+	final ContentEditor<?> editor = handler.newClipEditor();
+	editor.setBok(bok);
 	final BokEditorDisplay editorDisplay = editorDisplayProvider.get();
 	editorDisplay.setEditor(editor);
 	return editorDisplay;
-    }
-
-    private String getContentType(final Bok bok) {
-	final String contentType = bok.getContentType();
-	return !"".equals(contentType) ? contentType : bok.getBokType();
     }
 
 }

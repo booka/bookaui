@@ -1,9 +1,9 @@
 package net.boklab.core.client;
 
-public class I18nBok {
+public class I18nCore {
     public static BokCoreMessages t;
 
     public static void set(final BokCoreMessages messages) {
-	I18nBok.t = messages;
+	I18nCore.t = messages;
     }
 }
