@@ -2,12 +2,13 @@ package net.boklab.browser.client.ui;
 
 import net.boklab.document.client.model.Document;
 import net.boklab.document.client.persistence.Documents;
-import net.boklab.project.client.action.ProjectManager;
-import net.boklab.project.client.action.ProjectOpenedEvent;
-import net.boklab.project.client.action.ProjectOpenedHandler;
-import net.boklab.project.client.model.Project;
+import net.boklab.site.client.action.ProjectManager;
+import net.boklab.site.client.action.ProjectOpenedEvent;
+import net.boklab.site.client.action.ProjectOpenedHandler;
+import net.boklab.site.client.model.Project;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
@@ -23,6 +24,8 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
     public DocumentBrowserPresenter(final Documents documents, final ProjectManager projects,
 	    final Provider<DocumentBrowserDisplay> displayProvider, final Provider<DocumentItemPresenter> itemProvider) {
 	super(displayProvider);
+
+	GWT.log("CREATE DocumentBrowserPresenter");
 
 	currentProject = null;
 
@@ -47,7 +50,6 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
 		assert currentProject != null : "You should receive onNewDocument event without documents loaded previously";
 		final Document document = currentProject.newDocument("Sin título");
 		documents.createDocument(document, null);
-		projects.openProject(currentProject.getId());
 	    }
 	});
     }

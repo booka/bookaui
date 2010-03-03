@@ -12,4 +12,6 @@ public interface WorkspaceDisplay extends Display {
 
     void setRight(Display display);
 
+    void setVisible(boolean visible);
+
 }

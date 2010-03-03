@@ -5,7 +5,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.RichTextArea;
 import com.google.gwt.user.client.ui.Widget;
 
 public class HtmlEditorWidget extends Composite implements HtmlEditorDisplay {
@@ -16,7 +16,7 @@ public class HtmlEditorWidget extends Composite implements HtmlEditorDisplay {
     private static HtmlEditorWidgetUiBinder uiBinder = GWT.create(HtmlEditorWidgetUiBinder.class);
 
     @UiField
-    TextArea body;
+    RichTextArea body;
 
     public HtmlEditorWidget() {
 	initWidget(uiBinder.createAndBindUi(this));

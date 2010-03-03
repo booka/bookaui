@@ -3,7 +3,7 @@
 <module>
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="net.boklab.document.BokDocuments" />
-	<inherits name="net.boklab.project.BokProjects" />
+	<inherits name="net.boklab.site.BokSite" />
 
 	<source path="client" />
 	<entry-point class="net.boklab.browser.client.BrowserEntryPoint" />

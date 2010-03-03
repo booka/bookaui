@@ -20,6 +20,7 @@ public class PlaceManager {
 	this.eventBus = eventBus;
 	this.tokenizer = tokenizer;
 	this.history = history;
+
 	history.addValueChangeHandler(new ValueChangeHandler<String>() {
 	    @Override
 	    public void onValueChange(final ValueChangeEvent<String> event) {

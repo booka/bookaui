@@ -20,8 +20,6 @@ public class BookaRouterTests {
     private WorkspaceDisplay workspace;
     @Inject
     private BookaAppDisplay booka;
-    @Inject
-    BookaRouter bookaRouter;
 
     @Before
     public void setup() {
@@ -44,7 +42,7 @@ public class BookaRouterTests {
 	shouldShowWorkspace(new Place("archives"));
     }
 
-    private void shouldShowWorkspace(Place place) {
+    private void shouldShowWorkspace(final Place place) {
 	router.fireRequest(place);
 	verify(booka).setContent(workspace);
 	assertEquals(place, router.getLastChanged());

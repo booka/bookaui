@@ -11,7 +11,7 @@ public class BokCalendarModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
-	bind(BokCalendarInstaller.class).asEagerSingleton();
+	bind(CalendarController.class).asEagerSingleton();
 	bind(CalendarDisplay.class).to(CalendarWidget.class);
 	bind(CalendarPresenter.class).in(Singleton.class);
     }

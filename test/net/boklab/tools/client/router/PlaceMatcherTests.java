@@ -10,8 +10,8 @@ public class PlaceMatcherTests {
 
     @Test
     public void shouldMatch() {
-	Place entrance = new Place("entrance");
-	assertEquals("/entrance", entrance.placeId);
+	final Place entrance = new Place("entrance");
+	assertEquals("/entrance", entrance.placeToken);
 	assertTrue(new PlaceMatcher("^/entrance$", null).matches(entrance));
     }
 }

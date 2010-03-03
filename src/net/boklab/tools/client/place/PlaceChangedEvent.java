@@ -5,7 +5,12 @@ import com.google.gwt.event.shared.GwtEvent;
 public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
 
     private static final Type<PlaceChangedHandler> TYPE = new Type<PlaceChangedHandler>();
+
+    public static Type<PlaceChangedHandler> getType() {
+	return TYPE;
+    }
     private final Place place;
+
     private final String description;
 
     public PlaceChangedEvent(final String description, final Place place) {
@@ -27,12 +32,13 @@ public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
     }
 
     @Override
-    protected void dispatch(final PlaceChangedHandler handler) {
-	handler.onPlaceChanged(this);
+    public String toDebugString() {
+	return super.toDebugString() + place.toDebugString() + " (" + description + ")";
     }
 
-    public static Type<PlaceChangedHandler> getType() {
-	return TYPE;
+    @Override
+    protected void dispatch(final PlaceChangedHandler handler) {
+	handler.onPlaceChanged(this);
     }
 
 }

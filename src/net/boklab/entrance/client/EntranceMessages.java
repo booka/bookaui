@@ -6,7 +6,7 @@ import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 @DefaultLocale("es")
 public interface EntranceMessages extends Messages {
 
-    @DefaultMessage("Bienvenidx a Booka")
+    @DefaultMessage("Investigaciones y convocatorias")
     String placeEntrance();
 
 }

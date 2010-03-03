@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import net.boklab.core.client.SimpleBok;
 import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.model.Document;
-import net.boklab.project.client.model.Project;
+import net.boklab.site.client.model.Project;
 
 public class Boky {
     static final int SIZE = 10;
@@ -45,16 +45,16 @@ public class Boky {
 	id++;
     }
 
-    private static ArrayList<Bok> results(final String type, final int size) {
+    private static String seq(final String model) {
+	return model + "-" + id;
+    }
+
+    protected static ArrayList<Bok> results(final String type, final int size) {
 	final ArrayList<Bok> children = new ArrayList<Bok>();
 	for (int index = 0; index < size; index++) {
 	    children.add(bok(type));
 	}
 	return children;
-    }
-
-    private static String seq(final String model) {
-	return model + "-" + id;
     }
 
 }

@@ -20,14 +20,14 @@ public class RestPlaceTokenizerTests {
     public void shouldGetControllerAndIdRequest() {
 	Place place = tokenizer.fromString("/archives/1");
 	assertEquals("archives", place.controller);
-	assertEquals("1", place.resourceId);
+	assertEquals("1", place.id);
     }
 
     @Test
     public void shouldGetControllerRequest() {
 	Place place = tokenizer.fromString("/archives");
 	assertEquals("archives", place.controller);
-	assertNull(place.resourceId);
+	assertNull(place.id);
     }
 
     @Test

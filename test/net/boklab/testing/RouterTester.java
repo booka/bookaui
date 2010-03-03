@@ -48,8 +48,8 @@ public class RouterTester extends DefaultRouter {
     }
 
     @Override
-    public void onRequest(final String regex, final PlaceRequestHandler handler) {
-	super.onRequest(regex, handler);
+    public void onRequest(final Path path, final PlaceRequestHandler handler) {
+	super.onRequest(path, handler);
     }
 
 }

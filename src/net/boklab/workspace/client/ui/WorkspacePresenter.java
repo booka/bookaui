@@ -3,6 +3,7 @@ package net.boklab.workspace.client.ui;
 import net.boklab.tools.client.mvp.Display;
 import net.boklab.tools.client.mvp.Presenter;
 
+import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -24,6 +25,7 @@ public class WorkspacePresenter implements Presenter<WorkspaceDisplay> {
 
     public void setCenter(final Presenter<? extends Display> presenter) {
 	if (center != presenter) {
+	    GWT.log("Set center: " + (presenter != null ? presenter : "nothign"));
 	    if (center != null) {
 		display.remove(center.getDisplay());
 	    }
@@ -36,8 +38,13 @@ public class WorkspacePresenter implements Presenter<WorkspaceDisplay> {
 
     public void setLeft(final Presenter<? extends Display> presenter) {
 	if (left != presenter) {
+	    GWT.log("Set left: " + (presenter != null ? presenter : "nothing"));
 	    if (left != null) {
+		GWT.log("Remove left" + left.getDisplay());
 		display.remove(left.getDisplay());
+	    }
+	    if (presenter == right) {
+		setRight(null);
 	    }
 	    left = presenter;
 	    if (left != null) {
@@ -48,13 +55,22 @@ public class WorkspacePresenter implements Presenter<WorkspaceDisplay> {
 
     public void setRight(final Presenter<? extends Display> presenter) {
 	if (right != presenter) {
+	    GWT.log("Set right: " + (presenter != null ? presenter : "nothign"));
 	    if (right != null) {
 		display.remove(right.getDisplay());
+	    }
+	    if (presenter == left) {
+		setLeft(null);
 	    }
 	    right = presenter;
 	    if (right != null) {
 		display.setRight(right.getDisplay());
 	    }
 	}
+    }
+
+    public void setVisible(final boolean visible) {
+	display.setVisible(visible);
+
     }
 }

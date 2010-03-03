@@ -32,7 +32,7 @@ public class RestPlaceTokenizer implements PlaceTokenizer {
 	String controller = place.controller;
 	if (controller != null)
 	    token += controller;
-	String id = place.resourceId;
+	String id = place.id;
 	if (id != null)
 	    token += "/" + id;
 	return token;

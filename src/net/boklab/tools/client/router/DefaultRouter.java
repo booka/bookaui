@@ -8,6 +8,7 @@ import net.boklab.tools.client.place.PlaceChangedEvent;
 import net.boklab.tools.client.place.PlaceRequestEvent;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 
+import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -22,7 +23,7 @@ public class DefaultRouter implements Router {
 	this.eventBus = eventBus;
 	matchers = new ArrayList<PlaceMatcher>();
 
-	eventBus.addHandler(PlaceRequestEvent.TYPE, new PlaceRequestHandler() {
+	eventBus.addHandler(PlaceRequestEvent.getType(), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		final Place place = event.getPlace();
@@ -46,8 +47,9 @@ public class DefaultRouter implements Router {
     }
 
     @Override
-    public void onRequest(final String name, final PlaceRequestHandler handler) {
-	matchers.add(new PlaceMatcher(name, handler));
+    public void onRequest(final Path path, final PlaceRequestHandler handler) {
+	GWT.log("NEW ROUTE: " + path.regex);
+	matchers.add(new PlaceMatcher(path.regex, handler));
     }
 
 }

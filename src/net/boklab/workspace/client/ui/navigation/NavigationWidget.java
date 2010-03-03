@@ -2,14 +2,15 @@ package net.boklab.workspace.client.ui.navigation;
 
 import java.util.HashMap;
 
+import net.boklab.workspace.client.ui.signals.SignalsDisplay;
+import net.boklab.workspace.client.ui.signals.SignalsWidget;
+
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.HasText;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -24,9 +25,8 @@ public class NavigationWidget extends Composite implements NavigationDisplay {
 
     @UiField
     Anchor entrance, archives, edition, booka, calendar, account, contact, login;
-
     @UiField
-    Label place, message, project, user;
+    SignalsWidget signals;
 
     private final HashMap<String, Anchor> items;
 
@@ -55,23 +55,8 @@ public class NavigationWidget extends Composite implements NavigationDisplay {
     }
 
     @Override
-    public HasText getMessage() {
-	return message;
-    }
-
-    @Override
-    public HasText getPlace() {
-	return place;
-    }
-
-    @Override
-    public HasText getProject() {
-	return project;
-    }
-
-    @Override
-    public HasText getUser() {
-	return user;
+    public SignalsDisplay getSignals() {
+	return signals;
     }
 
     @Override

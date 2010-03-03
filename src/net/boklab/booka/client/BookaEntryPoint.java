@@ -5,6 +5,7 @@ import net.boklab.workspace.client.ui.app.BookaAppPresenter;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.core.client.GWT.UncaughtExceptionHandler;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.RootLayoutPanel;
@@ -23,13 +24,19 @@ public class BookaEntryPoint implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
+	GWT.setUncaughtExceptionHandler(new UncaughtExceptionHandler() {
+	    @Override
+	    public void onUncaughtException(final Throwable e) {
+		GWT.log("Uncaught: ", e);
+	    }
+	});
+
 	final BookaGinjector injector = GWT.<BookaGinjector> create(BookaGinjector.class);
 	final RestServiceAsync restService = injector.getRestServiceAsync();
 	final String hostPath = getMeta(CONFIG_HOST);
 	restService.setHostPath(hostPath);
 
 	injector.getProjects();
-	injector.getBookaRouter();
 
 	final BookaAppPresenter booka = injector.getBookaAppPresenter();
 	RootLayoutPanel.get().add(booka.getDisplay().asWidget());

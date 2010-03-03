@@ -15,8 +15,8 @@ public class LoggerEventBus extends HandlerManager implements EventBus {
     }
 
     @Override
-    public void fireEvent(GwtEvent<?> event) {
-	Log.debug("EventBus: " + event.toDebugString());
+    public void fireEvent(final GwtEvent<?> event) {
+	Log.debug("*" + event.toDebugString());
 	super.fireEvent(event);
     }
 }

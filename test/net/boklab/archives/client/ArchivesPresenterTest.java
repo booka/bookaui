@@ -1,9 +1,9 @@
 package net.boklab.archives.client;
 
 import static org.mockito.Mockito.verify;
-import net.boklab.booka.client.BokArchivesInstaller;
 import net.boklab.browser.client.ui.DocumentBrowserDisplay;
-import net.boklab.project.client.action.ProjectOpenedEvent;
+import net.boklab.site.client.SitesController;
+import net.boklab.site.client.action.ProjectOpenedEvent;
 import net.boklab.testing.Boky;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.EventBusTester;
@@ -23,7 +23,7 @@ public class ArchivesPresenterTest {
     @Inject
     DocumentBrowserDisplay browser;
     @Inject
-    BokArchivesInstaller presenter;
+    SitesController presenter;
 
     @Before
     public void setup() {
@@ -32,7 +32,7 @@ public class ArchivesPresenterTest {
 
     @Test
     public void shouldShowBrowserOnWorkspaceWhenProjectOpened() {
-	eventBus.fireEvent(new ProjectOpenedEvent(Boky.project()));
+	eventBus.fireEvent(new ProjectOpenedEvent(Boky.project(), true));
 	verify(workspace).setRight(browser);
     }
 }

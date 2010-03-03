@@ -6,7 +6,7 @@ public class BokEntranceModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
-	bind(BokEntranceInstaller.class).asEagerSingleton();
+	bind(EntranceController.class).asEagerSingleton();
     }
 
 }

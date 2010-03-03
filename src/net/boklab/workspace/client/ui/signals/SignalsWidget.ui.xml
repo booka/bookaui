@@ -1,0 +1,21 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		
+	</ui:style>
+	<g:LayoutPanel styleName="bk-Signals">
+		<g:layer left="0" right="50%" top="0.1em" height="1.1em">
+			<g:Label ui:field="project" styleName="project" />
+		</g:layer>
+		<g:layer left="50%" right="0" top="0" height="1em">
+			<g:Label ui:field="user" styleName="user">Visitante</g:Label>
+		</g:layer>
+		<g:layer left="0" right="0" top="1.3em" bottom="2.3em">
+			<g:Label ui:field="place" styleName="place" />
+		</g:layer>
+		<g:layer left="0" right="0" height="1.7em" bottom="0.3em">
+			<g:FlowPanel ui:field="messages" styleName="messages" />
+		</g:layer>
+	</g:LayoutPanel>
+</ui:UiBinder> 

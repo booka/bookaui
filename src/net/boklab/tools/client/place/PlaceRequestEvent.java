@@ -4,8 +4,13 @@ import com.google.gwt.event.shared.GwtEvent;
 
 public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler> {
 
-    public static final Type<PlaceRequestHandler> TYPE = new Type<PlaceRequestHandler>();
+    private static final Type<PlaceRequestHandler> TYPE = new Type<PlaceRequestHandler>();
+
+    public static Type<PlaceRequestHandler> getType() {
+	return TYPE;
+    }
     private final Place place;
+
     private final boolean isFromHistory;
 
     public PlaceRequestEvent(final Place place) {
@@ -19,7 +24,7 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler> {
 
     @Override
     public Type<PlaceRequestHandler> getAssociatedType() {
-	return TYPE;
+	return getType();
     }
 
     public Place getPlace() {
@@ -32,7 +37,7 @@ public class PlaceRequestEvent extends GwtEvent<PlaceRequestHandler> {
 
     @Override
     public String toDebugString() {
-	return super.toDebugString() + place + "(" + isFromHistory + ")";
+	return super.toDebugString() + place.toDebugString() + " (from history: " + isFromHistory + ")";
     }
 
     @Override

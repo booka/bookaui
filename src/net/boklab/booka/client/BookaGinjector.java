@@ -16,5 +16,4 @@ public interface BookaGinjector extends BrowserGinjector, BokWorkspaceGinjector,
 	BokCalendarGinjector, BokUserGinjector, BokEntranceGinjector {
     BookaAppPresenter getBookaAppPresenter();
 
-    BookaRouter getBookaRouter();
 }

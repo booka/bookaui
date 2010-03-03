@@ -1,10 +1,9 @@
 package net.boklab.testing;
 
 import static org.junit.Assert.assertNotNull;
-import net.boklab.booka.client.BookaRouter;
 import net.boklab.document.client.persistence.Documents;
-import net.boklab.project.client.action.ProjectManager;
-import net.boklab.project.client.ui.ProjectBrowserDisplay;
+import net.boklab.site.client.action.ProjectManager;
+import net.boklab.site.client.ui.ProjectBrowserDisplay;
 import net.boklab.tools.client.place.PlaceManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
@@ -36,11 +35,6 @@ public class BookaTesterTests {
     @Test
     public void shouldCreatePresenters() {
 	assertNotNull(test.get(NavigationPresenter.class));
-    }
-
-    @Test
-    public void shouldCreateRouters() {
-	assertNotNull(test.get(BookaRouter.class));
     }
 
 }

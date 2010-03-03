@@ -5,6 +5,6 @@
 		
 	</ui:style>
 	<g:HTMLPanel styleName="bk-HtmlEditor clipEditor">
-		<g:TextArea ui:field="body"></g:TextArea>
+		<g:RichTextArea ui:field="body" />
 	</g:HTMLPanel>
 </ui:UiBinder> 

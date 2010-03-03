@@ -10,7 +10,7 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class WorkspaceWidget extends Composite implements WorkspaceDisplay {
-    private static final int DOCK_EAST = 200;
+    private static final int DOCK_EAST = 250;
     private static final int DOCK_WEST = 300;
 
     private final LayoutPanel dock;
@@ -36,7 +36,7 @@ public class WorkspaceWidget extends Composite implements WorkspaceDisplay {
 	final Widget center = display.asWidget();
 	dock.add(center);
 	dock.setWidgetTopBottom(center, 0, PX, 0, PX);
-	dock.setWidgetLeftRight(center, DOCK_WEST, PX, DOCK_EAST, PX);
+	dock.setWidgetLeftRight(center, DOCK_WEST + 20, PX, DOCK_EAST + 20, PX);
 	dock.animate(250);
     }
 

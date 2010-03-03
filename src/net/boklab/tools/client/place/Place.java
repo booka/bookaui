@@ -12,43 +12,51 @@ public class Place {
     public static final Place ROOT = new Place();
     public static final Place UNKNOWN = new Place(BLANK, BLANK);
 
+    public static String urlFor(final String resource) {
+	return "/" + resource;
+    }
+
+    public static String urlFor(final String controller, final String resourceId) {
+	final String c = controller == null ? BLANK : controller;
+	final String i = resourceId == null ? BLANK : "/" + resourceId;
+	return "/" + c + i;
+    }
     public final String controller;
-    public final String resourceId;
-    public final String placeId;
+
+    public final String id;
+
+    public final String placeToken;
 
     public Place() {
 	this(null, null);
     }
 
-    public Place(String controller) {
+    public Place(final String controller) {
 	this(controller, null);
     }
 
-    public Place(String controller, String resourceId) {
+    public Place(final String controller, final String resourceId) {
 	this.controller = controller;
-	this.resourceId = resourceId;
-	String c = controller == null ? BLANK : controller;
-	String i = resourceId == null ? BLANK : "/" + resourceId;
-	this.placeId = "/" + c + i;
+	id = resourceId;
+	final String t = urlFor(controller, resourceId);
+	placeToken = t;
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
 	if (o instanceof Place) {
-	    Place place = (Place) o;
-	    return placeId.equals(place.placeId);
+	    final Place place = (Place) o;
+	    return placeToken.equals(place.placeToken);
 	}
 	return false;
     }
 
     @Override
     public int hashCode() {
-	return 16 * placeId.hashCode();
+	return 16 * placeToken.hashCode();
     }
 
-    @Override
-    public String toString() {
-	return "Place: " + placeId;
+    public String toDebugString() {
+	return "Place: " + placeToken;
     }
-
 }

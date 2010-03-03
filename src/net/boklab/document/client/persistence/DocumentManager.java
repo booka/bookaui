@@ -13,7 +13,6 @@ import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.workspace.client.event.UserMessageEvent;
-import net.boklab.workspace.client.event.UserMessageEvent.Level;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -28,6 +27,16 @@ public class DocumentManager implements Documents {
     public DocumentManager(final EventBus eventBus, final Sessions sessions) {
 	this.eventBus = eventBus;
 	this.sessions = sessions;
+    }
+
+    @Override
+    public void addDocumentRequestHandler(final DocumentRequestHandler handler) {
+	eventBus.addHandler(DocumentRequestEvent.getType(), handler);
+    }
+
+    @Override
+    public void addDocumentRetrievedHandler(final DocumentRetrievedHandler handler) {
+	eventBus.addHandler(DocumentRetrievedEvent.getType(), handler);
     }
 
     @Override
@@ -56,13 +65,8 @@ public class DocumentManager implements Documents {
     }
 
     @Override
-    public void onDocumentOpened(final DocumentRetrievedHandler handler) {
-	eventBus.addHandler(DocumentRetrievedEvent.getType(), handler);
-    }
-
-    @Override
     public void openDocument(final String documentId) {
-	eventBus.fireEvent(new UserMessageEvent(I18nDocs.t.openingDocument(), Level.working));
+	eventBus.fireEvent(new DocumentRequestEvent(documentId));
 	eventBus.fireEvent(new RetrieveBokEvent(documentId, new BokRetrievedHandler() {
 	    @Override
 	    public void onBokRetrieved(final BokRetrievedEvent event) {

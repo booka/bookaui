@@ -1,9 +1,9 @@
 package net.boklab.workspace.client.ui.navigation;
 
 import net.boklab.tools.client.mvp.Display;
+import net.boklab.workspace.client.ui.signals.SignalsDisplay;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
-import com.google.gwt.user.client.ui.HasText;
 
 public interface NavigationDisplay extends Display {
     static final String CONTACT = "contact";
@@ -19,14 +19,7 @@ public interface NavigationDisplay extends Display {
 
     HasClickHandlers getLink(String name);
 
-    HasText getMessage();
-
-    HasText getPlace();
-
-    HasText getProject();
-
-    HasText getUser();
+    SignalsDisplay getSignals();
 
     void setVisible(String item, boolean visible);
-
 }
