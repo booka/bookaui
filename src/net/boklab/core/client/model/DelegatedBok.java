@@ -1,14 +1,38 @@
 package net.boklab.core.client.model;
 
-public class DelegatedBok implements Bok {
-    protected final Bok delegate;
-    private final String bokType;
+import java.util.ArrayList;
 
-    public DelegatedBok(final Bok delegate, final String bokType) {
-	assert bokType.equals(delegate.getBokType()) : "Bok type doesn't match! (" + bokType + " != "
-		+ delegate.getBokType() + ")";
+public class DelegatedBok implements Bok {
+    public static Bok build(final BokResponseJSO response) {
+	return new DelegatedBok(response.getBok(), getChildren(response));
+    }
+
+    private static ArrayList<Bok> getChildren(final BokResponseJSO response) {
+	final ArrayList<Bok> children = new ArrayList<Bok>();
+	final int total = response.getChildrenSize();
+	for (int index = 0; index < total; index++) {
+	    children.add(new DelegatedBok(response.getChildren(index)));
+	}
+	return children;
+    }
+
+    protected final BokDTO delegate;
+    private final ArrayList<Bok> children;
+    private Bok parent;
+
+    public DelegatedBok(final BokDTO delegate) {
+	this(delegate, new ArrayList<Bok>());
+    }
+
+    protected DelegatedBok(final BokDTO delegate, final ArrayList<Bok> children) {
 	this.delegate = delegate;
-	this.bokType = bokType;
+	this.children = children;
+    }
+
+    @Override
+    public BokDTO createBok(final String type, final String title, final String parentId, final String userId,
+	    final int position) {
+	return delegate.createBok(type, title, parentId, userId, position);
     }
 
     @Override
@@ -19,6 +43,11 @@ public class DelegatedBok implements Bok {
     @Override
     public String getBokType() {
 	return delegate.getBokType();
+    }
+
+    @Override
+    public ArrayList<Bok> getChildren() {
+	return children;
     }
 
     @Override
@@ -38,6 +67,11 @@ public class DelegatedBok implements Bok {
 
     public String getIdString() {
 	return "" + getId();
+    }
+
+    @Override
+    public Bok getParent() {
+	return parent;
     }
 
     @Override
@@ -71,8 +105,8 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
-    public String getWrapperType() {
-	return bokType;
+    public DelegatedBok newChild(final String type, final String title, final String userId, final int position) {
+	return new DelegatedBok(delegate.createBok(type, title, getId(), userId, position));
     }
 
     @Override
@@ -93,6 +127,11 @@ public class DelegatedBok implements Bok {
     @Override
     public void setDescription(final String text) {
 	delegate.setDescription(text);
+    }
+
+    @Override
+    public void setParent(final Bok parent) {
+	this.parent = parent;
     }
 
     @Override

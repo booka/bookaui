@@ -1,13 +1,14 @@
 package net.boklab.document.client.persistence;
 
-import net.boklab.core.client.persistence.BokCreatedEvent;
-import net.boklab.core.client.persistence.BokCreatedHandler;
-import net.boklab.core.client.persistence.BokRetrievedEvent;
-import net.boklab.core.client.persistence.BokRetrievedHandler;
-import net.boklab.core.client.persistence.CreateBokEvent;
-import net.boklab.core.client.persistence.RetrieveBokEvent;
-import net.boklab.core.client.persistence.UpdateBokEvent;
-import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.bok.events.BokCreatedHandler;
+import net.boklab.core.client.bok.events.BokRetrievedEvent;
+import net.boklab.core.client.bok.events.BokRetrievedHandler;
+import net.boklab.core.client.bok.events.CreateBokEvent;
+import net.boklab.core.client.bok.events.RetrieveBokEvent;
+import net.boklab.core.client.bok.events.UpdateBokEvent;
+import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.persistence.AbstractBokManager;
+import net.boklab.core.client.persistence.PlainBokManager;
 import net.boklab.document.client.I18nDocs;
 import net.boklab.document.client.model.Clip;
 import net.boklab.document.client.model.Document;
@@ -18,15 +19,11 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class DocumentManager implements Documents {
-
-    private final EventBus eventBus;
-    private final Sessions sessions;
+public class DocumentManager extends AbstractBokManager implements Documents {
 
     @Inject
-    public DocumentManager(final EventBus eventBus, final Sessions sessions) {
-	this.eventBus = eventBus;
-	this.sessions = sessions;
+    public DocumentManager(final EventBus eventBus, final PlainBokManager manager) {
+	super(Document.TYPE, eventBus, manager);
     }
 
     @Override
@@ -40,28 +37,13 @@ public class DocumentManager implements Documents {
     }
 
     @Override
-    public void createClip(final Clip clip, final ClipCreatedHandler handler) {
-	eventBus.fireEvent(new CreateBokEvent(clip, new BokCreatedHandler() {
-	    @Override
-	    public void onBokCreated(final BokCreatedEvent event) {
-		final ClipCreatedEvent clipCreatedEvent = new ClipCreatedEvent(new Clip(event.getBok()), event
-			.getResponse());
-		if (handler != null) {
-		    handler.onClipCreated(clipCreatedEvent);
-		}
-		eventBus.fireEvent(clipCreatedEvent);
-	    }
-	}));
+    public void createClip(final Clip clip, final BokCreatedHandler handler) {
+	eventBus.fireEvent(new CreateBokEvent(clip, handler));
     }
 
     @Override
-    public void createDocument(final Document document, final BokCreatedHandler handler) {
+    public void createDocument(final Bok document, final BokCreatedHandler handler) {
 	eventBus.fireEvent(new CreateBokEvent(document, handler));
-    }
-
-    @Override
-    public boolean isUserLoggedIn() {
-	return sessions.isLoggedIn();
     }
 
     @Override
@@ -70,7 +52,7 @@ public class DocumentManager implements Documents {
 	eventBus.fireEvent(new RetrieveBokEvent(documentId, new BokRetrievedHandler() {
 	    @Override
 	    public void onBokRetrieved(final BokRetrievedEvent event) {
-		final Document document = new Document(event.getBok(), event.getChildren());
+		final Document document = new Document(event.getBok());
 		eventBus.fireEvent(new DocumentRetrievedEvent(document));
 		eventBus.fireEvent(new UserMessageEvent(I18nDocs.t.documentOpened(document.getTitle())));
 	    }

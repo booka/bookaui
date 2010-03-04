@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import net.boklab.core.client.SimpleBok;
 import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.model.DelegatedBok;
 import net.boklab.document.client.model.Document;
 import net.boklab.site.client.model.Project;
 
@@ -16,21 +17,21 @@ public class Boky {
 	final SimpleBok bok = new SimpleBok(seq(type), type);
 	bok.setTitle(seq("title"));
 	bok.setDescription(seq("description"));
-	return bok;
+	return new DelegatedBok(bok);
     }
 
     public static Document document() {
-	return new Document(bok(Document.TYPE), null);
+	return new Document(bok(Document.TYPE));
     }
 
     public static Document emptyDocument() {
 	final Document document = document();
-	final Document Document = new Document(document, null);
+	final Document Document = new Document(document);
 	return Document;
     }
 
     public static Project project() {
-	return new Project(bok(Project.TYPE), null);
+	return new Project(bok(Project.TYPE));
     }
 
     public static ArrayList<Project> projectList() {

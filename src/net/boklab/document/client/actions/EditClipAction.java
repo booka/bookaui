@@ -1,8 +1,8 @@
 package net.boklab.document.client.actions;
 
 import net.boklab.core.client.I18nCore;
+import net.boklab.core.client.bok.events.UpdateBokEvent;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.persistence.UpdateBokEvent;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.bok.BokPresenter;
 import net.boklab.document.client.bok.action.BokAction;

@@ -29,6 +29,7 @@ public class DocumentBrowserWidget extends Composite implements DocumentBrowserD
     @Inject
     public DocumentBrowserWidget() {
 	initWidget(uiBinder.createAndBindUi(this));
+	setCreateVisible(false);
     }
 
     @Override

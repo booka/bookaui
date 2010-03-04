@@ -1,35 +1,25 @@
 package net.boklab.core.client.persistence;
 
+import net.boklab.core.client.bok.events.BokCreatedHandler;
+import net.boklab.core.client.bok.events.BokOpenedHandler;
+import net.boklab.core.client.bok.events.BokRetrievedHandler;
+import net.boklab.core.client.bok.events.BokUpdatedHandler;
+import net.boklab.core.client.bok.events.OpenBokHandler;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.model.BokQuery;
-import net.boklab.tools.client.eventbus.EventBus;
 
-import com.google.inject.Inject;
-import com.google.inject.Singleton;
+public interface BokManager {
 
-@Singleton
-public class BokManager {
-    private final EventBus eventBus;
+    void addCreatedHandler(BokCreatedHandler handler);
 
-    @Inject
-    public BokManager(final EventBus eventBus) {
-	this.eventBus = eventBus;
-    }
+    void addOpenedHandler(BokOpenedHandler handler);
 
-    public void create(final Bok bok, final BokCreatedHandler handler) {
-	eventBus.fireEvent(new CreateBokEvent(bok, handler));
-    }
+    void addOpenHandler(OpenBokHandler handler);
 
-    public void list(final BokQuery query, final BokListRetrievedHandler handler) {
-	eventBus.fireEvent(new RetrieveBokListEvent(query, handler));
-    }
+    void addRetrievedHandler(BokRetrievedHandler handler);
 
-    public void retrieve(final String bokId, final BokRetrievedHandler handler) {
-	eventBus.fireEvent(new RetrieveBokEvent(bokId, handler));
-    }
+    void addUpdatedHandler(BokUpdatedHandler handler);
 
-    public void update(final Bok bok, final BokUpdatedHandler handler) {
-	eventBus.fireEvent(new UpdateBokEvent(bok, handler));
-    }
+    void open(Bok bok, boolean forceOpen);
 
+    void open(String bokId, String knownTitle, boolean forceOpen);
 }

@@ -9,11 +9,11 @@ public interface SiteMessages extends Messages {
     @DefaultMessage("Abriendo documento...")
     String loadingDocument();
 
-    @DefaultMessage("Abriendo investigaciones...")
-    String loadingSite();
-
     @DefaultMessage("Abriendo investigación...")
     String loadingProject();
+
+    @DefaultMessage("Abriendo investigaciones...")
+    String loadingSite();
 
     @DefaultMessage("Investigación ''{0}''")
     String projectName(String projectTitle);
@@ -23,6 +23,9 @@ public interface SiteMessages extends Messages {
 
     @DefaultMessage("investigaciones")
     String projectsResourceName();
+
+    @DefaultMessage("Investigaciones y convocatorias")
+    String siteTitle();
 
     @DefaultMessage("Abriendo investigación...")
     String unknownProjectName();

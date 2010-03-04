@@ -29,6 +29,14 @@ public class UserSessionManager implements Sessions {
     }
 
     @Override
+    public void addSessionChangedHandler(final SessionChangedHandler handler, final boolean forceEvent) {
+	eventBus.addHandler(SessionChangedEvent.TYPE, handler);
+	if (forceEvent) {
+	    handler.onSessionChanged(new SessionChangedEvent(userSession));
+	}
+    }
+
+    @Override
     public String getAuthToken() {
 	return authToken;
     }
@@ -69,16 +77,11 @@ public class UserSessionManager implements Sessions {
     }
 
     @Override
-    public void onLoggedIn(final LoggedInHandler handler) {
-	eventBus.addHandler(LoggedInEvent.TYPE, handler);
-    }
-
-    @Override
     public void setLoggedIn(final UserSession session) {
 	authToken = session.getToken();
 	userSession = session;
 	manager.setAuthToken(authToken);
-	eventBus.fireEvent(new LoggedInEvent(session));
+	eventBus.fireEvent(new SessionChangedEvent(session));
 	eventBus.fireEvent(new UserMessageEvent(I18nCore.t.loggedInMessage(session.getUserName())));
     }
 

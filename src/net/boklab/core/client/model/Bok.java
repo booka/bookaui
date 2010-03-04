@@ -1,44 +1,14 @@
 package net.boklab.core.client.model;
 
-public interface Bok {
+import java.util.ArrayList;
 
-    String getBody();
+public interface Bok extends BokDTO {
 
-    String getBokType();
+    ArrayList<Bok> getChildren();
 
-    String getContentType();
+    Bok getParent();
 
-    String getDescription();
+    DelegatedBok newChild(String type, String title, String userId, int position);
 
-    String getId();
-
-    String getParentId();
-
-    int getPosition();
-
-    String getTitle();
-
-    String getUpdatedAt();
-
-    String getUserId();
-
-    String getUserName();
-
-    String getWrapperType();
-
-    void setBody(String body);
-
-    void setBokType(String type);
-
-    void setContentType(String contentType);
-
-    void setDescription(String text);
-
-    void setParentId(String id);
-
-    void setPosition(int position);
-
-    void setTitle(String title);
-
-    void setUserId(String id);
+    void setParent(Bok bok);
 }

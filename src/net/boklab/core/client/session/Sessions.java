@@ -20,7 +20,7 @@ public interface Sessions {
 
     void logout();
 
-    void onLoggedIn(LoggedInHandler handler);
+    void addSessionChangedHandler(SessionChangedHandler handler, boolean fireIfLoggedIn);
 
     void setLoggedIn(UserSession userSession);
 

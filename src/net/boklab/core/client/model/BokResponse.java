@@ -2,13 +2,13 @@ package net.boklab.core.client.model;
 
 public interface BokResponse {
 
-    Bok getBok();
+    BokJSO getBok();
 
-    Bok getChildren(int index);
+    BokJSO getChildren(int index);
 
     int getChildrenSize();
 
-    Bok getUpdated(int index);
+    BokJSO getUpdated(int index);
 
     int getUpdatedSize();
 }

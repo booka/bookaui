@@ -1,4 +1,4 @@
-package net.boklab.core.client.persistence;
+package net.boklab.core.client.bok.events;
 
 import net.boklab.core.client.model.Bok;
 

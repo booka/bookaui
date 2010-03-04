@@ -1,9 +1,20 @@
 package net.boklab.core.client.persistence;
 
 import net.boklab.core.client.BokToParams;
+import net.boklab.core.client.bok.events.BokCreatedEvent;
+import net.boklab.core.client.bok.events.BokCreatedHandler;
+import net.boklab.core.client.bok.events.BokRetrievedEvent;
+import net.boklab.core.client.bok.events.BokRetrievedHandler;
+import net.boklab.core.client.bok.events.BokUpdatedEvent;
+import net.boklab.core.client.bok.events.CreateBokEvent;
+import net.boklab.core.client.bok.events.CreateBokHandler;
+import net.boklab.core.client.bok.events.RetrieveBokEvent;
+import net.boklab.core.client.bok.events.RetrieveBokHandler;
+import net.boklab.core.client.bok.events.UpdateBokEvent;
+import net.boklab.core.client.bok.events.UpdateBokHandler;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.model.BokQuery;
 import net.boklab.core.client.model.BokResponseJSO;
+import net.boklab.core.client.model.DelegatedBok;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.rest.Params;
 import net.boklab.tools.client.rest.RestCallback;
@@ -23,13 +34,6 @@ public class BokPersistence {
     public BokPersistence(final EventBus eventBus, final RestManager manager) {
 	this.eventBus = eventBus;
 	this.manager = manager;
-
-	eventBus.addHandler(RetrieveBokListEvent.getType(), new RetrieveBokListHander() {
-	    @Override
-	    public void onRetrieveBokList(final RetrieveBokListEvent event) {
-		getList(event.getQuery(), event.getHandler());
-	    }
-	});
 
 	eventBus.addHandler(RetrieveBokEvent.TYPE, new RetrieveBokHandler() {
 	    @Override
@@ -56,7 +60,8 @@ public class BokPersistence {
     private void fireUpdatedBoks(final BokResponseJSO response) {
 	final int total = response.getUpdatedSize();
 	for (int index = 0; index < total; index++) {
-	    eventBus.fireEvent(new BokUpdatedEvent(response.getUpdated(index), response));
+	    final Bok bok = new DelegatedBok(response.getUpdated(index));
+	    eventBus.fireEvent(new BokUpdatedEvent(bok));
 	}
     }
 
@@ -66,7 +71,8 @@ public class BokPersistence {
 	    @Override
 	    public void onSuccess(final String text) {
 		final BokResponseJSO response = JsonUtils.unsafeEval(text);
-		final BokCreatedEvent event = new BokCreatedEvent(response.getBok(), response);
+		final Bok createdBok = DelegatedBok.build(response);
+		final BokCreatedEvent event = new BokCreatedEvent(createdBok);
 		if (handler != null) {
 		    handler.onBokCreated(event);
 		}
@@ -76,27 +82,13 @@ public class BokPersistence {
 	});
     }
 
-    protected void getList(final BokQuery query, final BokListRetrievedHandler handler) {
-
-	manager.getList("boks.list", RESOURCE, query.toParams(), new RestCallback() {
-	    @Override
-	    public void onSuccess(final String text) {
-		final BokResponseJSO response = JsonUtils.<BokResponseJSO> unsafeEval(text);
-		final BokListRetrievedEvent event = new BokListRetrievedEvent(response);
-		if (handler != null) {
-		    handler.onBokListRetrieved(event);
-		}
-		eventBus.fireEvent(event);
-	    }
-	});
-    }
-
     protected void retrieve(final String bokId, final BokRetrievedHandler handler) {
 	manager.get("boks.get", RESOURCE, bokId, new RestCallback() {
 	    @Override
 	    public void onSuccess(final String content) {
 		final BokResponseJSO response = JsonUtils.unsafeEval(content);
-		final BokRetrievedEvent event = new BokRetrievedEvent(response.getBok(), response);
+		final Bok retrievedBok = DelegatedBok.build(response);
+		final BokRetrievedEvent event = new BokRetrievedEvent(retrievedBok);
 		if (handler != null) {
 		    handler.onBokRetrieved(event);
 		}
@@ -112,7 +104,8 @@ public class BokPersistence {
 	    @Override
 	    public void onSuccess(final String text) {
 		final BokResponseJSO response = JsonUtils.unsafeEval(text);
-		eventBus.fireEvent(new BokUpdatedEvent(response.getBok(), response));
+		final Bok updatedBok = DelegatedBok.build(response);
+		eventBus.fireEvent(new BokUpdatedEvent(updatedBok));
 		fireUpdatedBoks(response);
 	    }
 	});

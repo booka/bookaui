@@ -1,8 +1,8 @@
 package net.boklab.document.client.bok;
 
+import net.boklab.core.client.bok.events.BokUpdatedEvent;
+import net.boklab.core.client.bok.events.BokUpdatedHandler;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.persistence.BokUpdatedEvent;
-import net.boklab.core.client.persistence.BokUpdatedHandler;
 import net.boklab.document.client.bok.action.BokActionsPresenter;
 import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.content.ContentHandler;

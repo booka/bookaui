@@ -1,5 +1,7 @@
 package net.boklab.document.client.actions;
 
+import net.boklab.core.client.bok.events.BokCreatedEvent;
+import net.boklab.core.client.bok.events.BokCreatedHandler;
 import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.bok.BokPresenter;
@@ -9,8 +11,6 @@ import net.boklab.document.client.content.ContentEditor;
 import net.boklab.document.client.content.ContentHandler;
 import net.boklab.document.client.content.ContentManager;
 import net.boklab.document.client.model.Clip;
-import net.boklab.document.client.persistence.ClipCreatedEvent;
-import net.boklab.document.client.persistence.ClipCreatedHandler;
 import net.boklab.document.client.persistence.Documents;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -68,10 +68,10 @@ public class CreateContentAction extends BokAction {
     private void save(final BokPresenter presenter, final Clip clip, final BokEditorDisplay editorDisplay) {
 	final ContentEditor<?> editor = editorDisplay.getEditor();
 	editor.updateClip();
-	documents.createClip(clip, new ClipCreatedHandler() {
+	documents.createClip(clip, new BokCreatedHandler() {
 	    @Override
-	    public void onClipCreated(final ClipCreatedEvent event) {
-		final Clip newClip = event.getClip();
+	    public void onBokCreated(final BokCreatedEvent event) {
+		final Clip newClip = new Clip(event.getBok());
 		final ContentHandler contentHandler = manager.getHandler(newClip);
 		presenter.setBok(newClip, contentHandler);
 		presenter.setWaiting(false);

@@ -8,22 +8,21 @@ public class Clip extends DelegatedBok {
 
     public static final String TYPE = "Clip";
 
-    private Document document;
-
     public Clip() {
-	super(BokJSO.newInstance(TYPE), TYPE);
+	super(BokJSO.newInstance(TYPE));
     }
 
     public Clip(final Bok delegate) {
-	super(delegate, TYPE);
+	super(delegate);
     }
 
+    @Deprecated
     public Document getDocument() {
-	return document;
+	return new Document(getParent());
     }
 
     public void setDocument(final Document document) {
-	this.document = document;
+	super.setParent(document);
     }
 
 }

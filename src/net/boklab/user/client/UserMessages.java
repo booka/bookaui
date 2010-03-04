@@ -6,6 +6,9 @@ import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 @DefaultLocale("es")
 public interface UserMessages extends Messages {
 
+    @DefaultMessage("entrar")
+    String loginResource();
+
     @DefaultMessage("Entrar en Booka")
     String placeLogin();
 

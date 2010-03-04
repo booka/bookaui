@@ -1,11 +1,19 @@
 package net.boklab.browser.client.ui;
 
-import net.boklab.document.client.model.Document;
+import java.util.HashMap;
+
+import net.boklab.core.client.bok.events.BokCreatedEvent;
+import net.boklab.core.client.bok.events.BokCreatedHandler;
+import net.boklab.core.client.bok.events.BokOpenedEvent;
+import net.boklab.core.client.bok.events.BokOpenedHandler;
+import net.boklab.core.client.bok.events.BokUpdatedEvent;
+import net.boklab.core.client.bok.events.BokUpdatedHandler;
+import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.session.SessionChangedEvent;
+import net.boklab.core.client.session.SessionChangedHandler;
+import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.persistence.Documents;
-import net.boklab.site.client.action.ProjectManager;
-import net.boklab.site.client.action.ProjectOpenedEvent;
-import net.boklab.site.client.action.ProjectOpenedHandler;
-import net.boklab.site.client.model.Project;
+import net.boklab.site.client.ProjectManager;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.gwt.core.client.GWT;
@@ -18,40 +26,71 @@ import com.google.inject.Singleton;
 @Singleton
 public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserDisplay> {
 
-    private Project currentProject;
+    private final HashMap<String, DocumentItemPresenter> idToDocuments;
 
     @Inject
-    public DocumentBrowserPresenter(final Documents documents, final ProjectManager projects,
+    public DocumentBrowserPresenter(final Documents documents, final ProjectManager projects, final Sessions sessions,
 	    final Provider<DocumentBrowserDisplay> displayProvider, final Provider<DocumentItemPresenter> itemProvider) {
 	super(displayProvider);
 
-	GWT.log("CREATE DocumentBrowserPresenter");
+	idToDocuments = new HashMap<String, DocumentItemPresenter>();
 
-	currentProject = null;
-
-	projects.onProjectOpened(new ProjectOpenedHandler() {
+	projects.addOpenedHandler(new BokOpenedHandler() {
 	    @Override
-	    public void onProject(final ProjectOpenedEvent event) {
-		final Project project = event.getProject();
-		currentProject = project;
-		getDisplay().getList().clear();
-		for (final Document d : project.getDocuments()) {
+	    public void onBokOpened(final BokOpenedEvent event) {
+		final Bok project = event.getBok();
+		final DocumentBrowserDisplay display = getDisplay();
+		idToDocuments.clear();
+		display.getList().clear();
+		for (final Bok doc : project.getChildren()) {
 		    final DocumentItemPresenter item = itemProvider.get();
-		    item.setDocument(d);
-		    getDisplay().getList().add(item.getDisplay().asWidget());
+		    item.setDocument(doc);
+		    idToDocuments.put(doc.getId(), item);
+		    display.getList().add(item.getDisplay().asWidget());
 		}
-		getDisplay().setCreateVisible(true);
+		display.setCreateVisible(sessions.isLoggedIn());
 	    }
 	});
 
-	getDisplay().getCreate().addClickHandler(new ClickHandler() {
+	documents.addUpdatedHandler(new BokUpdatedHandler() {
 	    @Override
-	    public void onClick(final ClickEvent event) {
-		assert currentProject != null : "You should receive onNewDocument event without documents loaded previously";
-		final Document document = currentProject.newDocument("Sin título");
-		documents.createDocument(document, null);
+	    public void onBokUpdated(final BokUpdatedEvent event) {
+		final Bok bok = event.getBok();
+		final DocumentItemPresenter docPresenter = idToDocuments.get(bok.getId());
+		if (docPresenter != null) {
+		    docPresenter.setDocument(bok);
+		}
 	    }
 	});
+
+	documents.addCreatedHandler(new BokCreatedHandler() {
+	    @Override
+	    public void onBokCreated(final BokCreatedEvent event) {
+		documents.open(event.getBok(), false);
+	    }
+	});
+
+	sessions.addSessionChangedHandler(new SessionChangedHandler() {
+	    @Override
+	    public void onSessionChanged(final SessionChangedEvent event) {
+		GWT.log("BROW SEESS: " + sessions.isLoggedIn());
+		if (sessions.isLoggedIn()) {
+		    final DocumentBrowserDisplay display = getDisplay();
+		    display.getCreate().addClickHandler(new ClickHandler() {
+			@Override
+			public void onClick(final ClickEvent event) {
+			    final Bok currentProject = projects.getActiveProject();
+			    assert currentProject != null : "You should receive onNewDocument event without documents loaded previously";
+			    final int position = currentProject.getChildren().size() + 1;
+			    final Bok document = currentProject.newChild("Document", "Sin título",
+				    sessions.getUserId(), position);
+			    documents.createDocument(document, null);
+			}
+		    });
+		    display.setCreateVisible(projects.hasActiveProject());
+		}
+	    }
+	}, true);
     }
 
 }

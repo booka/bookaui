@@ -1,6 +1,11 @@
 package net.boklab.site.client;
 
 import net.boklab.browser.client.ui.DocumentBrowserPresenter;
+import net.boklab.core.client.bok.events.BokOpenedEvent;
+import net.boklab.core.client.bok.events.BokOpenedHandler;
+import net.boklab.core.client.bok.events.OpenBokEvent;
+import net.boklab.core.client.bok.events.OpenBokHandler;
+import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.wip.WipPresenter;
 import net.boklab.document.client.doc.DocumentPresenter;
 import net.boklab.document.client.model.Document;
@@ -9,12 +14,6 @@ import net.boklab.document.client.persistence.DocumentRequestHandler;
 import net.boklab.document.client.persistence.DocumentRetrievedEvent;
 import net.boklab.document.client.persistence.DocumentRetrievedHandler;
 import net.boklab.document.client.persistence.Documents;
-import net.boklab.site.client.action.ProjectManager;
-import net.boklab.site.client.action.ProjectOpenedEvent;
-import net.boklab.site.client.action.ProjectOpenedHandler;
-import net.boklab.site.client.action.ProjectRequestEvent;
-import net.boklab.site.client.action.ProjectRequestHandler;
-import net.boklab.site.client.model.Project;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestEvent;
 import net.boklab.tools.client.place.PlaceRequestHandler;
@@ -78,7 +77,7 @@ public class SitesController {
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		final Place place = event.getPlace();
 		final String projectId = place.id;
-		projects.openProject(projectId, true, null);
+		projects.openProject(projectId, null, true);
 		router.fireChanged(I18nSite.t.unknownProjectName(), place);
 	    }
 	});
@@ -91,26 +90,24 @@ public class SitesController {
 	    }
 	});
 
-	projects.addProjectRequestHandler(new ProjectRequestHandler() {
+	projects.addOpenHandler(new OpenBokHandler() {
 	    @Override
-	    public void onProjectRequest(final ProjectRequestEvent event) {
+	    public void onOpenBok(final OpenBokEvent event) {
 		if (event.isChangePlace()) {
 		    projectLoadMid = navigation.fireUserMessage(I18nSite.t.loadingProject(), Level.working);
+		    router.fireChanged(event.getKnownTitle(), new Place(PROJECTS, event.getBokId()));
 		}
 		browser.get();
 		showArchivesWorkspace(false);
 	    }
 	});
 
-	projects.onProjectOpened(new ProjectOpenedHandler() {
+	projects.addOpenedHandler(new BokOpenedHandler() {
 	    @Override
-	    public void onProject(final ProjectOpenedEvent event) {
-		final Project project = event.getProject();
+	    public void onBokOpened(final BokOpenedEvent event) {
+		final Bok project = event.getBok();
 		projectLoadMid = removeMessageId(projectLoadMid);
 		navigation.setProject(I18nSite.t.projectName(project.getTitle()));
-		if (event.isChangePlace()) {
-		    router.fireChanged(project.getTitle(), new Place(PROJECTS, project.getId()));
-		}
 		document.get();
 	    }
 	});
@@ -129,7 +126,7 @@ public class SitesController {
 	    public void onDocumentRetrieved(final DocumentRetrievedEvent event) {
 		documentLoadMid = removeMessageId(documentLoadMid);
 		final Document document = event.getDocument();
-		projects.openProject(document.getParentId(), false, null);
+		projects.openProject(document.getParentId(), null, false);
 		router.fireChanged(document.getTitle(), new Place(DOCUMENTS, document.getId()));
 		showArchivesWorkspace(true);
 	    }

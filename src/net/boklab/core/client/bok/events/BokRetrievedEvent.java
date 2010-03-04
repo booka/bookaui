@@ -1,9 +1,8 @@
-package net.boklab.core.client.persistence;
+package net.boklab.core.client.bok.events;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.model.BokResponse;
 
-public class BokRetrievedEvent extends BokResponseEvent<BokRetrievedHandler> {
+public class BokRetrievedEvent extends AbstractBokEvent<BokRetrievedHandler> {
 
     private static final Type<BokRetrievedHandler> TYPE = new Type<BokRetrievedHandler>();
 
@@ -11,8 +10,8 @@ public class BokRetrievedEvent extends BokResponseEvent<BokRetrievedHandler> {
 	return TYPE;
     }
 
-    public BokRetrievedEvent(final Bok bok, final BokResponse response) {
-	super(bok, response);
+    public BokRetrievedEvent(final Bok bok) {
+	super(bok);
     }
 
     @Override

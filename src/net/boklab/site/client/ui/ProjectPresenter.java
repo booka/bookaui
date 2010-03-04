@@ -1,7 +1,7 @@
 package net.boklab.site.client.ui;
 
-import net.boklab.site.client.action.ProjectManager;
-import net.boklab.site.client.model.Project;
+import net.boklab.core.client.model.Bok;
+import net.boklab.site.client.ProjectManager;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -20,12 +20,12 @@ public class ProjectPresenter extends AbstractPresenter<ProjectDisplay> {
 	getDisplay().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {
-		projects.openProject(projectId, true, title);
+		projects.openProject(projectId, title, true);
 	    }
 	});
     }
 
-    public void setProject(final Project project) {
+    public void setProject(final Bok project) {
 	projectId = project.getId();
 	title = project.getTitle();
 	getDisplay().getTitleHeader().setText(project.getTitle());

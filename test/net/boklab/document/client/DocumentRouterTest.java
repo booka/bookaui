@@ -1,7 +1,7 @@
 package net.boklab.document.client;
 
 import static org.junit.Assert.assertEquals;
-import net.boklab.core.client.persistence.RetrieveBokEvent;
+import net.boklab.core.client.bok.events.RetrieveBokEvent;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.EventBusTester;
 import net.boklab.tools.client.place.Place;

@@ -3,8 +3,8 @@ package net.boklab.document.client.doc;
 import java.util.ArrayList;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.session.LoggedInEvent;
-import net.boklab.core.client.session.LoggedInHandler;
+import net.boklab.core.client.session.SessionChangedEvent;
+import net.boklab.core.client.session.SessionChangedHandler;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.bok.BokPresenter;
 import net.boklab.document.client.bok.BokPresenter.InsertHandler;
@@ -42,9 +42,9 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> implem
 	    }
 	});
 
-	eventBus.addHandler(LoggedInEvent.TYPE, new LoggedInHandler() {
+	eventBus.addHandler(SessionChangedEvent.TYPE, new SessionChangedHandler() {
 	    @Override
-	    public void onLoggedIn(final LoggedInEvent event) {
+	    public void onSessionChanged(final SessionChangedEvent event) {
 	    }
 	});
 

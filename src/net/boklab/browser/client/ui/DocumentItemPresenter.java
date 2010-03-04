@@ -1,6 +1,6 @@
 package net.boklab.browser.client.ui;
 
-import net.boklab.document.client.model.Document;
+import net.boklab.core.client.model.Bok;
 import net.boklab.document.client.persistence.Documents;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
@@ -23,7 +23,7 @@ public class DocumentItemPresenter extends AbstractPresenter<DocumentItemDisplay
 	});
     }
 
-    public void setDocument(final Document document) {
+    public void setDocument(final Bok document) {
 	documentId = document.getId();
 	getDisplay().getDocumentTitle().setText(document.getTitle());
 	getDisplay().getDescription().setHTML(document.getDescription());

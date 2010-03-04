@@ -2,12 +2,12 @@ package net.boklab.workspace.client.ui.navigation;
 
 import java.util.HashMap;
 
-import net.boklab.core.client.session.LoggedInEvent;
-import net.boklab.core.client.session.LoggedInHandler;
+import net.boklab.core.client.bok.events.BokOpenedEvent;
+import net.boklab.core.client.bok.events.BokOpenedHandler;
+import net.boklab.core.client.session.SessionChangedEvent;
+import net.boklab.core.client.session.SessionChangedHandler;
 import net.boklab.core.client.session.Sessions;
-import net.boklab.site.client.action.ProjectManager;
-import net.boklab.site.client.action.ProjectOpenedEvent;
-import net.boklab.site.client.action.ProjectOpenedHandler;
+import net.boklab.site.client.ProjectManager;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Presenter;
 import net.boklab.tools.client.place.Place;
@@ -65,17 +65,18 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	    });
 	}
 
-	sessions.onLoggedIn(new LoggedInHandler() {
+	sessions.addSessionChangedHandler(new SessionChangedHandler() {
 	    @Override
-	    public void onLoggedIn(final LoggedInEvent event) {
+	    public void onSessionChanged(final SessionChangedEvent event) {
 		setUserIconsVisible(true);
 		setUser(event.getUserSession().getUserName());
 	    }
-	});
+	}, false);
 
-	projects.onProjectOpened(new ProjectOpenedHandler() {
+	projects.addOpenedHandler(new BokOpenedHandler() {
+
 	    @Override
-	    public void onProject(final ProjectOpenedEvent event) {
+	    public void onBokOpened(final BokOpenedEvent event) {
 		setProjectIconsVisible(projects.hasActiveProject());
 	    }
 	});

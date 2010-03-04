@@ -2,7 +2,7 @@ package net.boklab.testing;
 
 import static org.junit.Assert.assertNotNull;
 import net.boklab.document.client.persistence.Documents;
-import net.boklab.site.client.action.ProjectManager;
+import net.boklab.site.client.ProjectManager;
 import net.boklab.site.client.ui.ProjectBrowserDisplay;
 import net.boklab.tools.client.place.PlaceManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;

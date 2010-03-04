@@ -1,9 +1,9 @@
 package net.boklab.site.client.ui;
 
-import net.boklab.site.client.action.ProjectManager;
-import net.boklab.site.client.action.SiteRetrievedEvent;
-import net.boklab.site.client.action.SiteRetrievedHandler;
-import net.boklab.site.client.model.Project;
+import net.boklab.core.client.bok.events.BokRetrievedEvent;
+import net.boklab.core.client.bok.events.BokRetrievedHandler;
+import net.boklab.core.client.model.Bok;
+import net.boklab.site.client.SiteManager;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.inject.Inject;
@@ -14,15 +14,16 @@ import com.google.inject.Singleton;
 public class ProjectBrowserPresenter extends AbstractPresenter<ProjectBrowserDisplay> {
 
     @Inject
-    public ProjectBrowserPresenter(final ProjectManager projects, final Provider<ProjectPresenter> provider,
+    public ProjectBrowserPresenter(final SiteManager sites, final Provider<ProjectPresenter> provider,
 	    final Provider<ProjectBrowserDisplay> display) {
 	super(display);
 
-	projects.onSiteRetrieved(new SiteRetrievedHandler() {
+	sites.addRetrievedHandler(new BokRetrievedHandler() {
 	    @Override
-	    public void onProjectList(final SiteRetrievedEvent event) {
+	    public void onBokRetrieved(final BokRetrievedEvent event) {
+		final Bok site = event.getBok();
 		getDisplay().clearList();
-		for (final Project project : event.getList()) {
+		for (final Bok project : site.getChildren()) {
 		    final ProjectPresenter presenter = provider.get();
 		    presenter.setProject(project);
 		    getDisplay().add(presenter.getDisplay());
