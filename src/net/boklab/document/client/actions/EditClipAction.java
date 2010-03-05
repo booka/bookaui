@@ -4,7 +4,7 @@ import net.boklab.core.client.I18nCore;
 import net.boklab.core.client.bok.events.UpdateBokEvent;
 import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.session.Sessions;
-import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.action.BokAction;
 import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.content.ContentEditor;
@@ -33,7 +33,7 @@ public class EditClipAction extends BokAction {
     }
 
     @Override
-    public void execute(final BokPresenter presenter) {
+    public void execute(final ClipPresenter presenter) {
 	final Bok clip = presenter.getBok();
 	final BokEditorDisplay editor = manager.newEditor(clip);
 	editor.getCancel().setText(I18nCore.t.cancelAction());
@@ -58,7 +58,7 @@ public class EditClipAction extends BokAction {
     }
 
     @Override
-    public boolean isApplicable(final BokPresenter presenter) {
+    public boolean isApplicable(final ClipPresenter presenter) {
 	return sessions.isLoggedIn() && presenter.getContentHandler() != null;
     }
 

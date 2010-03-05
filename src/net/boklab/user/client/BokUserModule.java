@@ -11,8 +11,8 @@ public class BokUserModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
-	bind(UsersController.class).asEagerSingleton();
-
+	bind(LoginController.class).asEagerSingleton();
+	bind(AccountController.class).asEagerSingleton();
 	bind(UserDisplay.class).to(UserWidget.class);
 	bind(LoginDisplay.class).to(LoginWidget.class);
     }

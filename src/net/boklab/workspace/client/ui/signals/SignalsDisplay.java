@@ -15,4 +15,6 @@ public interface SignalsDisplay extends Display {
     HasText getUser();
 
     boolean removeMessage(int id);
+
+    void setUserActive(boolean active);
 }

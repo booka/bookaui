@@ -2,7 +2,7 @@ package net.boklab.document.client.bok.action;
 
 import java.util.ArrayList;
 
-import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.tools.client.mvp.Presenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,7 +14,7 @@ import com.google.inject.Singleton;
 public class BokActionsPresenter implements Presenter<BokActionsDisplay> {
     private final BokActionsDisplay display;
     private final ArrayList<ActionDisplay> actions;
-    private BokPresenter clipPresenter;
+    private ClipPresenter clipPresenter;
 
     @Inject
     public BokActionsPresenter(final BokActionsDisplay display) {
@@ -38,7 +38,12 @@ public class BokActionsPresenter implements Presenter<BokActionsDisplay> {
 	return display;
     }
 
-    public void setPresenter(final BokPresenter clipPresenter) {
+    public void setPresenter(final ClipPresenter clipPresenter) {
+	if (this.clipPresenter == null) {
+	    clipPresenter.setActionsVisible(false);
+	    this.clipPresenter = null;
+	}
+
 	this.clipPresenter = clipPresenter;
 	if (clipPresenter != null) {
 	    for (final ActionDisplay acDisplay : actions) {

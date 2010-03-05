@@ -21,5 +21,7 @@ public interface NavigationDisplay extends Display {
 
     SignalsDisplay getSignals();
 
+    void setLinkActive(String item, boolean active);
+
     void setVisible(String item, boolean visible);
 }

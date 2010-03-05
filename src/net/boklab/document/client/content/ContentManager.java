@@ -1,8 +1,8 @@
 package net.boklab.document.client.content;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.document.client.bok.BokPresenter;
-import net.boklab.document.client.bok.BokPresenter.InsertHandler;
+import net.boklab.document.client.bok.ClipPresenter;
+import net.boklab.document.client.bok.ClipPresenter.InsertHandler;
 import net.boklab.document.client.bok.editor.BokEditorDisplay;
 
 import com.google.inject.Inject;
@@ -12,12 +12,12 @@ import com.google.inject.Singleton;
 @Singleton
 public class ContentManager {
 
-    private final Provider<BokPresenter> clipProvider;
+    private final Provider<ClipPresenter> clipProvider;
     private final ContentHandlerRegistry registry;
     private final Provider<BokEditorDisplay> editorDisplayProvider;
 
     @Inject
-    public ContentManager(final ContentHandlerRegistry registry, final Provider<BokPresenter> clipProvider,
+    public ContentManager(final ContentHandlerRegistry registry, final Provider<ClipPresenter> clipProvider,
 	    final Provider<BokEditorDisplay> editorDisplayProvider) {
 	this.registry = registry;
 	this.clipProvider = clipProvider;
@@ -37,8 +37,8 @@ public class ContentManager {
 	return registry.getHandler(getContentType(bok));
     }
 
-    public BokPresenter newBokPresenter(final Bok bok, final InsertHandler insertHandler) {
-	final BokPresenter clipPresenter = clipProvider.get();
+    public ClipPresenter newBokPresenter(final Bok bok, final InsertHandler insertHandler) {
+	final ClipPresenter clipPresenter = clipProvider.get();
 	clipPresenter.setInsertHandler(insertHandler);
 	if (bok != null) {
 	    final String bokContentType = getContentType(bok);

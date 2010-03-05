@@ -17,7 +17,6 @@ public class DocumentRouterTest {
     public void setup() {
 	test = new BookaTester();
 	bus = test.getEventBus();
-	test.get(DocumentsRouter.class);
     }
 
     @Test

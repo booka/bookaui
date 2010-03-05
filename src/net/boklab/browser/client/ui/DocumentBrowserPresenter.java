@@ -12,7 +12,7 @@ import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.session.SessionChangedEvent;
 import net.boklab.core.client.session.SessionChangedHandler;
 import net.boklab.core.client.session.Sessions;
-import net.boklab.document.client.persistence.Documents;
+import net.boklab.document.client.DocumentManager;
 import net.boklab.site.client.ProjectManager;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
@@ -29,8 +29,9 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
     private final HashMap<String, DocumentItemPresenter> idToDocuments;
 
     @Inject
-    public DocumentBrowserPresenter(final Documents documents, final ProjectManager projects, final Sessions sessions,
-	    final Provider<DocumentBrowserDisplay> displayProvider, final Provider<DocumentItemPresenter> itemProvider) {
+    public DocumentBrowserPresenter(final DocumentManager documents, final ProjectManager projects,
+	    final Sessions sessions, final Provider<DocumentBrowserDisplay> displayProvider,
+	    final Provider<DocumentItemPresenter> itemProvider) {
 	super(displayProvider);
 
 	idToDocuments = new HashMap<String, DocumentItemPresenter>();
@@ -79,15 +80,15 @@ public class DocumentBrowserPresenter extends AbstractPresenter<DocumentBrowserD
 		    display.getCreate().addClickHandler(new ClickHandler() {
 			@Override
 			public void onClick(final ClickEvent event) {
-			    final Bok currentProject = projects.getActiveProject();
+			    final Bok currentProject = projects.getActive();
 			    assert currentProject != null : "You should receive onNewDocument event without documents loaded previously";
 			    final int position = currentProject.getChildren().size() + 1;
 			    final Bok document = currentProject.newChild("Document", "Sin título",
 				    sessions.getUserId(), position);
-			    documents.createDocument(document, null);
+			    documents.create(document, null);
 			}
 		    });
-		    display.setCreateVisible(projects.hasActiveProject());
+		    display.setCreateVisible(projects.hasActive());
 		}
 	    }
 	}, true);

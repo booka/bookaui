@@ -7,9 +7,10 @@
     <inherits name="net.boklab.browser.BokBrowser" />
     <inherits name="net.boklab.calendar.BokCalendar" />
     <inherits name="net.boklab.document.BokDocuments" />
+    <inherits name="net.boklab.indices.BokIndices" />
     <inherits name="net.boklab.site.BokSite" />
     <inherits name="net.boklab.user.BokUser" />
-    <inherits name="net.boklab.entrance.BokEntrance" />
+    <inherits name="net.boklab.places.BokPlaces" />
     
 	<source path="client" />
 	<entry-point class="net.boklab.booka.client.BookaEntryPoint" />

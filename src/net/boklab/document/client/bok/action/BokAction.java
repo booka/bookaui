@@ -1,6 +1,6 @@
 package net.boklab.document.client.bok.action;
 
-import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.ClipPresenter;
 
 public abstract class BokAction {
 
@@ -12,7 +12,7 @@ public abstract class BokAction {
 	this.actionLabel = label;
     }
 
-    public abstract void execute(BokPresenter presenter);
+    public abstract void execute(ClipPresenter presenter);
 
     public String getLabel() {
 	return actionLabel;
@@ -22,6 +22,6 @@ public abstract class BokAction {
 	return type;
     }
 
-    public abstract boolean isApplicable(BokPresenter presenter);
+    public abstract boolean isApplicable(ClipPresenter presenter);
 
 }

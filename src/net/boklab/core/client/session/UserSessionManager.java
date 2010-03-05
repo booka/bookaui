@@ -1,10 +1,8 @@
 package net.boklab.core.client.session;
 
-import net.boklab.core.client.I18nCore;
 import net.boklab.core.client.model.UserSession;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.rest.RestManager;
-import net.boklab.workspace.client.event.UserMessageEvent;
 
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
@@ -82,7 +80,6 @@ public class UserSessionManager implements Sessions {
 	userSession = session;
 	manager.setAuthToken(authToken);
 	eventBus.fireEvent(new SessionChangedEvent(session));
-	eventBus.fireEvent(new UserMessageEvent(I18nCore.t.loggedInMessage(session.getUserName())));
     }
 
 }

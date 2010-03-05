@@ -2,12 +2,6 @@ package net.boklab.workspace.client.ui.navigation;
 
 import java.util.HashMap;
 
-import net.boklab.core.client.bok.events.BokOpenedEvent;
-import net.boklab.core.client.bok.events.BokOpenedHandler;
-import net.boklab.core.client.session.SessionChangedEvent;
-import net.boklab.core.client.session.SessionChangedHandler;
-import net.boklab.core.client.session.Sessions;
-import net.boklab.site.client.ProjectManager;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Presenter;
 import net.boklab.tools.client.place.Place;
@@ -38,24 +32,22 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
     private final HashMap<String, String> iconToResources;
     private final EventBus eventBus;
 
+    private String currentActive;
+
     @Inject
-    public NavigationPresenter(final EventBus eventBus, final Sessions sessions, final ProjectManager projects,
-	    final NavigationDisplay display) {
+    public NavigationPresenter(final EventBus eventBus, final NavigationDisplay display) {
 	this.eventBus = eventBus;
 	this.display = display;
 
 	signals = display.getSignals();
-
 	iconToResources = new HashMap<String, String>();
-
-	setProjectIconsVisible(projects.hasActiveProject());
-	setUserIconsVisible(false);
 
 	for (final String name : NAMES) {
 	    display.getLink(name).addClickHandler(new ClickHandler() {
 		@Override
 		public void onClick(final ClickEvent event) {
 		    final String resourceName = iconToResources.get(name);
+		    GWT.log("PLACE click " + name + ": " + resourceName);
 		    if (resourceName != null) {
 			eventBus.fireEvent(new PlaceRequestEvent(new Place(resourceName)));
 		    } else {
@@ -64,22 +56,6 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 		}
 	    });
 	}
-
-	sessions.addSessionChangedHandler(new SessionChangedHandler() {
-	    @Override
-	    public void onSessionChanged(final SessionChangedEvent event) {
-		setUserIconsVisible(true);
-		setUser(event.getUserSession().getUserName());
-	    }
-	}, false);
-
-	projects.addOpenedHandler(new BokOpenedHandler() {
-
-	    @Override
-	    public void onBokOpened(final BokOpenedEvent event) {
-		setProjectIconsVisible(projects.hasActiveProject());
-	    }
-	});
 
 	eventBus.addHandler(UserMessageEvent.getType(), new UserMessageHandler() {
 	    @Override
@@ -91,20 +67,17 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	eventBus.addHandler(PlaceChangedEvent.getType(), new PlaceChangedHandler() {
 	    @Override
 	    public void onPlaceChanged(final PlaceChangedEvent event) {
-		setPlace(event.getDescription());
+		// setPlace(event.getDescription());
 	    }
 	});
 
 	eventBus.addHandler(PlaceRequestEvent.getType(), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
-		setPlace("");
+		setPlace(null);
 	    }
 	});
 
-	setUserIconsVisible(sessions.isLoggedIn());
-	setUser(sessions.getUserName());
-	setProjectIconsVisible(projects.hasActiveProject());
     }
 
     public int fireUserMessage(final String message, final Level level) {
@@ -118,11 +91,25 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	return display;
     }
 
-    public void removeMessage(final Integer id) {
-	signals.removeMessage(id);
+    public int removeMessage(final int id) {
+	if (id > 0 && signals.removeMessage(id)) {
+	    return -1;
+	}
+	return id;
+    }
+
+    public void setActive(final String active) {
+	if (currentActive != null) {
+	    display.setLinkActive(currentActive, false);
+	}
+	currentActive = active;
+	if (active != null) {
+	    display.setLinkActive(active, true);
+	}
     }
 
     public void setPlace(final String placeDescription) {
+	GWT.log("NAV PLACE: " + placeDescription);
 	signals.getPlace().setText(placeDescription);
     }
 
@@ -130,28 +117,29 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	signals.getProject().setText(projectName);
     }
 
-    public void setResource(final String name, final String resource) {
-	iconToResources.put(name, resource);
-    }
-
-    public void setUser(final String userName) {
-	signals.getUser().setText(userName);
-    }
-
-    private void addMessage(final int id, final String message, final Level level) {
-	signals.addMessage(id, message, level.toString());
-    }
-
-    private void setProjectIconsVisible(final boolean hasProject) {
+    public void setProjectIconsVisible(final boolean hasProject) {
 	display.setVisible(NavigationDisplay.ARCHIVES, hasProject);
 	display.setVisible(NavigationDisplay.EDITION, hasProject);
 	display.setVisible(NavigationDisplay.BOOKA, hasProject);
     }
 
-    private void setUserIconsVisible(final boolean loggedIn) {
+    public void setResource(final String name, final String resource) {
+	iconToResources.put(name, resource);
+    }
+
+    public void setUser(final String userName, final boolean active) {
+	signals.getUser().setText(userName);
+	signals.setUserActive(active);
+    }
+
+    public void setUserIconsVisible(final boolean loggedIn) {
 	display.setVisible(NavigationDisplay.ACCOUNT, loggedIn);
 	display.setVisible(NavigationDisplay.CALENDAR, loggedIn);
 	display.setVisible(NavigationDisplay.LOGIN, !loggedIn);
+    }
+
+    private void addMessage(final int id, final String message, final Level level) {
+	signals.addMessage(id, message, level.toString());
     }
 
 }

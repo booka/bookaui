@@ -2,7 +2,7 @@ package net.boklab.document.client.actions;
 
 import net.boklab.core.client.I18nCore;
 import net.boklab.document.client.I18nDocs;
-import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.action.BokAction;
 import net.boklab.document.client.bok.action.BokActionsPresenter;
 import net.boklab.document.client.content.html.HtmlContentHandler;
@@ -29,7 +29,7 @@ public class ActionsRegistrator {
 
 	registry.add(new BokAction(TYPE, I18nCore.t.closeAction()) {
 	    @Override
-	    public void execute(final BokPresenter presenter) {
+	    public void execute(final ClipPresenter presenter) {
 		presenter.setEditor(null);
 		if (presenter.getContentHandler() == null) {
 		    presenter.destroy();
@@ -37,7 +37,7 @@ public class ActionsRegistrator {
 	    }
 
 	    @Override
-	    public boolean isApplicable(final BokPresenter presenter) {
+	    public boolean isApplicable(final ClipPresenter presenter) {
 		return true;
 	    }
 	});

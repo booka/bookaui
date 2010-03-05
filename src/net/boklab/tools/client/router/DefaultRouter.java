@@ -37,7 +37,7 @@ public class DefaultRouter implements Router {
     }
 
     @Override
-    public void fireChanged(final String description, final Place place) {
+    public void setCurrent(final String description, final Place place) {
 	eventBus.fireEvent(new PlaceChangedEvent(description, place));
     }
 

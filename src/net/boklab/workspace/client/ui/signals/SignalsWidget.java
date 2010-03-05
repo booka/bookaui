@@ -78,4 +78,13 @@ public class SignalsWidget extends Composite implements SignalsDisplay {
 	return false;
     }
 
+    @Override
+    public void setUserActive(final boolean active) {
+	if (active) {
+	    user.addStyleName("active");
+	} else {
+	    user.removeStyleName("active");
+	}
+    }
+
 }

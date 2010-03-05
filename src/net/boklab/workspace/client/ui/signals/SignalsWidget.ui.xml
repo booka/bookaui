@@ -5,11 +5,13 @@
 		
 	</ui:style>
 	<g:LayoutPanel styleName="bk-Signals">
-		<g:layer left="0" right="50%" top="0.1em" height="1.1em">
+		<g:layer left="0" right="60%" top="0.1em" height="1.1em">
 			<g:Label ui:field="project" styleName="project" />
 		</g:layer>
-		<g:layer left="50%" right="0" top="0" height="1em">
-			<g:Label ui:field="user" styleName="user">Visitante</g:Label>
+		<g:layer left="40%" right="0" top="0" height="1.5em">
+			<g:FlowPanel>
+				<g:Label ui:field="user" styleName="user">Visitante</g:Label>
+			</g:FlowPanel>
 		</g:layer>
 		<g:layer left="0" right="0" top="1.3em" bottom="2.3em">
 			<g:Label ui:field="place" styleName="place" />

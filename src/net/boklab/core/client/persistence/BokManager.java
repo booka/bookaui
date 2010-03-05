@@ -19,6 +19,8 @@ public interface BokManager {
 
     void addUpdatedHandler(BokUpdatedHandler handler);
 
+    void create(Bok bok, BokCreatedHandler handler);
+
     void open(Bok bok, boolean forceOpen);
 
     void open(String bokId, String knownTitle, boolean forceOpen);

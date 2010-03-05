@@ -9,8 +9,8 @@ import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.bok.editor.BokEditorWidget;
 import net.boklab.document.client.bok.insert.SelectContentDisplay;
 import net.boklab.document.client.bok.insert.SelectContentWidget;
-import net.boklab.document.client.content.ContentRegistrator;
 import net.boklab.document.client.content.ContentHandlerRegistry;
+import net.boklab.document.client.content.ContentRegistrator;
 import net.boklab.document.client.content.debug.DebugEditorDisplay;
 import net.boklab.document.client.content.debug.DebugEditorWidget;
 import net.boklab.document.client.content.html.HtmlEditorDisplay;
@@ -21,8 +21,6 @@ import net.boklab.document.client.content.link.LinkEditorDisplay;
 import net.boklab.document.client.content.link.LinkEditorWidget;
 import net.boklab.document.client.doc.DocumentDisplay;
 import net.boklab.document.client.doc.DocumentWidget;
-import net.boklab.document.client.persistence.DocumentManager;
-import net.boklab.document.client.persistence.Documents;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
@@ -31,13 +29,11 @@ public class DocumentsModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
-	bind(DocumentsRouter.class).asEagerSingleton();
+	bind(DocumentManager.class).asEagerSingleton();
 
 	bind(ContentRegistrator.class).asEagerSingleton();
 	bind(ActionsRegistrator.class).asEagerSingleton();
 	bind(ContentHandlerRegistry.class).in(Singleton.class);
-
-	bind(Documents.class).to(DocumentManager.class).in(Singleton.class);
 
 	bind(DocumentDisplay.class).to(DocumentWidget.class).in(Singleton.class);
 	bind(BokDisplay.class).to(BokWidget.class);

@@ -16,7 +16,7 @@ public class SiteManager extends AbstractBokManager {
     }
 
     public void open(final boolean force) {
-	open("1", I18nSite.t.siteTitle(), force);
+	open("1", "", force);
     }
 
 }

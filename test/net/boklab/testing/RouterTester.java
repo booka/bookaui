@@ -26,10 +26,10 @@ public class RouterTester extends DefaultRouter {
     }
 
     @Override
-    public void fireChanged(final String description, final Place place) {
+    public void setCurrent(final String description, final Place place) {
 	lastChanged = place;
 	changed.add(place);
-	super.fireChanged(description, place);
+	super.setCurrent(description, place);
     }
 
     @Override

@@ -2,7 +2,7 @@ package net.boklab.document.client.actions;
 
 import net.boklab.core.client.I18nCore;
 import net.boklab.core.client.model.Bok;
-import net.boklab.document.client.bok.BokPresenter;
+import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.action.BokAction;
 import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.content.ContentManager;
@@ -25,7 +25,7 @@ public class DebugAction extends BokAction {
     }
 
     @Override
-    public void execute(final BokPresenter presenter) {
+    public void execute(final ClipPresenter presenter) {
 	final Bok bok = presenter.getBok();
 	final BokEditorDisplay editor = manager.newEditor(bok, DebugContentHandler.TYPE);
 	editor.setSaveVisible(false);
@@ -40,7 +40,7 @@ public class DebugAction extends BokAction {
     }
 
     @Override
-    public boolean isApplicable(final BokPresenter presenter) {
+    public boolean isApplicable(final ClipPresenter presenter) {
 	return true;
     }
 

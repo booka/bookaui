@@ -5,11 +5,6 @@ import com.google.gwt.core.client.JsonUtils;
 
 public class BokJSO extends JavaScriptObject implements BokDTO {
 
-    @Deprecated
-    public static BokJSO newInstance(final String bokType) {
-	return JsonUtils.unsafeEval("{'bok':{bok_type = '+ bokType + '}}");
-    }
-
     protected BokJSO() {
     }
 

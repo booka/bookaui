@@ -8,10 +8,8 @@ import net.boklab.core.client.session.UserSessionManager;
 import net.boklab.document.client.bok.BokDisplay;
 import net.boklab.document.client.content.info.InfoEditorDisplay;
 import net.boklab.document.client.doc.DocumentDisplay;
-import net.boklab.document.client.persistence.DocumentManager;
-import net.boklab.document.client.persistence.Documents;
-import net.boklab.site.client.ui.ProjectBrowserDisplay;
-import net.boklab.site.client.ui.ProjectDisplay;
+import net.boklab.site.client.project.browser.ProjectBrowserDisplay;
+import net.boklab.site.client.project.browser.ProjectDisplay;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Display;
 import net.boklab.tools.client.place.HistoryManager;
@@ -89,7 +87,6 @@ public class BookaTester extends AbstractModule implements Module {
 
     private void configureManagers() {
 	addMock(RestManager.class);
-	bind(Documents.class).to(DocumentManager.class).in(Singleton.class);
 	bind(Sessions.class).to(UserSessionManager.class).in(Singleton.class);
     }
 

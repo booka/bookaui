@@ -8,16 +8,19 @@ import net.boklab.core.client.bok.events.BokRetrievedEvent;
 import net.boklab.core.client.bok.events.BokRetrievedHandler;
 import net.boklab.core.client.bok.events.BokUpdatedEvent;
 import net.boklab.core.client.bok.events.BokUpdatedHandler;
+import net.boklab.core.client.bok.events.CreateBokEvent;
 import net.boklab.core.client.bok.events.OpenBokEvent;
 import net.boklab.core.client.bok.events.OpenBokHandler;
 import net.boklab.core.client.model.Bok;
 import net.boklab.tools.client.eventbus.EventBus;
 
+import com.google.gwt.core.client.GWT;
+
 public abstract class AbstractBokManager implements BokManager {
 
     protected final EventBus eventBus;
     private final String bokType;
-    private final Bok active;
+    private Bok active;
 
     public AbstractBokManager(final String bokType, final EventBus eventBus, final PlainBokManager manager) {
 	this.eventBus = eventBus;
@@ -26,8 +29,21 @@ public abstract class AbstractBokManager implements BokManager {
 
 	addOpenHandler(new OpenBokHandler() {
 	    @Override
-	    public void onOpenBok(final OpenBokEvent event) {
-		manager.retrieve(event.getBokId(), null);
+	    public void onOpenBok(final OpenBokEvent openEvent) {
+		GWT.log("ABM: onOpenBok");
+		if (active != null && active.getId().equals(openEvent.getBokId())) {
+		    GWT.log("ABM: use cached bok");
+		    eventBus.fireEvent(new BokOpenedEvent(active, openEvent.isChangePlace()));
+		} else {
+		    GWT.log("AMB: retrieve on Open");
+		    manager.retrieve(openEvent.getBokId(), new BokRetrievedHandler() {
+			@Override
+			public void onBokRetrieved(final BokRetrievedEvent retrievedEvent) {
+			    active = retrievedEvent.getBok();
+			    eventBus.fireEvent(new BokOpenedEvent(active, false));
+			}
+		    });
+		}
 	    }
 	});
     }
@@ -90,6 +106,11 @@ public abstract class AbstractBokManager implements BokManager {
 		}
 	    }
 	});
+    }
+
+    @Override
+    public void create(final Bok bok, final BokCreatedHandler handler) {
+	eventBus.fireEvent(new CreateBokEvent(bok, handler));
     }
 
     public Bok getActive() {

@@ -60,6 +60,15 @@ public class NavigationWidget extends Composite implements NavigationDisplay {
     }
 
     @Override
+    public void setLinkActive(final String item, final boolean active) {
+	if (active) {
+	    items.get(item).addStyleName("active");
+	} else {
+	    items.get(item).removeStyleName("active");
+	}
+    }
+
+    @Override
     public void setVisible(final String item, final boolean visible) {
 	items.get(item).setVisible(visible);
     }

@@ -16,7 +16,8 @@ public class PlaceManager {
     private final EventBus eventBus;
 
     @Inject
-    public PlaceManager(final EventBus eventBus, final PlaceTokenizer tokenizer, final HistoryManager history) {
+    public PlaceManager(final EventBus eventBus, final PlaceTokenizer tokenizer,
+	    final HistoryManager history) {
 	this.eventBus = eventBus;
 	this.tokenizer = tokenizer;
 	this.history = history;

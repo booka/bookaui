@@ -28,7 +28,7 @@ public interface Router {
 	}
     }
 
-    void fireChanged(String description, Place place);
+    void setCurrent(String description, Place place);
 
     void fireRequest(Place place);
 
