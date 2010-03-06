@@ -9,6 +9,7 @@ import net.boklab.core.client.bok.events.OpenBokHandler;
 import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.DocumentManager;
+import net.boklab.site.client.CallManager;
 import net.boklab.site.client.ProjectManager;
 import net.boklab.site.client.SiteManager;
 import net.boklab.tools.client.place.Place;
@@ -16,7 +17,8 @@ import net.boklab.tools.client.place.PlaceRequestEvent;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
-import net.boklab.workspace.client.event.UserMessageEvent.Level;
+import net.boklab.workspace.client.msg.MessageManager;
+import net.boklab.workspace.client.msg.CreateMessageEvent.Level;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
@@ -31,13 +33,14 @@ public class EntranceController {
 
     @Inject
     public EntranceController(final DocumentManager documents, final ProjectManager projects,
-	    final Router router, final Provider<EntranceWorkspace> workspace,
-	    final NavigationPresenter navigation, final SiteManager sites, final Sessions sessions) {
+	    final MessageManager messages, final CallManager calls, final Router router,
+	    final Provider<EntranceWorkspace> workspace, final NavigationPresenter navigation,
+	    final SiteManager sites, final Sessions sessions) {
 
 	loadingSiteUM = -1;
 
 	final String ENTRANCE = "entrada";
-	navigation.setResource(NavigationDisplay.ENTRANCE, ENTRANCE);
+	navigation.registerResource(NavigationDisplay.ENTRANCE, ENTRANCE);
 
 	router.onRequest(Paths.root(), new PlaceRequestHandler() {
 	    @Override
@@ -62,15 +65,20 @@ public class EntranceController {
 	sites.addOpenHandler(new OpenBokHandler() {
 	    @Override
 	    public void onOpenBok(final OpenBokEvent event) {
-		loadingSiteUM = navigation.fireUserMessage(I18nPlaces.t.loadingSite(),
-			Level.working);
+		loadingSiteUM = messages.createMessage(I18nPlaces.t.loadingSite(), Level.working);
+	    }
+	});
+
+	sites.addOpenedHandler(new BokOpenedHandler() {
+	    @Override
+	    public void onBokOpened(final BokOpenedEvent event) {
 	    }
 	});
 
 	sites.addRetrievedHandler(new BokRetrievedHandler() {
 	    @Override
 	    public void onBokRetrieved(final BokRetrievedEvent event) {
-		loadingSiteUM = navigation.removeMessage(loadingSiteUM);
+		loadingSiteUM = messages.removeMessage(loadingSiteUM);
 		navigation.setPlace(I18nPlaces.t.placeSite());
 	    }
 	});
@@ -78,9 +86,18 @@ public class EntranceController {
 	projects.addOpenedHandler(new BokOpenedHandler() {
 	    @Override
 	    public void onBokOpened(final BokOpenedEvent event) {
-		final Bok bok = event.getBok();
-		documents.open(bok, false);
+		final Bok project = event.getBok();
+		final Bok call = project.getFirstChild(Bok.CALL);
+		calls.open(call.getId(), call.getTitle(), false);
 	    }
 	});
+
+	calls.addRetrievedHandler(new BokRetrievedHandler() {
+	    @Override
+	    public void onBokRetrieved(final BokRetrievedEvent event) {
+		workspace.get().setDocument(event.getBok());
+	    }
+	});
+
     }
 }

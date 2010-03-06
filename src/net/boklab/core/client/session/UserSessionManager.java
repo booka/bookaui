@@ -27,7 +27,8 @@ public class UserSessionManager implements Sessions {
     }
 
     @Override
-    public void addSessionChangedHandler(final SessionChangedHandler handler, final boolean forceEvent) {
+    public void addSessionChangedHandler(final SessionChangedHandler handler,
+	    final boolean forceEvent) {
 	eventBus.addHandler(SessionChangedEvent.TYPE, handler);
 	if (forceEvent) {
 	    handler.onSessionChanged(new SessionChangedEvent(userSession));
@@ -71,7 +72,7 @@ public class UserSessionManager implements Sessions {
 	authToken = null;
 	userSession = null;
 	manager.setAuthToken(authToken);
-	eventBus.fireEvent(new LoggedOutEvent());
+	eventBus.fireEvent(new SessionChangedEvent(null));
     }
 
     @Override

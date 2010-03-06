@@ -1,18 +1,18 @@
 package net.boklab.document.client.content.info;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.document.client.content.ContentEditor;
+import net.boklab.document.client.bok.editor.AbstractEditor;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-public class InfoEditorPresenter implements ContentEditor<InfoEditorDisplay> {
+public class InfoEditorPresenter extends AbstractEditor<InfoEditorDisplay> {
 
-    private final InfoEditorDisplay display;
     private Bok bok;
 
     @Inject
-    public InfoEditorPresenter(final InfoEditorDisplay display) {
-	this.display = display;
+    public InfoEditorPresenter(final Provider<InfoEditorDisplay> provider) {
+	super(provider);
     }
 
     @Override
@@ -21,19 +21,16 @@ public class InfoEditorPresenter implements ContentEditor<InfoEditorDisplay> {
     }
 
     @Override
-    public InfoEditorDisplay getDisplay() {
-	return display;
-    }
-
-    @Override
     public void setBok(final Bok bok) {
 	this.bok = bok;
+	final InfoEditorDisplay display = getDisplay();
 	display.getBokTitle().setText(bok.getTitle());
 	display.getDescription().setText(bok.getDescription());
     }
 
     @Override
     public void updateClip() {
+	final InfoEditorDisplay display = getDisplay();
 	bok.setTitle(display.getBokTitle().getText());
 	bok.setDescription(display.getDescription().getText());
     }

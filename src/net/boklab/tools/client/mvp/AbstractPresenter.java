@@ -3,19 +3,35 @@ package net.boklab.tools.client.mvp;
 import com.google.inject.Provider;
 
 public abstract class AbstractPresenter<D extends Display> implements Presenter<D> {
-    private D display;
+    private D displayInstance;
     private final Provider<D> provider;
+    private boolean binded;
 
-    public AbstractPresenter(Provider<D> provider) {
+    public AbstractPresenter(final Provider<D> provider) {
 	this.provider = provider;
-	this.display = null;
+	this.displayInstance = null;
+	binded = false;
+    }
+
+    @Override
+    public final void bind() {
+	if (!binded) {
+	    attach();
+	    binded = true;
+	}
     }
 
     @Override
     public D getDisplay() {
-	if (display == null)
-	    display = provider.get();
-	return display;
+	if (displayInstance == null) {
+	    displayInstance = provider.get();
+	    bind();
+	}
+	return displayInstance;
+    }
+
+    protected void attach() {
+
     }
 
 }

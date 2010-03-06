@@ -18,7 +18,7 @@ public class IndicesController {
 	    final NavigationPresenter navigation, final PlaceManager places) {
 
 	final String accountResource = I18nPlaces.t.resourceBrowse();
-	navigation.setResource(NavigationDisplay.BOOKA, accountResource);
+	navigation.registerResource(NavigationDisplay.BOOKA, accountResource);
 
 	router.onRequest(Paths.singletonResource(accountResource), new PlaceRequestHandler() {
 	    @Override

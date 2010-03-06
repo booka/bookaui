@@ -11,8 +11,11 @@ import net.boklab.core.client.bok.events.BokUpdatedHandler;
 import net.boklab.core.client.bok.events.CreateBokEvent;
 import net.boklab.core.client.bok.events.OpenBokEvent;
 import net.boklab.core.client.bok.events.OpenBokHandler;
+import net.boklab.core.client.bok.events.RetrieveBokEvent;
 import net.boklab.core.client.model.Bok;
 import net.boklab.tools.client.eventbus.EventBus;
+import net.boklab.workspace.client.msg.MessageManager;
+import net.boklab.workspace.client.msg.CreateMessageEvent.Level;
 
 import com.google.gwt.core.client.GWT;
 
@@ -21,29 +24,41 @@ public abstract class AbstractBokManager implements BokManager {
     protected final EventBus eventBus;
     private final String bokType;
     private Bok active;
+    private int opening;
+    private final MessageManager messages;
+    private final ManagerMessages i18n;
 
-    public AbstractBokManager(final String bokType, final EventBus eventBus, final PlainBokManager manager) {
+    public AbstractBokManager(final String bokType, final EventBus eventBus,
+	    final MessageManager messages, final ManagerMessages i18n) {
 	this.eventBus = eventBus;
 	this.bokType = bokType;
-	active = null;
+	this.messages = messages;
+	this.i18n = i18n;
+	opening = MessageManager.NONE;
+	setActive(null);
 
 	addOpenHandler(new OpenBokHandler() {
 	    @Override
 	    public void onOpenBok(final OpenBokEvent openEvent) {
-		GWT.log("ABM: onOpenBok");
-		if (active != null && active.getId().equals(openEvent.getBokId())) {
-		    GWT.log("ABM: use cached bok");
-		    eventBus.fireEvent(new BokOpenedEvent(active, openEvent.isChangePlace()));
+		if (getActive() != null && getActive().getId().equals(openEvent.getBokId())) {
+		    eventBus.fireEvent(new BokOpenedEvent(getActive(), openEvent.isChangePlace()));
 		} else {
-		    GWT.log("AMB: retrieve on Open");
-		    manager.retrieve(openEvent.getBokId(), new BokRetrievedHandler() {
-			@Override
-			public void onBokRetrieved(final BokRetrievedEvent retrievedEvent) {
-			    active = retrievedEvent.getBok();
-			    eventBus.fireEvent(new BokOpenedEvent(active, false));
-			}
-		    });
+		    eventBus.fireEvent(new RetrieveBokEvent(openEvent.getBokId(),
+			    new BokRetrievedHandler() {
+				@Override
+				public void onBokRetrieved(final BokRetrievedEvent retrievedEvent) {
+				    setActive(retrievedEvent.getBok());
+				    eventBus.fireEvent(new BokOpenedEvent(getActive(), false));
+				}
+			    }));
 		}
+	    }
+	});
+
+	addOpenedHandler(new BokOpenedHandler() {
+	    @Override
+	    public void onBokOpened(final BokOpenedEvent event) {
+		opening = messages.removeMessage(opening);
 	    }
 	});
     }
@@ -118,16 +133,29 @@ public abstract class AbstractBokManager implements BokManager {
     }
 
     public boolean hasActive() {
+	GWT.log("HAS ACTIVE " + bokType + ": " + (active != null ? active.getId() : "none"));
 	return active != null;
     }
 
     @Override
     public void open(final Bok bok, final boolean forceOpen) {
-	eventBus.fireEvent(new BokOpenedEvent(bok, forceOpen));
+	if (MessageManager.isNot(opening)) {
+	    opening = messages.createMessage(i18n.open(bok.getTitle()), Level.working);
+	    eventBus.fireEvent(new BokOpenedEvent(bok, forceOpen));
+	}
     }
 
     @Override
     public void open(final String bokId, final String knownTitle, final boolean forceOpen) {
-	eventBus.fireEvent(new OpenBokEvent(bokType, bokId, forceOpen, knownTitle));
+	if (MessageManager.isNot(opening)) {
+	    final String msg = knownTitle != null ? i18n.open(knownTitle) : i18n.open();
+	    opening = messages.createMessage(msg, Level.working);
+	    eventBus.fireEvent(new OpenBokEvent(bokType, bokId, forceOpen, knownTitle));
+	}
+    }
+
+    public void setActive(final Bok active) {
+	GWT.log("SET ACTIVE " + bokType + ": " + (active != null ? active.getId() : "none"));
+	this.active = active;
     }
 }

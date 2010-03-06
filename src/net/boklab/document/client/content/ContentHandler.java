@@ -4,7 +4,7 @@ import net.boklab.core.client.model.Bok;
 
 public abstract class ContentHandler {
 
-    private final String type;
+    protected final String type;
 
     public ContentHandler(final String mimeType) {
 	type = mimeType;

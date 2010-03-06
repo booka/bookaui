@@ -21,7 +21,7 @@ public class CalendarController {
 	    final NavigationPresenter navigation, final Provider<CalendarPresenter> calendarProvider) {
 
 	final String CALENDAR = "calendario";
-	navigation.setResource(NavigationDisplay.CALENDAR, CALENDAR);
+	navigation.registerResource(NavigationDisplay.CALENDAR, CALENDAR);
 
 	router.onRequest(Paths.singletonResource(CALENDAR), new PlaceRequestHandler() {
 	    @Override

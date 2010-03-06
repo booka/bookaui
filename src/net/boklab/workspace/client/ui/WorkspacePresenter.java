@@ -19,6 +19,10 @@ public class WorkspacePresenter implements Presenter<WorkspaceDisplay> {
     }
 
     @Override
+    public void bind() {
+    }
+
+    @Override
     public WorkspaceDisplay getDisplay() {
 	return display;
     }

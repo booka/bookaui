@@ -1,18 +1,18 @@
 package net.boklab.document.client.content.html;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.document.client.content.ContentEditor;
+import net.boklab.document.client.bok.editor.AbstractEditor;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 
-public class HtmlEditorPresenter implements ContentEditor<HtmlEditorDisplay> {
+public class HtmlEditorPresenter extends AbstractEditor<HtmlEditorDisplay> {
 
-    private final HtmlEditorDisplay display;
     private Bok bok;
 
     @Inject
-    public HtmlEditorPresenter(final HtmlEditorDisplay display) {
-	this.display = display;
+    public HtmlEditorPresenter(final Provider<HtmlEditorDisplay> provider) {
+	super(provider);
     }
 
     @Override
@@ -20,19 +20,14 @@ public class HtmlEditorPresenter implements ContentEditor<HtmlEditorDisplay> {
 	return bok;
     }
 
-    @Override
-    public HtmlEditorDisplay getDisplay() {
-	return display;
-    }
-
     public void setBok(final Bok clip) {
 	bok = clip;
-	display.getBody().setText(clip.getBody());
+	getDisplay().getBody().setText(clip.getBody());
     }
 
     @Override
     public void updateClip() {
-	bok.setBody(display.getBody().getText());
+	bok.setBody(getDisplay().getBody().getText());
     }
 
 }

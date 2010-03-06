@@ -9,7 +9,9 @@ import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
+import com.google.inject.Singleton;
 
+@Singleton
 public class LoginWidget extends Composite implements LoginDisplay {
 
     interface LoginWidgetUiBinder extends UiBinder<Widget, LoginWidget> {

@@ -15,7 +15,7 @@ public class AccountController {
     @Inject
     public AccountController(final Router router, final AccountWorkspace workspace, final NavigationPresenter navigation) {
 	final String accountResource = I18nUser.t.accountResource();
-	navigation.setResource(NavigationDisplay.ACCOUNT, accountResource);
+	navigation.registerResource(NavigationDisplay.ACCOUNT, accountResource);
 
 	router.onRequest(Paths.singletonResource(accountResource), new PlaceRequestHandler() {
 	    @Override

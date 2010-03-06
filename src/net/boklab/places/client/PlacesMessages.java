@@ -6,8 +6,8 @@ import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 @DefaultLocale("es")
 public interface PlacesMessages extends Messages {
 
-    @DefaultMessage("explorar")
-    String resourceBrowse();
+    @DefaultMessage("Abriendo convocatoria...")
+    String loadingCall();
 
     @DefaultMessage("Abriendo documento ''{0}''...")
     String loadingDocument(String title);
@@ -35,6 +35,9 @@ public interface PlacesMessages extends Messages {
 
     @DefaultMessage("investigaciones")
     String projectsResourceName();
+
+    @DefaultMessage("explorar")
+    String resourceBrowse();
 
     @DefaultMessage("Abriendo investigación...")
     String unknownProjectName();

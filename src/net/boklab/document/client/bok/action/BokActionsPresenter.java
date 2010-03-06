@@ -34,6 +34,10 @@ public class BokActionsPresenter implements Presenter<BokActionsDisplay> {
     }
 
     @Override
+    public void bind() {
+    }
+
+    @Override
     public BokActionsDisplay getDisplay() {
 	return display;
     }

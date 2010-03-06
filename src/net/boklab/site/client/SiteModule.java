@@ -13,6 +13,7 @@ public class SiteModule extends AbstractGinModule {
     protected void configure() {
 	bind(ProjectManager.class).asEagerSingleton();
 	bind(SiteManager.class).asEagerSingleton();
+	bind(CallManager.class).asEagerSingleton();
 
 	bind(ProjectBrowserDisplay.class).to(ProjectBrowserWidget.class);
 	bind(ProjectDisplay.class).to(ProjectWidget.class);

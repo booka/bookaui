@@ -17,6 +17,7 @@ public class DelegatedBok implements Bok {
     }
 
     protected final BokDTO delegate;
+
     private final ArrayList<Bok> children;
     private Bok parent;
 
@@ -30,8 +31,8 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
-    public BokDTO createBok(final String type, final String title, final String parentId, final String userId,
-	    final int position) {
+    public BokDTO createBok(final String type, final String title, final String parentId,
+	    final String userId, final int position) {
 	return delegate.createBok(type, title, parentId, userId, position);
     }
 
@@ -58,6 +59,16 @@ public class DelegatedBok implements Bok {
     @Override
     public String getDescription() {
 	return delegate.getDescription();
+    }
+
+    @Override
+    public Bok getFirstChild(final String bokType) {
+	for (final Bok child : getChildren()) {
+	    if (child.getBokType().equals(bokType)) {
+		return child;
+	    }
+	}
+	return null;
     }
 
     @Override
@@ -105,7 +116,8 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
-    public DelegatedBok newChild(final String type, final String title, final String userId, final int position) {
+    public DelegatedBok newChild(final String type, final String title, final String userId,
+	    final int position) {
 	return new DelegatedBok(delegate.createBok(type, title, getId(), userId, position));
     }
 

@@ -2,6 +2,8 @@ package net.boklab.places.client;
 
 import net.boklab.core.client.bok.events.BokOpenedEvent;
 import net.boklab.core.client.bok.events.BokOpenedHandler;
+import net.boklab.core.client.bok.events.BokRetrievedEvent;
+import net.boklab.core.client.bok.events.BokRetrievedHandler;
 import net.boklab.core.client.bok.events.OpenBokEvent;
 import net.boklab.core.client.bok.events.OpenBokHandler;
 import net.boklab.core.client.model.Bok;
@@ -12,7 +14,7 @@ import net.boklab.tools.client.place.PlaceRequestEvent;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
-import net.boklab.workspace.client.event.UserMessageEvent.Level;
+import net.boklab.workspace.client.msg.MessageManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
@@ -23,22 +25,17 @@ import com.google.inject.Singleton;
 
 @Singleton
 public class ArchivesController {
-    protected int projectLoadingUM;
-    protected int documentLoadingUM;
 
     @Inject
     public ArchivesController(final Router router, final ProjectManager projects,
 	    final DocumentManager documents, final ArchivesWorkspace workspace,
-	    final NavigationPresenter navigation) {
-
-	projectLoadingUM = documentLoadingUM = -1;
+	    final NavigationPresenter navigation, final MessageManager messages) {
 
 	final String ARCHIVES = "archivos";
 	final String PROJECTS = I18nPlaces.t.projectsResourceName();
 	final String DOCUMENTS = "documentos";
 
-	navigation.setResource(NavigationDisplay.ARCHIVES, ARCHIVES);
-	navigation.setProjectIconsVisible(projects.hasActive());
+	navigation.registerResource(NavigationDisplay.ARCHIVES, ARCHIVES);
 
 	router.onRequest(Paths.singletonResource(ARCHIVES), new PlaceRequestHandler() {
 	    @Override
@@ -76,13 +73,10 @@ public class ArchivesController {
 	    public void onOpenBok(final OpenBokEvent event) {
 		if (event.isChangePlace()) {
 		    GWT.log("ARCHIVES Project force true!");
-		    projectLoadingUM = navigation.fireUserMessage(I18nPlaces.t.loadingProject(),
-			    Level.working);
 		    router.setCurrent(event.getKnownTitle(), new Place(PROJECTS, event.getBokId()));
 		    workspace.show(false);
 		}
 		workspace.prepare();
-		navigation.setActive(NavigationDisplay.ARCHIVES);
 	    }
 	});
 
@@ -90,11 +84,9 @@ public class ArchivesController {
 	    @Override
 	    public void onBokOpened(final BokOpenedEvent event) {
 		final Bok project = event.getBok();
-		projectLoadingUM = navigation.removeMessage(projectLoadingUM);
 		final String projectName = I18nPlaces.t.projectName(project.getTitle());
 		navigation.setProject(projectName);
 		navigation.setPlace(projectName);
-		navigation.setProjectIconsVisible(projects.hasActive());
 		workspace.prepare();
 	    }
 	});
@@ -102,20 +94,21 @@ public class ArchivesController {
 	documents.addOpenHandler(new OpenBokHandler() {
 	    @Override
 	    public void onOpenBok(final OpenBokEvent event) {
-		final String title = event.getKnownTitle();
-		final String message = title != null ? I18nPlaces.t.loadingDocument(title)
-			: I18nPlaces.t.loadingDocumentUnknown();
-		documentLoadingUM = navigation.fireUserMessage(message, Level.working);
 		workspace.prepare();
-		// workspace.show(true);
 		navigation.setActive(NavigationDisplay.ARCHIVES);
+	    }
+	});
+
+	documents.addRetrievedHandler(new BokRetrievedHandler() {
+	    @Override
+	    public void onBokRetrieved(final BokRetrievedEvent event) {
+		workspace.setDocument(event.getBok());
 	    }
 	});
 
 	documents.addOpenedHandler(new BokOpenedHandler() {
 	    @Override
 	    public void onBokOpened(final BokOpenedEvent event) {
-		documentLoadingUM = navigation.removeMessage(documentLoadingUM);
 		final Bok document = event.getBok();
 		navigation.setPlace(document.getTitle());
 		projects.open(document.getParentId(), null, false);

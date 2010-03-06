@@ -10,7 +10,7 @@
 		</g:layer>
 		<g:layer left="40%" right="0" top="0" height="1.5em">
 			<g:FlowPanel>
-				<g:Label ui:field="user" styleName="user">Visitante</g:Label>
+				<g:Anchor ui:field="user" styleName="user" />
 			</g:FlowPanel>
 		</g:layer>
 		<g:layer left="0" right="0" top="1.3em" bottom="2.3em">

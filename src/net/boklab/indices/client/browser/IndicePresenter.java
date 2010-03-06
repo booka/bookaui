@@ -1,22 +1,25 @@
 package net.boklab.indices.client.browser;
 
-import net.boklab.tools.client.mvp.Presenter;
+import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.inject.Inject;
+import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
+/**
+ * Es el browser de indices
+ */
 @Singleton
-public class IndicePresenter implements Presenter<BrowserDisplay> {
-
-    private final BrowserDisplay display;
+public class IndicePresenter extends AbstractPresenter<BrowserDisplay> {
 
     @Inject
-    public IndicePresenter(final BrowserDisplay display) {
-	this.display = display;
-	display.getBrowserTitle().setText("Explorando");
+    public IndicePresenter(final Provider<BrowserDisplay> provider) {
+	super(provider);
     }
 
-    public BrowserDisplay getDisplay() {
-	return display;
+    @Override
+    protected void attach() {
+	getDisplay().getBrowserTitle().setText("Explorando");
     }
+
 }

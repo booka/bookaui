@@ -15,6 +15,10 @@ public class WipPresenter implements Presenter<WipDisplay> {
 	this.display = display;
     }
 
+    @Override
+    public void bind() {
+    }
+
     public WipDisplay getDisplay() {
 	return display;
     }

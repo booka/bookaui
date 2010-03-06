@@ -1,6 +1,7 @@
 package net.boklab.places.client;
 
 import net.boklab.browser.client.ui.DocumentBrowserPresenter;
+import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.ui.wip.WipPresenter;
 import net.boklab.document.client.doc.DocumentPresenter;
 import net.boklab.workspace.client.ui.WorkspacePresenter;
@@ -19,9 +20,10 @@ public class ArchivesWorkspace {
     private final Provider<DocumentPresenter> document;
 
     @Inject
-    public ArchivesWorkspace(final Provider<BookaAppPresenter> booka, final Provider<WorkspacePresenter> workspace,
-	    final Provider<DocumentBrowserPresenter> browser, final Provider<DocumentPresenter> document,
-	    final Provider<WipPresenter> wip) {
+    public ArchivesWorkspace(final Provider<BookaAppPresenter> booka,
+	    final Provider<WorkspacePresenter> workspace,
+	    final Provider<DocumentBrowserPresenter> browser,
+	    final Provider<DocumentPresenter> document, final Provider<WipPresenter> wip) {
 	this.booka = booka;
 	this.workspace = workspace;
 	this.browser = browser;
@@ -32,6 +34,10 @@ public class ArchivesWorkspace {
     public void prepare() {
 	browser.get();
 	document.get();
+    }
+
+    public void setDocument(final Bok bok) {
+	document.get().setDocument(bok);
     }
 
     public void show(final boolean hasDocument) {

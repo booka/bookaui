@@ -29,16 +29,12 @@ public class DefaultRouter implements Router {
 		final Place place = event.getPlace();
 		for (final PlaceMatcher matcher : matchers) {
 		    if (matcher.matches(place)) {
+			GWT.log("Handler for : " + place.toDebugString());
 			matcher.handler.onPlaceRequest(event);
 		    }
 		}
 	    }
 	});
-    }
-
-    @Override
-    public void setCurrent(final String description, final Place place) {
-	eventBus.fireEvent(new PlaceChangedEvent(description, place));
     }
 
     @Override
@@ -48,8 +44,12 @@ public class DefaultRouter implements Router {
 
     @Override
     public void onRequest(final Path path, final PlaceRequestHandler handler) {
-	GWT.log("NEW ROUTE: " + path.regex);
 	matchers.add(new PlaceMatcher(path.regex, handler));
+    }
+
+    @Override
+    public void setCurrent(final String description, final Place place) {
+	eventBus.fireEvent(new PlaceChangedEvent(description, place));
     }
 
 }

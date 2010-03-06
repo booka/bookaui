@@ -1,24 +1,24 @@
-package net.boklab.workspace.client.event;
+package net.boklab.workspace.client.msg;
 
 import net.boklab.tools.client.eventbus.EventBus;
 
 import com.google.gwt.event.shared.GwtEvent;
 
-public class UserMessageEvent extends GwtEvent<UserMessageHandler> {
+public class CreateMessageEvent extends GwtEvent<CreateMessageHandler> {
 
     public static enum Level {
 	info, error, working
     }
 
-    private static final Type<UserMessageHandler> TYPE = new Type<UserMessageHandler>();
+    private static final Type<CreateMessageHandler> TYPE = new Type<CreateMessageHandler>();
 
     private static int counter = 0;
 
     public static void fire(final String msg, final Level level, final EventBus eventBus) {
-	eventBus.fireEvent(new UserMessageEvent(msg, level));
+	eventBus.fireEvent(new CreateMessageEvent(msg, level));
     }
 
-    public static Type<UserMessageHandler> getType() {
+    public static Type<CreateMessageHandler> getType() {
 	return TYPE;
     }
 
@@ -28,18 +28,14 @@ public class UserMessageEvent extends GwtEvent<UserMessageHandler> {
 
     private final int id;
 
-    public UserMessageEvent(final String message) {
-	this(message, Level.info);
-    }
-
-    public UserMessageEvent(final String message, final Level level) {
+    public CreateMessageEvent(final String message, final Level level) {
 	this.message = message;
 	this.level = level;
 	id = ++counter;
     }
 
     @Override
-    public Type<UserMessageHandler> getAssociatedType() {
+    public Type<CreateMessageHandler> getAssociatedType() {
 	return getType();
     }
 
@@ -57,12 +53,12 @@ public class UserMessageEvent extends GwtEvent<UserMessageHandler> {
 
     @Override
     public String toDebugString() {
-	return super.toDebugString() + message + "(" + level + ")";
+	return super.toDebugString() + "(" + id + ") " + message + "(" + level + ")";
     }
 
     @Override
-    protected void dispatch(final UserMessageHandler handler) {
-	handler.onUserMessage(this);
+    protected void dispatch(final CreateMessageHandler handler) {
+	handler.onAddMessage(this);
     }
 
 }

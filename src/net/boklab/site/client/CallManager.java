@@ -10,19 +10,19 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ProjectManager extends AbstractBokManager {
+public class CallManager extends AbstractBokManager {
 
     @Inject
-    public ProjectManager(final EventBus eventBus, final MessageManager messages) {
-	super(Bok.PROJECT, eventBus, messages, new ManagerMessages() {
+    public CallManager(final EventBus eventBus, final MessageManager messages) {
+	super(Bok.CALL, eventBus, messages, new ManagerMessages() {
 	    @Override
 	    public String open() {
-		return I18nSite.t.openProjectUntitled();
+		return I18nSite.t.openCallUntitled();
 	    }
 
 	    @Override
 	    public String open(final String title) {
-		return I18nSite.t.openProject(title);
+		return I18nSite.t.openCall(title);
 	    }
 	});
     }

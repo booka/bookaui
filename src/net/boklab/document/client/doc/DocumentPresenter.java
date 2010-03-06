@@ -2,11 +2,7 @@ package net.boklab.document.client.doc;
 
 import java.util.ArrayList;
 
-import net.boklab.core.client.bok.events.BokRetrievedEvent;
-import net.boklab.core.client.bok.events.BokRetrievedHandler;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.session.SessionChangedEvent;
-import net.boklab.core.client.session.SessionChangedHandler;
 import net.boklab.core.client.session.Sessions;
 import net.boklab.document.client.DocumentManager;
 import net.boklab.document.client.bok.ClipPresenter;
@@ -20,12 +16,13 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> implements InsertHandler {
+public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 
     private final ContentManager typeManager;
     private final ArrayList<ClipPresenter> boks;
     private ClipPresenter documentPresenter;
     private final Sessions sessions;
+    private final InsertHandler insertHandler;
 
     @Inject
     public DocumentPresenter(final DocumentManager documents, final Sessions sessions,
@@ -36,57 +33,38 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> implem
 	boks = new ArrayList<ClipPresenter>();
 	this.typeManager = typeManager;
 
-	documents.addRetrievedHandler(new BokRetrievedHandler() {
+	insertHandler = new InsertHandler() {
 	    @Override
-	    public void onBokRetrieved(final BokRetrievedEvent event) {
-		setDocument(event.getBok());
+	    public void onInsert(final ClipPresenter bokPresenter, final boolean insertBefore) {
+		final Bok document = documentPresenter.getBok();
+		final int newPosition = bokPresenter.getBok().getPosition();
+		final Bok clip = document.newChild(null, null, sessions.getUserId(), newPosition);
+		final ClipPresenter presenter = typeManager.newBokPresenter(clip, this);
+		presenter.setActionsVisible(true);
+		final DocumentDisplay display = getDisplay();
+		final int currentIndex = display.getDisplayIndex(bokPresenter.getDisplay());
+		if (insertBefore) {
+		    display.insert(presenter.getDisplay(), currentIndex);
+		} else {
+		    final int last = display.getBokCount() - 1;
+		    if (currentIndex == last) {
+			display.add(presenter.getDisplay());
+		    } else {
+			display.insert(presenter.getDisplay(), currentIndex + 1);
+		    }
+		}
 	    }
-	});
 
-	sessions.addSessionChangedHandler(new SessionChangedHandler() {
 	    @Override
-	    public void onSessionChanged(final SessionChangedEvent event) {
-		// setLoggedIn(sessions.isLoggedIn());
-
+	    public void remove(final ClipPresenter bokPresenter) {
+		boks.remove(bokPresenter);
+		getDisplay().remove(bokPresenter.getDisplay());
 	    }
-	}, true);
 
+	};
     }
 
-    @Override
-    public void onInsert(final ClipPresenter bokPresenter, final boolean insertBefore) {
-	final Bok document = documentPresenter.getBok();
-	final int newPosition = bokPresenter.getBok().getPosition();
-	final Bok clip = document.newChild(null, null, sessions.getUserId(), newPosition);
-	final ClipPresenter presenter = typeManager.newBokPresenter(clip, this);
-	presenter.setActionsVisible(true);
-	final DocumentDisplay display = getDisplay();
-	final int currentIndex = display.getDisplayIndex(bokPresenter.getDisplay());
-	if (insertBefore) {
-	    display.insert(presenter.getDisplay(), currentIndex);
-	} else {
-	    final int last = display.getBokCount() - 1;
-	    if (currentIndex == last) {
-		display.add(presenter.getDisplay());
-	    } else {
-		display.insert(presenter.getDisplay(), currentIndex + 1);
-	    }
-	}
-    }
-
-    @Override
-    public void remove(final ClipPresenter bokPresenter) {
-	boks.remove(bokPresenter);
-	getDisplay().remove(bokPresenter.getDisplay());
-    }
-
-    private ClipPresenter createBokPresenter(final Bok bok) {
-	final ClipPresenter bokPresenter = typeManager.newBokPresenter(bok, this);
-	boks.add(bokPresenter);
-	return bokPresenter;
-    }
-
-    protected void setDocument(final Bok document) {
+    public void setDocument(final Bok document) {
 	final DocumentDisplay display = getDisplay();
 
 	display.clear();
@@ -119,5 +97,11 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> implem
 	    bokPresenter = createBokPresenter(clip);
 	    display.add(bokPresenter.getDisplay());
 	}
+    }
+
+    private ClipPresenter createBokPresenter(final Bok bok) {
+	final ClipPresenter bokPresenter = typeManager.newBokPresenter(bok, insertHandler);
+	boks.add(bokPresenter);
+	return bokPresenter;
     }
 }

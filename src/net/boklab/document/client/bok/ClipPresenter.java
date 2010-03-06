@@ -34,10 +34,23 @@ public class ClipPresenter implements Presenter<BokDisplay> {
     private final BokActionsPresenter actions;
 
     @Inject
-    public ClipPresenter(final EventBus eventBus, final BokDisplay display, final BokActionsPresenter actions) {
+    public ClipPresenter(final EventBus eventBus, final BokDisplay display,
+	    final BokActionsPresenter actions) {
 	this.display = display;
 	this.actions = actions;
 
+	eventBus.addHandler(BokUpdatedEvent.getType(), new BokUpdatedHandler() {
+	    @Override
+	    public void onBokUpdated(final BokUpdatedEvent event) {
+		if (bok != null) {
+		    final Bok newBok = event.getBok();
+		    if (newBok.getId().equals(bok.getId())) {
+			setBok(bok, contentHandler);
+			setWaiting(false);
+		    }
+		}
+	    }
+	});
 	display.setSlotsVisible(false);
 
 	display.getMouseOver().addMouseOverHandler(new MouseOverHandler() {
@@ -72,20 +85,10 @@ public class ClipPresenter implements Presenter<BokDisplay> {
 		insertHandler.onInsert(ClipPresenter.this, false);
 	    }
 	});
+    }
 
-	eventBus.addHandler(BokUpdatedEvent.getType(), new BokUpdatedHandler() {
-	    @Override
-	    public void onBokUpdated(final BokUpdatedEvent event) {
-		if (bok != null) {
-		    final Bok newBok = event.getBok();
-		    if (newBok.getId().equals(bok.getId())) {
-			setBok(bok, contentHandler);
-			setWaiting(false);
-		    }
-		}
-	    }
-	});
-
+    @Override
+    public void bind() {
     }
 
     public void destroy() {

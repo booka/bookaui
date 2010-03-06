@@ -14,7 +14,7 @@
 		<g:layer left="320px" top="0" right="270px" bottom="0">
 			<b:SignalsWidget ui:field="signals"></b:SignalsWidget>
 		</g:layer>
-		<g:layer top="0" bottom="0" width="300px" right="0">
+		<g:layer top="0" bottom="0" width="270px" right="0">
 			<g:FlowPanel styleName="social">
 				<g:Anchor styleName="{style.calendar}" ui:field="calendar" />
 				<g:Anchor styleName="{style.account}" ui:field="account" />

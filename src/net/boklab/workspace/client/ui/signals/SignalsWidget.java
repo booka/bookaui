@@ -3,9 +3,11 @@ package net.boklab.workspace.client.ui.signals;
 import java.util.HashMap;
 
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HasText;
@@ -22,7 +24,9 @@ public class SignalsWidget extends Composite implements SignalsDisplay {
     private static SignalsWidgetUiBinder uiBinder = GWT.create(SignalsWidgetUiBinder.class);
 
     @UiField
-    Label place, project, user;
+    Anchor user;
+    @UiField
+    Label place, project;
     @UiField
     FlowPanel messages;
 
@@ -65,6 +69,11 @@ public class SignalsWidget extends Composite implements SignalsDisplay {
 
     @Override
     public HasText getUser() {
+	return user;
+    }
+
+    @Override
+    public HasClickHandlers getUserAction() {
 	return user;
     }
 

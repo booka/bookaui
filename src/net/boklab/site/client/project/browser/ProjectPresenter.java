@@ -13,16 +13,13 @@ public class ProjectPresenter extends AbstractPresenter<ProjectDisplay> {
 
     private String projectId;
     private String title;
+    private final ProjectManager projects;
 
     @Inject
     public ProjectPresenter(final ProjectManager projects, final Provider<ProjectDisplay> display) {
 	super(display);
-	getDisplay().addClickHandler(new ClickHandler() {
-	    @Override
-	    public void onClick(final ClickEvent event) {
-		projects.open(projectId, title, true);
-	    }
-	});
+	this.projects = projects;
+
     }
 
     public void setProject(final Bok project) {
@@ -30,6 +27,16 @@ public class ProjectPresenter extends AbstractPresenter<ProjectDisplay> {
 	title = project.getTitle();
 	getDisplay().getTitleHeader().setText(project.getTitle());
 
+    }
+
+    @Override
+    protected void attach() {
+	getDisplay().addClickHandler(new ClickHandler() {
+	    @Override
+	    public void onClick(final ClickEvent event) {
+		projects.open(projectId, title, false);
+	    }
+	});
     }
 
 }

@@ -1,5 +1,6 @@
 package net.boklab.places.client;
 
+import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.ui.wip.WipPresenter;
 import net.boklab.document.client.doc.DocumentPresenter;
 import net.boklab.site.client.project.browser.ProjectBrowserPresenter;
@@ -33,6 +34,10 @@ public class EntranceWorkspace {
 
     public void prepare() {
 	projectBrowser.get();
+    }
+
+    public void setDocument(final Bok bok) {
+	document.get().setDocument(bok);
     }
 
     public void show() {
