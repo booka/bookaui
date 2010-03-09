@@ -1,0 +1,18 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui" xmlns:f="urn:import:net.boklab.core.client.ui.form">
+	<ui:style>
+		
+	</ui:style>
+	<g:FlowPanel styleName="bk-PointerEditor bk-Form">
+		<g:HTMLPanel styleName="fields">
+			<h1>Añadir un elemento al índice</h1>
+			<f:FieldWidget ui:field="position">Posición</f:FieldWidget>
+			<f:FieldWidget ui:field="title">Título</f:FieldWidget>
+		</g:HTMLPanel>
+		<g:FlowPanel styleName="actions">
+			<g:Anchor ui:field="save">Save</g:Anchor>
+			<g:Anchor ui:field="cancel">Cancel</g:Anchor>
+		</g:FlowPanel>
+	</g:FlowPanel>
+</ui:UiBinder> 

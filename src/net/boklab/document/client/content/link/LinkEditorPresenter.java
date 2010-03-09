@@ -47,8 +47,7 @@ public class LinkEditorPresenter extends AbstractEditor<LinkEditorDisplay> {
     }
 
     @Override
-    protected void attach() {
-	final LinkEditorDisplay display = getDisplay();
+    protected void attach(final LinkEditorDisplay display) {
 	display.getPreviewAction().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {

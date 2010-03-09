@@ -24,7 +24,18 @@ public class CallManager extends AbstractBokManager {
 	    public String open(final String title) {
 		return I18nSite.t.openCall(title);
 	    }
+
+	    @Override
+	    public String update(final String title) {
+		return I18nSite.t.update();
+	    }
 	});
+    }
+
+    public void openCallOfProject(final Bok project) {
+	final Bok call = project.getFirstChild(Bok.CALL);
+	assert call != null : "Call of given project is null (CallManager)";
+	open(call, false);
     }
 
 }

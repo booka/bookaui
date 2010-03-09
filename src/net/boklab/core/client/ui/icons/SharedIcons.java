@@ -1,4 +1,4 @@
-package net.boklab.core.client.icons.res;
+package net.boklab.core.client.ui.icons;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.uibinder.client.UiBinder;

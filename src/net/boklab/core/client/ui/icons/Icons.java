@@ -1,4 +1,4 @@
-package net.boklab.core.client.icons;
+package net.boklab.core.client.ui.icons;
 
 import java.util.HashMap;
 

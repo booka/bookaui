@@ -12,6 +12,7 @@ import net.boklab.core.client.bok.events.CreateBokEvent;
 import net.boklab.core.client.bok.events.OpenBokEvent;
 import net.boklab.core.client.bok.events.OpenBokHandler;
 import net.boklab.core.client.bok.events.RetrieveBokEvent;
+import net.boklab.core.client.bok.events.UpdateBokEvent;
 import net.boklab.core.client.model.Bok;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.workspace.client.msg.MessageManager;
@@ -27,6 +28,7 @@ public abstract class AbstractBokManager implements BokManager {
     private int opening;
     private final MessageManager messages;
     private final ManagerMessages i18n;
+    private int updating;
 
     public AbstractBokManager(final String bokType, final EventBus eventBus,
 	    final MessageManager messages, final ManagerMessages i18n) {
@@ -34,33 +36,31 @@ public abstract class AbstractBokManager implements BokManager {
 	this.bokType = bokType;
 	this.messages = messages;
 	this.i18n = i18n;
-	opening = MessageManager.NONE;
+	opening = updating = MessageManager.NONE;
 	setActive(null);
 
 	addOpenHandler(new OpenBokHandler() {
 	    @Override
 	    public void onOpenBok(final OpenBokEvent openEvent) {
-		if (getActive() != null && getActive().getId().equals(openEvent.getBokId())) {
-		    eventBus.fireEvent(new BokOpenedEvent(getActive(), openEvent.isChangePlace()));
-		} else {
-		    eventBus.fireEvent(new RetrieveBokEvent(openEvent.getBokId(),
-			    new BokRetrievedHandler() {
-				@Override
-				public void onBokRetrieved(final BokRetrievedEvent retrievedEvent) {
-				    setActive(retrievedEvent.getBok());
-				    eventBus.fireEvent(new BokOpenedEvent(getActive(), false));
-				}
-			    }));
-		}
+		onOpen(openEvent);
 	    }
+
 	});
 
 	addOpenedHandler(new BokOpenedHandler() {
 	    @Override
 	    public void onBokOpened(final BokOpenedEvent event) {
-		opening = messages.removeMessage(opening);
+		onOpened(event);
 	    }
 	});
+
+	addUpdatedHandler(new BokUpdatedHandler() {
+	    @Override
+	    public void onBokUpdated(final BokUpdatedEvent event) {
+		onUpdated(event);
+	    }
+	});
+
     }
 
     @Override
@@ -132,9 +132,16 @@ public abstract class AbstractBokManager implements BokManager {
 	return active;
     }
 
+    public String getActiveId() {
+	return active != null ? active.getId() : null;
+    }
+
     public boolean hasActive() {
-	GWT.log("HAS ACTIVE " + bokType + ": " + (active != null ? active.getId() : "none"));
 	return active != null;
+    }
+
+    public boolean isActive(final String id) {
+	return active != null && active.getId().equals(id);
     }
 
     @Override
@@ -157,5 +164,35 @@ public abstract class AbstractBokManager implements BokManager {
     public void setActive(final Bok active) {
 	GWT.log("SET ACTIVE " + bokType + ": " + (active != null ? active.getId() : "none"));
 	this.active = active;
+    }
+
+    public void update(final Bok bok, final BokUpdatedHandler handler) {
+	if (MessageManager.isNot(updating)) {
+	    updating = messages.createMessage(i18n.update(bok.getTitle()), Level.working);
+	    eventBus.fireEvent(new UpdateBokEvent(bok, handler));
+	}
+    }
+
+    protected void onOpen(final OpenBokEvent openEvent) {
+	if (getActive() != null && getActive().getId().equals(openEvent.getBokId())) {
+	    eventBus.fireEvent(new BokOpenedEvent(getActive(), openEvent.isChangePlace()));
+	} else {
+	    eventBus.fireEvent(new RetrieveBokEvent(openEvent.getBokId(),
+		    new BokRetrievedHandler() {
+			@Override
+			public void onBokRetrieved(final BokRetrievedEvent retrievedEvent) {
+			    setActive(retrievedEvent.getBok());
+			    eventBus.fireEvent(new BokOpenedEvent(getActive(), false));
+			}
+		    }));
+	}
+    }
+
+    protected void onOpened(final BokOpenedEvent event) {
+	opening = messages.removeMessage(opening);
+    }
+
+    protected void onUpdated(final BokUpdatedEvent event) {
+	updating = messages.removeMessage(updating);
     }
 }

@@ -21,7 +21,7 @@ public class DocumentRouterTest {
 
     @Test
     public void shouldLoadDocument() {
-	test.router.fireRequest(new Place("documents", "1"));
+	test.router.request(new Place("documents", "1"));
 	assertEquals(RetrieveBokEvent.class, bus.getLastEventType());
     }
 

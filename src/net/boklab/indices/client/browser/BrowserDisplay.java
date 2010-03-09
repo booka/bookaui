@@ -8,11 +8,12 @@ import com.google.gwt.user.client.ui.HasText;
 
 public interface BrowserDisplay extends Display {
 
-    ActionDisplay addAction(Action<?> action);
+    ActionDisplay addAction(Action action);
 
     void addItem(final Display display);
 
     void clearList();
 
     HasText getBrowserTitle();
+
 }

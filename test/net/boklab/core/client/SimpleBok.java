@@ -11,9 +11,12 @@ public class SimpleBok implements BokDTO {
     private String bokType;
     private String body;
     private String userName;
+    private String projectId;
 
     private final String id;
+
     private String contentType;
+
     private int position;
     private final String updatedAt = "";
 
@@ -21,8 +24,8 @@ public class SimpleBok implements BokDTO {
 	this(id, bokType, null, null, null, 0);
     }
 
-    public SimpleBok(final String id, final String bokType, final String title, final String parentId,
-	    final String userId, final int position) {
+    public SimpleBok(final String id, final String bokType, final String title,
+	    final String parentId, final String userId, final int position) {
 	this.id = id;
 	this.bokType = bokType;
 	this.title = title;
@@ -32,8 +35,8 @@ public class SimpleBok implements BokDTO {
     }
 
     @Override
-    public BokDTO createBok(final String type, final String title, final String parentId, final String userId,
-	    final int position) {
+    public BokDTO createBok(final String type, final String title, final String parentId,
+	    final String userId, final int position) {
 	return new SimpleBok(null, type, title, parentId, userId, position);
     }
 
@@ -70,6 +73,11 @@ public class SimpleBok implements BokDTO {
     @Override
     public int getPosition() {
 	return position;
+    }
+
+    @Override
+    public String getProjectId() {
+	return projectId;
     }
 
     @Override
@@ -120,6 +128,11 @@ public class SimpleBok implements BokDTO {
     @Override
     public void setPosition(final int position) {
 	this.position = position;
+    }
+
+    @Override
+    public void setProjectId(final String projectId) {
+	this.projectId = projectId;
     }
 
     @Override

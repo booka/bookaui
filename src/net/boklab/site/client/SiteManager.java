@@ -24,11 +24,16 @@ public class SiteManager extends AbstractBokManager {
 	    public String open(final String title) {
 		return I18nSite.t.openSite(title);
 	    }
+
+	    @Override
+	    public String update(final String title) {
+		return I18nSite.t.update();
+	    }
 	});
     }
 
     public void open(final boolean force) {
-	open("1", "", force);
+	open("1", null, force);
     }
 
 }

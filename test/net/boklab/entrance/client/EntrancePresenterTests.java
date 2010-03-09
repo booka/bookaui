@@ -27,7 +27,7 @@ public class EntrancePresenterTests {
 
     @Test
     public void shouldLoadProject() {
-	router.fireRequest(new Place("archives", "projectId"));
+	router.request(new Place("archives", "projectId"));
 
 	assertEquals(RetrieveBokEvent.class, eventBus.getLastEventType());
 	final RetrieveBokEvent event = (RetrieveBokEvent) eventBus.getLastEvent();

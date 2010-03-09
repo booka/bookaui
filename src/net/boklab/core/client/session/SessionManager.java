@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class UserSessionManager implements Sessions {
+public class SessionManager implements Sessions {
 
     private final EventBus eventBus;
     private String authToken;
@@ -16,14 +16,19 @@ public class UserSessionManager implements Sessions {
     private final RestManager manager;
 
     @Inject
-    public UserSessionManager(final EventBus eventBus, final RestManager manager) {
+    public SessionManager(final EventBus eventBus, final RestManager manager) {
 	this.eventBus = eventBus;
 	this.manager = manager;
     }
 
     @Override
+    public void addLoginHandler(final LoginHandler handler) {
+	eventBus.addHandler(LoginEvent.TYPE, handler);
+    }
+
+    @Override
     public void addLoginRequestHandler(final LoginRequestHandler handler) {
-	eventBus.addHandler(LoginRequestEvent.TYPE, handler);
+	eventBus.addHandler(LoginRequestEvent.getType(), handler);
     }
 
     @Override
@@ -63,7 +68,7 @@ public class UserSessionManager implements Sessions {
 
     @Override
     public void login(final String name, final String password) {
-	final LoginRequestEvent event = new LoginRequestEvent(name, password);
+	final LoginEvent event = new LoginEvent(name, password);
 	eventBus.fireEvent(event);
     }
 
@@ -73,6 +78,11 @@ public class UserSessionManager implements Sessions {
 	userSession = null;
 	manager.setAuthToken(authToken);
 	eventBus.fireEvent(new SessionChangedEvent(null));
+    }
+
+    @Override
+    public void requestLogin() {
+	eventBus.fireEvent(new LoginRequestEvent());
     }
 
     @Override

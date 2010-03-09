@@ -31,8 +31,10 @@ public class BrowserWidget extends Composite implements BrowserDisplay {
     }
 
     @Override
-    public ActionWidget addAction(final Action<?> action) {
-	return new ActionWidget(action);
+    public ActionWidget addAction(final Action action) {
+	final ActionWidget widget = new ActionWidget(action);
+	actions.add(widget);
+	return widget;
     }
 
     @Override

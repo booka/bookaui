@@ -38,22 +38,32 @@ public class PlaceManager {
 	});
     }
 
-    public void fireCurrentPlace() {
-	history.fireCurrentHistoryState();
+    public void addPlaceRequestHandler(final PlaceRequestHandler handler) {
+	eventBus.addHandler(PlaceRequestEvent.getType(), handler);
     }
 
-    public void firePlaceRequest(final PlaceRequestEvent event) {
-	eventBus.fireEvent(event);
+    public void setCurrent(final Place place) {
+	if (isNewPlace(place)) {
+	    eventBus.fireEvent(new PlaceChangedEvent(place));
+	}
+    }
+
+    public void fireCurrentPlace() {
+	history.fireCurrentHistoryState();
     }
 
     public Place getCurrentPlace() {
 	return currentPlace;
     }
 
-    public void onPlaceRequest(final PlaceRequestEvent event) {
-	if (!event.isFromHistory()) {
-	    newPlace(event.getPlace());
+    public void request(final Place place) {
+	if (isNewPlace(place)) {
+	    eventBus.fireEvent(new PlaceRequestEvent(place));
 	}
+    }
+
+    private boolean isNewPlace(final Place place) {
+	return currentPlace == null || !currentPlace.equals(place);
     }
 
     private void newPlace(final Place place) {

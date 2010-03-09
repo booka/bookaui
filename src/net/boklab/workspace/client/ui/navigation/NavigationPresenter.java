@@ -4,14 +4,12 @@ import java.util.HashMap;
 
 import net.boklab.core.client.bok.events.BokOpenedEvent;
 import net.boklab.core.client.bok.events.BokOpenedHandler;
+import net.boklab.core.client.ui.overlay.OverlayPresenter;
 import net.boklab.site.client.ProjectManager;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Presenter;
 import net.boklab.tools.client.place.Place;
-import net.boklab.tools.client.place.PlaceChangedEvent;
-import net.boklab.tools.client.place.PlaceChangedHandler;
 import net.boklab.tools.client.place.PlaceRequestEvent;
-import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.workspace.client.msg.CreateMessageEvent;
 import net.boklab.workspace.client.msg.CreateMessageHandler;
 import net.boklab.workspace.client.msg.MessageManager;
@@ -42,7 +40,8 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 
     @Inject
     public NavigationPresenter(final EventBus eventBus, final MessageManager messages,
-	    final ProjectManager projects, final NavigationDisplay display) {
+	    final OverlayPresenter overlay, final ProjectManager projects,
+	    final NavigationDisplay display) {
 	this.display = display;
 
 	signals = display.getSignals();
@@ -74,6 +73,9 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	messages.addCreateMessageHandler(new CreateMessageHandler() {
 	    @Override
 	    public void onAddMessage(final CreateMessageEvent event) {
+		if (event.getLevel() == Level.error) {
+		    overlay.showError(event.getMessage());
+		}
 		addMessage(event.getId(), event.getMessage(), event.getLevel());
 	    }
 	});
@@ -82,20 +84,6 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	    @Override
 	    public void onRemoveMessage(final RemoveMessageEvent event) {
 		signals.removeMessage(event.getId());
-	    }
-	});
-
-	eventBus.addHandler(PlaceChangedEvent.getType(), new PlaceChangedHandler() {
-	    @Override
-	    public void onPlaceChanged(final PlaceChangedEvent event) {
-		// setPlace(event.getDescription());
-	    }
-	});
-
-	eventBus.addHandler(PlaceRequestEvent.getType(), new PlaceRequestHandler() {
-	    @Override
-	    public void onPlaceRequest(final PlaceRequestEvent event) {
-		setPlace(null);
 	    }
 	});
 
@@ -123,7 +111,7 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	iconToResources.put(name, resource);
     }
 
-    public void setActive(final String active) {
+    public void setActiveIcon(final String active) {
 	if (currentActive != null) {
 	    display.setLinkActive(currentActive, false);
 	}
@@ -133,12 +121,12 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	}
     }
 
-    public void setPlace(final String placeDescription) {
-	GWT.log("NAV PLACE: " + placeDescription);
+    public void setCurrentLocation(final String placeDescription) {
+	GWT.log("NAV LOCATION: " + placeDescription);
 	signals.getPlace().setText(placeDescription);
     }
 
-    public void setProject(final String projectName) {
+    public void setProjectName(final String projectName) {
 	signals.getProject().setText(projectName);
     }
 

@@ -6,4 +6,6 @@ public interface ManagerMessages {
 
     String open(String title);
 
+    String update(String title);
+
 }

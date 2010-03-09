@@ -21,8 +21,7 @@ public class LogoutPresenter extends AbstractPresenter<LogoutDisplay> {
     }
 
     @Override
-    protected void attach() {
-	final LogoutDisplay display = getDisplay();
+    protected void attach(final LogoutDisplay display) {
 	display.getLogoutAction().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {

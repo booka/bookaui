@@ -1,0 +1,25 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style type="net.boklab.core.client.ui.icons.SharedCssIcons">
+		@sprite .loadingIcon {
+			gwt-image: 'loading';
+		}
+        @sprite .addIcon {
+            gwt-image: 'add';
+        }
+        @sprite .unlockIcon {
+            gwt-image: 'unlock';
+        }
+        @sprite .none {
+            gwt-image: 'none';
+        }
+	</ui:style>
+	
+	<g:HTMLPanel></g:HTMLPanel>
+	
+	<ui:image field="loading" src="res/loading.gif"></ui:image>
+	<ui:image field="add" src="res/plus_alt_16x16.png"></ui:image>
+	<ui:image field="none" src="res/x_14x14.png"></ui:image>
+	<ui:image field="unlock" src="res/unlock_stroke_16x12.png"></ui:image>
+</ui:UiBinder> 

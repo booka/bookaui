@@ -28,10 +28,12 @@ public interface Router {
 	}
     }
 
-    void setCurrent(String description, Place place);
-
-    void fireRequest(Place place);
+    boolean currentIs(String resource);
 
     void onRequest(Path regex, PlaceRequestHandler handler);
+
+    void request(Place place);
+
+    void setCurrent(Place place);
 
 }

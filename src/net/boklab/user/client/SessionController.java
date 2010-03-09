@@ -43,8 +43,8 @@ public class SessionController {
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		previous = places.getCurrentPlace();
 		workspace.get().showLogin();
-		router.setCurrent(I18nUser.t.placeLogin(), event.getPlace());
-		navigation.setActive(NavigationDisplay.LOGIN);
+		router.setCurrent(event.getPlace());
+		navigation.setActiveIcon(NavigationDisplay.LOGIN);
 	    }
 	});
 
@@ -55,23 +55,23 @@ public class SessionController {
 	    }
 	});
 
-	sessions.addLoginRequestHandler(new LoginRequestHandler() {
-	    @Override
-	    public void onLogin(final LoginRequestEvent event) {
-		navigation.setUser("...", false);
-	    }
-	});
-
 	sessions.addSessionChangedHandler(new SessionChangedHandler() {
 	    @Override
 	    public void onSessionChanged(final SessionChangedEvent event) {
 		setNavigation(sessions.isLoggedIn());
 		if (previous != null) {
-		    places.firePlaceRequest(new PlaceRequestEvent(previous));
+		    places.request(previous);
 		}
 
 	    }
 	}, false);
+
+	sessions.addLoginRequestHandler(new LoginRequestHandler() {
+	    @Override
+	    public void onLoginRequest(final LoginRequestEvent event) {
+		places.request(new Place(loginResource));
+	    }
+	});
 
     }
 

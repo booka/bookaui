@@ -9,8 +9,8 @@ public class BokJSO extends JavaScriptObject implements BokDTO {
     }
 
     @Override
-    public final BokJSO createBok(final String type, final String title, final String parentId, final String userId,
-	    final int position) {
+    public final BokJSO createBok(final String type, final String title, final String parentId,
+	    final String userId, final int position) {
 	final BokJSO bok = JsonUtils.unsafeEval("{'bok':{}}");
 	bok.setBokType(type);
 	bok.setTitle(title);
@@ -47,6 +47,10 @@ public class BokJSO extends JavaScriptObject implements BokDTO {
 
     public final native int getPosition() /*-{
         return this.bok.position != null ? this.bok.position : -1;
+    }-*/;
+
+    public final native String getProjectId() /*-{
+        return "" + this.bok.project_id;
     }-*/;
 
     public final native String getTitle() /*-{
@@ -91,6 +95,10 @@ public class BokJSO extends JavaScriptObject implements BokDTO {
 
     public final native void setPosition(int position) /*-{
         this.bok.position = position;
+    }-*/;
+
+    public final native void setProjectId(String projectId) /*-{
+        this.bok.project_id = id;
     }-*/;
 
     public final native void setTitle(String title) /*-{

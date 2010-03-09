@@ -20,7 +20,7 @@ public class AccountController {
 	router.onRequest(Paths.singletonResource(accountResource), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
-		navigation.setActive(NavigationDisplay.ACCOUNT);
+		navigation.setActiveIcon(NavigationDisplay.ACCOUNT);
 		workspace.show();
 	    }
 	});

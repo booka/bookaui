@@ -6,6 +6,9 @@ import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 @DefaultLocale("es")
 public interface PlacesMessages extends Messages {
 
+    @DefaultMessage("Investigaciones y convocatorias")
+    String entrancePlaceDescription();
+
     @DefaultMessage("Abriendo convocatoria...")
     String loadingCall();
 
@@ -22,10 +25,7 @@ public interface PlacesMessages extends Messages {
     String loadingSite();
 
     @DefaultMessage("Investigaciones y convocatorias")
-    String placeEntrance();
-
-    @DefaultMessage("Investigaciones y convocatorias")
-    String placeSite();
+    String placeDescriptionSite();
 
     @DefaultMessage("Investigación ''{0}''")
     String projectName(String projectTitle);
@@ -33,11 +33,20 @@ public interface PlacesMessages extends Messages {
     @DefaultMessage("Estás en la investigación ''{0}''")
     String projectOpened(String title);
 
-    @DefaultMessage("investigaciones")
-    String projectsResourceName();
+    @DefaultMessage("archivo")
+    String resourceArchives();
 
     @DefaultMessage("explorar")
     String resourceBrowse();
+
+    @DefaultMessage("convocatoria")
+    String resourceCall();
+
+    @DefaultMessage("entrada")
+    String resourceEntrance();
+
+    @DefaultMessage("investigaciones")
+    String resourceProjects();
 
     @DefaultMessage("Abriendo investigación...")
     String unknownProjectName();

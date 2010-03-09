@@ -16,7 +16,7 @@ public abstract class AbstractPresenter<D extends Display> implements Presenter<
     @Override
     public final void bind() {
 	if (!binded) {
-	    attach();
+	    attach(getDisplay());
 	    binded = true;
 	}
     }
@@ -30,7 +30,11 @@ public abstract class AbstractPresenter<D extends Display> implements Presenter<
 	return displayInstance;
     }
 
-    protected void attach() {
+    public boolean isBinded() {
+	return binded;
+    }
+
+    protected void attach(final D display) {
 
     }
 

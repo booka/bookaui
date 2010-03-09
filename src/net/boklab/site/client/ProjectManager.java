@@ -24,6 +24,11 @@ public class ProjectManager extends AbstractBokManager {
 	    public String open(final String title) {
 		return I18nSite.t.openProject(title);
 	    }
+
+	    @Override
+	    public String update(final String title) {
+		return I18nSite.t.update();
+	    }
 	});
     }
 

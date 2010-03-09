@@ -18,6 +18,8 @@ public interface BokDTO {
 
     int getPosition();
 
+    String getProjectId();
+
     String getTitle();
 
     String getUpdatedAt();
@@ -37,6 +39,8 @@ public interface BokDTO {
     void setParentId(String id);
 
     void setPosition(int position);
+
+    void setProjectId(String projectId);
 
     void setTitle(String title);
 

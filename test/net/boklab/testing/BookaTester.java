@@ -4,7 +4,7 @@ import net.boklab.browser.client.ui.DocumentBrowserDisplay;
 import net.boklab.browser.client.ui.DocumentItemDisplay;
 import net.boklab.calendar.client.ui.CalendarDisplay;
 import net.boklab.core.client.session.Sessions;
-import net.boklab.core.client.session.UserSessionManager;
+import net.boklab.core.client.session.SessionManager;
 import net.boklab.document.client.bok.BokDisplay;
 import net.boklab.document.client.content.info.InfoEditorDisplay;
 import net.boklab.document.client.doc.DocumentDisplay;
@@ -87,7 +87,7 @@ public class BookaTester extends AbstractModule implements Module {
 
     private void configureManagers() {
 	addMock(RestManager.class);
-	bind(Sessions.class).to(UserSessionManager.class).in(Singleton.class);
+	bind(Sessions.class).to(SessionManager.class).in(Singleton.class);
     }
 
     @Override

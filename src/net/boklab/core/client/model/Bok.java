@@ -9,6 +9,8 @@ public interface Bok extends BokDTO {
     public static final String DOCUMENT = "Document";
     public static final String PROJECT = "Project";
     public static final String SITE = "Site";
+    public static final String INDICE = "Indice";
+    public static final String ARCHIVE = "Archives";
 
     ArrayList<Bok> getChildren();
 
@@ -19,4 +21,5 @@ public interface Bok extends BokDTO {
     DelegatedBok newChild(String type, String title, String userId, int position);
 
     void setParent(Bok bok);
+
 }

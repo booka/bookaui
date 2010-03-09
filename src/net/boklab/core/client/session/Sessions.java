@@ -4,7 +4,11 @@ import net.boklab.core.client.model.UserSession;
 
 public interface Sessions {
 
-    void addLoginRequestHandler(LoginRequestHandler handler);
+    void addLoginHandler(LoginHandler handler);
+
+    void addLoginRequestHandler(LoginRequestHandler loginRequestHandler);
+
+    void addSessionChangedHandler(SessionChangedHandler handler, boolean fireIfLoggedIn);
 
     String getAuthToken();
 
@@ -20,7 +24,7 @@ public interface Sessions {
 
     void logout();
 
-    void addSessionChangedHandler(SessionChangedHandler handler, boolean fireIfLoggedIn);
+    void requestLogin();
 
     void setLoggedIn(UserSession userSession);
 

@@ -9,7 +9,7 @@ package net.boklab.tools.client.place;
 public class Place {
     private static final String BLANK = "";
 
-    public static final Place ROOT = new Place();
+    public static final Place ROOT = new Place("");
     public static final Place UNKNOWN = new Place(BLANK, BLANK);
 
     public static String urlFor(final String resource) {
@@ -21,7 +21,7 @@ public class Place {
 	final String i = resourceId == null ? BLANK : "/" + resourceId;
 	return "/" + c + i;
     }
-    public final String controller;
+    public final String resource;
 
     public final String id;
 
@@ -36,7 +36,7 @@ public class Place {
     }
 
     public Place(final String controller, final String resourceId) {
-	this.controller = controller;
+	resource = controller;
 	id = resourceId;
 	final String t = urlFor(controller, resourceId);
 	placeToken = t;

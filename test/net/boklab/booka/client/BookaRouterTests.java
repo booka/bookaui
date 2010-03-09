@@ -28,7 +28,7 @@ public class BookaRouterTests {
 
     @Test
     public void shouldRedirectOnEmptyToken() {
-	router.fireRequest(new Place());
+	router.request(new Place());
 	assertEquals(new Place("entrance"), router.getLastRequest());
     }
 
@@ -43,7 +43,7 @@ public class BookaRouterTests {
     }
 
     private void shouldShowWorkspace(final Place place) {
-	router.fireRequest(place);
+	router.request(place);
 	verify(booka).setContent(workspace);
 	assertEquals(place, router.getLastChanged());
     }

@@ -96,6 +96,11 @@ public class DelegatedBok implements Bok {
     }
 
     @Override
+    public String getProjectId() {
+	return delegate.getProjectId();
+    }
+
+    @Override
     public String getTitle() {
 	return delegate.getTitle();
     }
@@ -154,6 +159,11 @@ public class DelegatedBok implements Bok {
     @Override
     public void setPosition(final int position) {
 	delegate.setPosition(position);
+    }
+
+    @Override
+    public void setProjectId(final String projectId) {
+	delegate.setProjectId(projectId);
     }
 
     @Override

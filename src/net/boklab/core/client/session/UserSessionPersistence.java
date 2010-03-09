@@ -24,9 +24,9 @@ public class UserSessionPersistence {
 	this.sessions = sessions;
 	this.service = service;
 
-	sessions.addLoginRequestHandler(new LoginRequestHandler() {
+	sessions.addLoginHandler(new LoginHandler() {
 	    @Override
-	    public void onLogin(final LoginRequestEvent evt) {
+	    public void onLogin(final LoginEvent evt) {
 		final Params params = new Params().With("user_session[login]", evt.getName()).With(
 			"user_session[password]", evt.getPassword());
 

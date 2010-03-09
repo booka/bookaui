@@ -1,7 +1,7 @@
 package net.boklab.document.client.bok;
 
-import net.boklab.core.client.icons.Icons;
-import net.boklab.core.client.icons.res.BokIcon;
+import net.boklab.core.client.ui.icons.BokIcon;
+import net.boklab.core.client.ui.icons.Icons;
 import net.boklab.tools.client.mvp.Display;
 
 import com.google.gwt.core.client.GWT;

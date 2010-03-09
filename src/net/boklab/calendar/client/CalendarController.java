@@ -27,8 +27,8 @@ public class CalendarController {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		bookaProvider.get().setContent(calendarProvider.get());
-		router.setCurrent(I18nCalendar.t.placeCalendar(), event.getPlace());
-		navigation.setActive(NavigationDisplay.CALENDAR);
+		router.setCurrent(event.getPlace());
+		navigation.setActiveIcon(NavigationDisplay.CALENDAR);
 	    }
 	});
     }

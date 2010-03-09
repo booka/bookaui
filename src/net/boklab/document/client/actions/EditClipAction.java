@@ -1,15 +1,14 @@
 package net.boklab.document.client.actions;
 
 import net.boklab.core.client.I18nCore;
-import net.boklab.core.client.bok.events.UpdateBokEvent;
 import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.session.Sessions;
+import net.boklab.document.client.ClipManager;
 import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.action.BokAction;
 import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.content.ContentEditor;
 import net.boklab.document.client.content.ContentManager;
-import net.boklab.tools.client.eventbus.EventBus;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -21,13 +20,14 @@ public class EditClipAction extends BokAction {
 
     private static final String TYPE = "EditClipAction";
     private final ContentManager manager;
-    private final EventBus eventBus;
     private final Sessions sessions;
+    private final ClipManager clips;
 
     @Inject
-    public EditClipAction(final EventBus eventBus, final Sessions sessions, final ContentManager manager) {
+    public EditClipAction(final ClipManager clips, final Sessions sessions,
+	    final ContentManager manager) {
 	super(TYPE, I18nCore.t.editAction());
-	this.eventBus = eventBus;
+	this.clips = clips;
 	this.sessions = sessions;
 	this.manager = manager;
     }
@@ -43,7 +43,7 @@ public class EditClipAction extends BokAction {
 	    public void onClick(final ClickEvent event) {
 		final ContentEditor<?> contentEditor = editor.getEditor();
 		contentEditor.updateClip();
-		eventBus.fireEvent(new UpdateBokEvent(clip, null));
+		clips.update(clip, null);
 		presenter.setEditor(null);
 		presenter.setWaiting(true);
 	    }

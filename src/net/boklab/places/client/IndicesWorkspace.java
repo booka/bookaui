@@ -1,7 +1,7 @@
 package net.boklab.places.client;
 
 import net.boklab.core.client.ui.wip.WipPresenter;
-import net.boklab.indices.client.browser.IndicePresenter;
+import net.boklab.indices.client.browser.IndiceBrowserPresenter;
 import net.boklab.workspace.client.ui.WorkspacePresenter;
 import net.boklab.workspace.client.ui.app.BookaAppPresenter;
 
@@ -15,11 +15,11 @@ public class IndicesWorkspace {
     private final Provider<WipPresenter> wip;
     private final Provider<WorkspacePresenter> workspace;
     private final Provider<BookaAppPresenter> booka;
-    private final Provider<IndicePresenter> indices;
+    private final Provider<IndiceBrowserPresenter> indices;
 
     @Inject
     public IndicesWorkspace(final Provider<BookaAppPresenter> booka, final Provider<WorkspacePresenter> workspace,
-	    final Provider<WipPresenter> wip, final Provider<IndicePresenter> indices) {
+	    final Provider<WipPresenter> wip, final Provider<IndiceBrowserPresenter> indices) {
 	this.booka = booka;
 	this.workspace = workspace;
 	this.wip = wip;

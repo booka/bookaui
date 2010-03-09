@@ -1,15 +1,16 @@
 package net.boklab.core.client.ui.action;
 
-public interface Action<T> {
 
-    void execute(T target);
+public interface Action {
+
+    void execute();
 
     String getIconStyle();
 
-    String getId();
-
     String getName();
 
-    boolean isApplicable(T target);
+    boolean isVisible();
+
+    void setDisplay(ActionDisplay display);
 
 }

@@ -11,10 +11,7 @@ public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
     }
     private final Place place;
 
-    private final String description;
-
-    public PlaceChangedEvent(final String description, final Place place) {
-	this.description = description;
+    public PlaceChangedEvent(final Place place) {
 	this.place = place;
     }
 
@@ -23,17 +20,13 @@ public class PlaceChangedEvent extends GwtEvent<PlaceChangedHandler> {
 	return getType();
     }
 
-    public String getDescription() {
-	return description;
-    }
-
     public Place getPlace() {
 	return place;
     }
 
     @Override
     public String toDebugString() {
-	return super.toDebugString() + place.toDebugString() + " (" + description + ")";
+	return super.toDebugString() + place.toDebugString();
     }
 
     @Override

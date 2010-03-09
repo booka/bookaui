@@ -24,6 +24,11 @@ public class DocumentManager extends AbstractBokManager {
 	    public String open(final String title) {
 		return I18nDocs.t.openDocument(title);
 	    }
+
+	    @Override
+	    public String update(final String title) {
+		return I18nDocs.t.update();
+	    }
 	});
     }
 
