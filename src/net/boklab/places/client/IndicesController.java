@@ -12,11 +12,11 @@ import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
 import net.boklab.workspace.client.msg.MessageManager;
-import net.boklab.workspace.client.msg.CreateMessageEvent.Level;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
+import net.boklab.workspace.client.ui.navigation.NavigationEvent;
+import net.boklab.workspace.client.ui.navigation.NavigationHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
@@ -27,30 +27,28 @@ public class IndicesController {
 	    final NavigationPresenter navigation, final MessageManager messages,
 	    final PlaceManager places, final ProjectManager projects, final IndiceManager indices) {
 
-	final String accountResource = I18nPlaces.t.resourceBrowse();
-	navigation.registerResource(NavigationDisplay.BOOKA, accountResource);
+	final String browseResource = I18nPlaces.t.resourceBrowse();
 
-	router.onRequest(Paths.singletonResource(accountResource), new PlaceRequestHandler() {
+	navigation.addNavigationHandler(new NavigationHandler() {
 	    @Override
-	    public void onPlaceRequest(final PlaceRequestEvent event) {
-		if (indices.hasActive()) {
-		    router.request(new Place(accountResource, indices.getActive().getId()));
-		} else if (projects.hasActive()) {
-		    final Bok project = projects.getActive();
-		    final Bok indice = project.getFirstChild(Bok.INDICE);
-		    GWT.log("Indice: " + indice);
-		    if (indice != null) {
-			router.request(new Place(accountResource, indice.getId()));
-		    } else {
-			messages.createMessage("IndicesController algo raro", Level.error);
+	    public void onNavigation(final NavigationEvent event) {
+		if (event.isNavigation(NavigationDisplay.BOOKA)) {
+		    if (indices.hasActive()) {
+			router.request(new Place(browseResource, indices.getActive().getId()));
+		    } else if (projects.hasActive()) {
+			router.request(new Place(browseResource, projects.getActiveId()));
 		    }
-		} else {
-
 		}
 	    }
 	});
 
-	router.onRequest(Paths.show(accountResource), new PlaceRequestHandler() {
+	router.onRequest(Paths.singletonResource(browseResource), new PlaceRequestHandler() {
+	    @Override
+	    public void onPlaceRequest(final PlaceRequestEvent event) {
+	    }
+	});
+
+	router.onRequest(Paths.show(browseResource), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		indices.open(event.getPlace().id, null, false);

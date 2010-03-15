@@ -17,6 +17,8 @@ import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
 import net.boklab.workspace.client.msg.MessageManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
+import net.boklab.workspace.client.ui.navigation.NavigationEvent;
+import net.boklab.workspace.client.ui.navigation.NavigationHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
 import com.google.inject.Inject;
@@ -32,19 +34,33 @@ public class EntranceController {
 	    final Provider<EntranceWorkspace> workspace, final NavigationPresenter navigation,
 	    final SiteManager sites, final Sessions sessions) {
 
-	final String ENTRANCE = I18nPlaces.t.resourceEntrance();
-	final String PROJECT = I18nPlaces.t.resourceProjects();
-	final String CALL = I18nPlaces.t.resourceCall();
-	navigation.registerResource(NavigationDisplay.ENTRANCE, ENTRANCE);
+	final String entranceResource = I18nPlaces.t.resourceEntrance();
+	final String projectResource = I18nPlaces.t.resourceProjects();
+	final String callResource = I18nPlaces.t.resourceCall();
+
+	navigation.addNavigationHandler(new NavigationHandler() {
+	    @Override
+	    public void onNavigation(final NavigationEvent event) {
+		if (event.isNavigation(NavigationDisplay.ENTRANCE)) {
+		    if (calls.hasActive()) {
+			router.request(new Place(callResource, calls.getActiveId()));
+		    } else if (projects.hasActive()) {
+			router.request(new Place(projectResource, projects.getActiveId()));
+		    } else {
+			router.request(new Place(entranceResource));
+		    }
+		}
+	    }
+	});
 
 	router.onRequest(Paths.root(), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
-		router.request(new Place(ENTRANCE));
+		router.request(new Place(entranceResource));
 	    }
 	});
 
-	router.onRequest(Paths.singletonResource(ENTRANCE), new PlaceRequestHandler() {
+	router.onRequest(Paths.singletonResource(entranceResource), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		router.setCurrent(event.getPlace());
@@ -55,7 +71,7 @@ public class EntranceController {
 	    }
 	});
 
-	router.onRequest(Paths.show(PROJECT), new PlaceRequestHandler() {
+	router.onRequest(Paths.show(projectResource), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		router.setCurrent(event.getPlace());
@@ -65,7 +81,7 @@ public class EntranceController {
 	    }
 	});
 
-	router.onRequest(Paths.show(CALL), new PlaceRequestHandler() {
+	router.onRequest(Paths.show(callResource), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		router.setCurrent(event.getPlace());
@@ -77,8 +93,8 @@ public class EntranceController {
 	projects.addOpenHandler(new OpenBokHandler() {
 	    @Override
 	    public void onOpenBok(final OpenBokEvent event) {
-		if (router.currentIs(ENTRANCE)) {
-		    router.request(new Place(PROJECT, event.getBokId()));
+		if (router.currentIs(entranceResource)) {
+		    router.setCurrent(new Place(projectResource, event.getBokId()));
 		}
 	    }
 	});
@@ -86,11 +102,22 @@ public class EntranceController {
 	projects.addOpenedHandler(new BokOpenedHandler() {
 	    @Override
 	    public void onBokOpened(final BokOpenedEvent event) {
-		if (router.currentIs(ENTRANCE)) {
-		    final Bok project = event.getBok();
-		    router.request(new Place(PROJECT, project.getId()));
+		final Bok project = event.getBok();
+		navigation.setProjectName(project.getTitle());
+		if (router.currentIs(entranceResource) || router.currentIs(projectResource)) {
 		    calls.openCallOfProject(project);
-		    sites.open(false);
+		    if (!sites.hasActive()) {
+			sites.open(false);
+		    }
+		}
+	    }
+	});
+
+	calls.addOpenHandler(new OpenBokHandler() {
+	    @Override
+	    public void onOpenBok(final OpenBokEvent event) {
+		if (router.currentIs(projectResource)) {
+		    router.setCurrent(new Place(callResource, event.getBokId()));
 		}
 	    }
 	});
@@ -98,10 +125,13 @@ public class EntranceController {
 	calls.addOpenedHandler(new BokOpenedHandler() {
 	    @Override
 	    public void onBokOpened(final BokOpenedEvent event) {
-		if (router.currentIs(PROJECT)) {
-		    final Bok call = event.getBok();
+		final Bok call = event.getBok();
+		navigation.setCurrentLocation(I18nPlaces.t.placeCall(call.getTitle()));
+		if (router.currentIs(projectResource)) {
 		    workspace.get().setDocument(call);
-		    projects.open(call.getProjectId(), null, false);
+		    if (!projects.isActive(call.getProjectId())) {
+			projects.open(call.getProjectId(), null, false);
+		    }
 		}
 	    }
 	});

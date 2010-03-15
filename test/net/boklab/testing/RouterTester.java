@@ -20,7 +20,7 @@ public class RouterTester extends DefaultRouter {
 
     @Inject
     public RouterTester(final EventBus eventBus) {
-	super(eventBus, null);
+	super(null);
 	requests = new ArrayList<Place>();
 	changed = new ArrayList<Place>();
     }

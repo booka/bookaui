@@ -15,6 +15,8 @@ import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
 import net.boklab.workspace.client.msg.MessageManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
+import net.boklab.workspace.client.ui.navigation.NavigationEvent;
+import net.boklab.workspace.client.ui.navigation.NavigationHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
 import com.google.gwt.core.client.GWT;
@@ -31,24 +33,32 @@ public class ArchivesController {
 	    final MessageManager messages) {
 
 	final String ARCHIVES = I18nPlaces.t.resourceArchives();
-	final String DOCUMENTS = "documentos";
+	final String DOCUMENTS = I18nPlaces.t.resourceDocuments();
 
-	navigation.registerResource(NavigationDisplay.ARCHIVES, ARCHIVES);
+	navigation.addNavigationHandler(new NavigationHandler() {
+	    @Override
+	    public void onNavigation(final NavigationEvent event) {
+		if (event.isNavigation(NavigationDisplay.ARCHIVES)) {
+		    if (documents.hasActive()) {
+			router.request(new Place(DOCUMENTS, documents.getActive().getId()));
+		    } else if (archives.hasActive()) {
+			router.request(new Place(ARCHIVES, archives.getActiveId()));
+		    } else if (projects.hasActive()) {
+			router.request(new Place(ARCHIVES));
+		    } else {
+			router.request(Place.ROOT);
+		    }
+		}
+	    }
+	});
 
 	router.onRequest(Paths.singletonResource(ARCHIVES), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 		router.setCurrent(event.getPlace());
-		if (documents.hasActive()) {
-		    router.request(new Place(DOCUMENTS, documents.getActive().getId()));
-		} else if (archives.hasActive()) {
-		    router.request(new Place(ARCHIVES, archives.getActiveId()));
-		} else if (projects.hasActive()) {
-		    workspace.show(false);
-		    archives.openArchivesOfProject(projects.getActive());
-		} else {
-		    router.request(Place.ROOT);
-		}
+		navigation.setActiveIcon(NavigationDisplay.ARCHIVES);
+		workspace.show(false);
+		archives.openArchivesOfProject(projects.getActive());
 	    }
 	});
 

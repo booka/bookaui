@@ -1,7 +1,5 @@
 package net.boklab.workspace.client.ui.navigation;
 
-import java.util.HashMap;
-
 import net.boklab.core.client.bok.events.BokOpenedEvent;
 import net.boklab.core.client.bok.events.BokOpenedHandler;
 import net.boklab.core.client.ui.overlay.OverlayPresenter;
@@ -34,30 +32,23 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 
     private final NavigationDisplay display;
     private final SignalsDisplay signals;
-    private final HashMap<String, String> iconToResources;
-
+    private final EventBus eventBus;
     private String currentActive;
 
     @Inject
     public NavigationPresenter(final EventBus eventBus, final MessageManager messages,
 	    final OverlayPresenter overlay, final ProjectManager projects,
 	    final NavigationDisplay display) {
+	this.eventBus = eventBus;
 	this.display = display;
 
 	signals = display.getSignals();
-	iconToResources = new HashMap<String, String>();
 
 	for (final String name : NAMES) {
 	    display.getLink(name).addClickHandler(new ClickHandler() {
 		@Override
 		public void onClick(final ClickEvent event) {
-		    final String resourceName = iconToResources.get(name);
-		    GWT.log("PLACE click " + name + ": " + resourceName);
-		    if (resourceName != null) {
-			eventBus.fireEvent(new PlaceRequestEvent(new Place(resourceName)));
-		    } else {
-			GWT.log("** NO RESOURCE: " + name);
-		    }
+		    eventBus.fireEvent(new NavigationEvent(name));
 		}
 	    });
 	}
@@ -98,6 +89,10 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 
     }
 
+    public void addNavigationHandler(final NavigationHandler handler) {
+	eventBus.addHandler(NavigationEvent.getType(), handler);
+    }
+
     @Override
     public void bind() {
     }
@@ -105,10 +100,6 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
     @Override
     public NavigationDisplay getDisplay() {
 	return display;
-    }
-
-    public void registerResource(final String name, final String resource) {
-	iconToResources.put(name, resource);
     }
 
     public void setActiveIcon(final String active) {

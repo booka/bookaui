@@ -24,6 +24,9 @@ public interface PlacesMessages extends Messages {
     @DefaultMessage("Abriendo investigaciones...")
     String loadingSite();
 
+    @DefaultMessage("Convocatoria para ''{0}''")
+    String placeCall(String title);
+
     @DefaultMessage("Investigaciones y convocatorias")
     String placeDescriptionSite();
 
@@ -41,6 +44,9 @@ public interface PlacesMessages extends Messages {
 
     @DefaultMessage("convocatoria")
     String resourceCall();
+
+    @DefaultMessage("documentos")
+    String resourceDocuments();
 
     @DefaultMessage("entrada")
     String resourceEntrance();

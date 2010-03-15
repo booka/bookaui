@@ -12,6 +12,8 @@ import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
+import net.boklab.workspace.client.ui.navigation.NavigationEvent;
+import net.boklab.workspace.client.ui.navigation.NavigationHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 import net.boklab.workspace.client.ui.signals.SignalsDisplay;
 
@@ -33,10 +35,19 @@ public class SessionController {
 	this.sessions = sessions;
 	this.navigation = navigation;
 	final String loginResource = I18nUser.t.loginResource();
-	navigation.registerResource(NavigationDisplay.LOGIN, loginResource);
 	final String userResource = SignalsDisplay.USER;
-	navigation.registerResource(userResource, userResource);
 	navigation.setUserIconsVisible(sessions.isLoggedIn());
+
+	navigation.addNavigationHandler(new NavigationHandler() {
+	    @Override
+	    public void onNavigation(final NavigationEvent event) {
+		if (event.isNavigation(NavigationDisplay.LOGIN)) {
+		    router.request(new Place(loginResource));
+		} else if (event.isNavigation(SignalsDisplay.USER)) {
+		    router.request(new Place(userResource));
+		}
+	    }
+	});
 
 	router.onRequest(Paths.singletonResource(loginResource), new PlaceRequestHandler() {
 	    @Override
