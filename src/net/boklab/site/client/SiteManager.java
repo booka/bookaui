@@ -33,7 +33,7 @@ public class SiteManager extends AbstractBokManager {
     }
 
     public void open(final boolean force) {
-	open("1", null, force);
+	open("1", null, null);
     }
 
 }

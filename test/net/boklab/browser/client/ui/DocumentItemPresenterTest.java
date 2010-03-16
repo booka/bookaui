@@ -2,6 +2,8 @@ package net.boklab.browser.client.ui;
 
 import static org.junit.Assert.assertEquals;
 import net.boklab.core.client.model.Bok;
+import net.boklab.document.client.browser.DocumentItemDisplay;
+import net.boklab.document.client.browser.DocumentItemPresenter;
 import net.boklab.testing.Boky;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.RouterTester;

@@ -11,16 +11,17 @@ public class OpenBokEvent extends GwtEvent<OpenBokHandler> {
     }
 
     private final String bokId;
-    private final boolean changePlace;
     private final String knownTitle;
     private final String bokType;
+    private final BokOpenedHandler handler;
 
-    public OpenBokEvent(final String bokType, final String bokId, final boolean changePlace, final String knownTitle) {
+    public OpenBokEvent(final String bokType, final String bokId, final String knownTitle,
+	    final BokOpenedHandler handler) {
 	assert bokType != null : "OpenBokEvent can't have bokType = null";
 	this.bokType = bokType;
 	this.bokId = bokId;
-	this.changePlace = changePlace;
 	this.knownTitle = knownTitle;
+	this.handler = handler;
     }
 
     @Override
@@ -32,6 +33,10 @@ public class OpenBokEvent extends GwtEvent<OpenBokHandler> {
 	return bokId;
     }
 
+    public BokOpenedHandler getHandler() {
+	return handler;
+    }
+
     public String getKnownTitle() {
 	return knownTitle;
     }
@@ -40,14 +45,10 @@ public class OpenBokEvent extends GwtEvent<OpenBokHandler> {
 	return this.bokType.equals(bokType);
     }
 
-    public boolean isChangePlace() {
-	return changePlace;
-    }
-
     @Override
     public String toDebugString() {
-	return super.toDebugString() + bokType + "-" + bokId + " '" + (knownTitle != null ? knownTitle : "¿?") + "' "
-		+ (changePlace ? "force" : "");
+	return super.toDebugString() + bokType + "-" + bokId + " '"
+		+ (knownTitle != null ? knownTitle : "¿?") + "'";
     }
 
     @Override

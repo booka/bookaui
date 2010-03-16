@@ -3,7 +3,7 @@ package net.boklab.document.client.actions;
 import net.boklab.core.client.bok.events.BokCreatedEvent;
 import net.boklab.core.client.bok.events.BokCreatedHandler;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.document.client.ClipManager;
 import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.action.BokAction;
@@ -20,12 +20,12 @@ public class CreateContentAction extends BokAction {
 
     public static final String TYPE = "CreateHtml";
     private final ContentManager manager;
-    private final Sessions sessions;
+    private final UserSessionManager sessions;
     private final ClipManager clips;
     private String contentType;
 
     @Inject
-    public CreateContentAction(final ContentManager manager, final Sessions sessions, final ClipManager documents) {
+    public CreateContentAction(final ContentManager manager, final UserSessionManager sessions, final ClipManager documents) {
 	super(TYPE, null);
 	this.manager = manager;
 	this.sessions = sessions;

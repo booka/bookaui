@@ -1,5 +1,6 @@
 package net.boklab.tools.client.router;
 
+import net.boklab.places.client.Location;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 
@@ -27,6 +28,8 @@ public interface Router {
 	    return new Path("^/" + resource + "$");
 	}
     }
+
+    void addLocation(Location site);
 
     boolean currentIs(String resource);
 

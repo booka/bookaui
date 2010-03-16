@@ -2,7 +2,7 @@ package net.boklab.document.client.actions;
 
 import net.boklab.core.client.I18nCore;
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.document.client.ClipManager;
 import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.action.BokAction;
@@ -20,11 +20,11 @@ public class EditClipAction extends BokAction {
 
     private static final String TYPE = "EditClipAction";
     private final ContentManager manager;
-    private final Sessions sessions;
+    private final UserSessionManager sessions;
     private final ClipManager clips;
 
     @Inject
-    public EditClipAction(final ClipManager clips, final Sessions sessions,
+    public EditClipAction(final ClipManager clips, final UserSessionManager sessions,
 	    final ContentManager manager) {
 	super(TYPE, I18nCore.t.editAction());
 	this.clips = clips;

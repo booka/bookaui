@@ -1,10 +1,10 @@
 package net.boklab.user.client;
 
-import net.boklab.core.client.session.LoginRequestEvent;
-import net.boklab.core.client.session.LoginRequestHandler;
-import net.boklab.core.client.session.SessionChangedEvent;
-import net.boklab.core.client.session.SessionChangedHandler;
-import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.user.LoginRequestEvent;
+import net.boklab.core.client.user.LoginRequestHandler;
+import net.boklab.core.client.user.SessionChangedEvent;
+import net.boklab.core.client.user.SessionChangedHandler;
+import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceManager;
 import net.boklab.tools.client.place.PlaceRequestEvent;
@@ -25,11 +25,11 @@ import com.google.inject.Singleton;
 public class SessionController {
     private Place previous;
     private final NavigationPresenter navigation;
-    private final Sessions sessions;
+    private final UserSessionManager sessions;
 
     @Inject
     public SessionController(final Router router, final PlaceManager places,
-	    final Sessions sessions, final NavigationPresenter navigation,
+	    final UserSessionManager sessions, final NavigationPresenter navigation,
 	    final Provider<SessionWorkspace> workspace) {
 
 	this.sessions = sessions;
@@ -89,7 +89,7 @@ public class SessionController {
     protected void setNavigation(final boolean loggedIn) {
 	navigation.setUserIconsVisible(loggedIn);
 	if (loggedIn) {
-	    navigation.setUser(sessions.getUserName(), true);
+	    navigation.setUser(sessions.getUserSession().getUserName(), true);
 	} else {
 	    navigation.setUser(I18nUser.t.anonymous(), false);
 	}

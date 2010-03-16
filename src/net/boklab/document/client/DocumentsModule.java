@@ -9,6 +9,9 @@ import net.boklab.document.client.bok.editor.BokEditorDisplay;
 import net.boklab.document.client.bok.editor.BokEditorWidget;
 import net.boklab.document.client.bok.insert.SelectContentDisplay;
 import net.boklab.document.client.bok.insert.SelectContentWidget;
+import net.boklab.document.client.browser.DocumentBrowserActionRegistrar;
+import net.boklab.document.client.browser.DocumentItemDisplay;
+import net.boklab.document.client.browser.DocumentItemWidget;
 import net.boklab.document.client.content.ContentHandlerRegistry;
 import net.boklab.document.client.content.ContentRegistrator;
 import net.boklab.document.client.content.debug.DebugEditorDisplay;
@@ -30,6 +33,9 @@ public class DocumentsModule extends AbstractGinModule {
     @Override
     protected void configure() {
 	bind(DocumentManager.class).asEagerSingleton();
+	bind(DocumentBrowserActionRegistrar.class).asEagerSingleton();
+
+	bind(DocumentItemDisplay.class).to(DocumentItemWidget.class);
 
 	bind(ContentRegistrator.class).asEagerSingleton();
 	bind(ActionsRegistrator.class).asEagerSingleton();

@@ -18,17 +18,20 @@ public interface PlacesMessages extends Messages {
     @DefaultMessage("Abriendo documento...")
     String loadingDocumentUnknown();
 
-    @DefaultMessage("Abriendo investigación...")
-    String loadingProject();
-
-    @DefaultMessage("Abriendo investigaciones...")
-    String loadingSite();
+    @DefaultMessage("Archivos de ''{0}''")
+    String locationArchives(String title);
 
     @DefaultMessage("Convocatoria para ''{0}''")
-    String placeCall(String title);
+    String locationCall(String title);
+
+    @DefaultMessage("{0}")
+    String locationProject(String title);
 
     @DefaultMessage("Investigaciones y convocatorias")
-    String placeDescriptionSite();
+    String locationSite();
+
+    @DefaultMessage("investigaciones")
+    String NOresourceProjects();
 
     @DefaultMessage("Investigación ''{0}''")
     String projectName(String projectTitle);
@@ -37,22 +40,22 @@ public interface PlacesMessages extends Messages {
     String projectOpened(String title);
 
     @DefaultMessage("archivo")
+    String resourceArchive();
+
+    @DefaultMessage("archivos")
     String resourceArchives();
 
     @DefaultMessage("explorar")
     String resourceBrowse();
 
     @DefaultMessage("convocatoria")
-    String resourceCall();
+    String resourceCalls();
 
     @DefaultMessage("documentos")
     String resourceDocuments();
 
     @DefaultMessage("entrada")
     String resourceEntrance();
-
-    @DefaultMessage("investigaciones")
-    String resourceProjects();
 
     @DefaultMessage("Abriendo investigación...")
     String unknownProjectName();

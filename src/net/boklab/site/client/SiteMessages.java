@@ -21,7 +21,7 @@ public interface SiteMessages extends Messages {
     @DefaultMessage("Abriendo ''{0}''...")
     String openSite(String title);
 
-    @DefaultMessage("Abriendo entrada...")
+    @DefaultMessage("Abriendo investigaciones...")
     String openSiteUntitled();
 
     @DefaultMessage("Archivos")

@@ -32,10 +32,11 @@ public class CallManager extends AbstractBokManager {
 	});
     }
 
-    public void openCallOfProject(final Bok project) {
+    public Bok openCallOfProject(final Bok project) {
 	final Bok call = project.getFirstChild(Bok.CALL);
 	assert call != null : "Call of given project is null (CallManager)";
-	open(call, false);
+	open(call);
+	return call;
     }
 
 }

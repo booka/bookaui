@@ -1,10 +1,10 @@
 package net.boklab.site.client.project.browser;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.site.client.ProjectManager;
+import net.boklab.core.client.session.BokSelectedEvent;
+import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Inject;
@@ -12,13 +12,13 @@ import com.google.inject.Provider;
 
 public class ProjectPresenter extends AbstractPresenter<ProjectDisplay> {
 
-    private final ProjectManager projects;
     private Bok project;
+    private final EventBus eventBus;
 
     @Inject
-    public ProjectPresenter(final ProjectManager projects, final Provider<ProjectDisplay> display) {
+    public ProjectPresenter(final EventBus eventBus, final Provider<ProjectDisplay> display) {
 	super(display);
-	this.projects = projects;
+	this.eventBus = eventBus;
 
     }
 
@@ -33,8 +33,8 @@ public class ProjectPresenter extends AbstractPresenter<ProjectDisplay> {
 	display.addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {
-		GWT.log("JODER: " + project.getTitle() + ": " + project);
-		projects.open(project.getId(), project.getTitle(), false);
+		// projects.open(project.getId(), project.getTitle(), false);
+		eventBus.fireEvent(new BokSelectedEvent(project));
 	    }
 	});
     }

@@ -1,5 +1,6 @@
 package net.boklab.document.client;
 
+import net.boklab.core.client.bok.events.BokOpenedHandler;
 import net.boklab.core.client.model.Bok;
 import net.boklab.core.client.persistence.AbstractBokManager;
 import net.boklab.core.client.persistence.ManagerMessages;
@@ -31,9 +32,9 @@ public class ArchiveManager extends AbstractBokManager {
 	});
     }
 
-    public void openArchivesOfProject(final Bok project) {
+    public void openArchivesOfProject(final Bok project, final BokOpenedHandler handler) {
 	final Bok archives = project.getFirstChild(Bok.ARCHIVE);
 	assert archives != null : "Project achives children bok not found (AbstractBokManager)";
-	open(project.getId(), project.getTitle(), false);
+	open(archives.getId(), project.getTitle(), handler);
     }
 }

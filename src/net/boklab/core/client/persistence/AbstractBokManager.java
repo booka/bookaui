@@ -128,6 +128,7 @@ public abstract class AbstractBokManager implements BokManager {
 	eventBus.fireEvent(new CreateBokEvent(bok, handler));
     }
 
+    @Deprecated
     public Bok getActive() {
 	return active;
     }
@@ -145,19 +146,20 @@ public abstract class AbstractBokManager implements BokManager {
     }
 
     @Override
-    public void open(final Bok bok, final boolean forceOpen) {
+    public void open(final Bok bok) {
 	if (MessageManager.isNot(opening)) {
 	    opening = messages.createMessage(i18n.open(bok.getTitle()), Level.working);
-	    eventBus.fireEvent(new BokOpenedEvent(bok, forceOpen));
+	    eventBus.fireEvent(new BokOpenedEvent(bok));
+
 	}
     }
 
     @Override
-    public void open(final String bokId, final String knownTitle, final boolean forceOpen) {
+    public void open(final String bokId, final String knownTitle, final BokOpenedHandler handler) {
 	if (MessageManager.isNot(opening)) {
 	    final String msg = knownTitle != null ? i18n.open(knownTitle) : i18n.open();
 	    opening = messages.createMessage(msg, Level.working);
-	    eventBus.fireEvent(new OpenBokEvent(bokType, bokId, forceOpen, knownTitle));
+	    eventBus.fireEvent(new OpenBokEvent(bokType, bokId, knownTitle, handler));
 	}
     }
 
@@ -174,15 +176,25 @@ public abstract class AbstractBokManager implements BokManager {
     }
 
     protected void onOpen(final OpenBokEvent openEvent) {
+	final BokOpenedHandler handler = openEvent.getHandler();
+
 	if (getActive() != null && getActive().getId().equals(openEvent.getBokId())) {
-	    eventBus.fireEvent(new BokOpenedEvent(getActive(), openEvent.isChangePlace()));
+	    final BokOpenedEvent openedEvent = new BokOpenedEvent(getActive());
+	    if (handler != null) {
+		handler.onBokOpened(openedEvent);
+	    }
+	    eventBus.fireEvent(openedEvent);
 	} else {
 	    eventBus.fireEvent(new RetrieveBokEvent(openEvent.getBokId(),
 		    new BokRetrievedHandler() {
 			@Override
 			public void onBokRetrieved(final BokRetrievedEvent retrievedEvent) {
 			    setActive(retrievedEvent.getBok());
-			    eventBus.fireEvent(new BokOpenedEvent(getActive(), false));
+			    final BokOpenedEvent openedEvent = new BokOpenedEvent(getActive());
+			    if (handler != null) {
+				handler.onBokOpened(openedEvent);
+			    }
+			    eventBus.fireEvent(openedEvent);
 			}
 		    }));
 	}

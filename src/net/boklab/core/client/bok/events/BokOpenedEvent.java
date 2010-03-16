@@ -10,20 +10,13 @@ public class BokOpenedEvent extends AbstractBokEvent<BokOpenedHandler> {
 	return TYPE;
     }
 
-    private final boolean forceOpen;
-
-    public BokOpenedEvent(final Bok bok, final boolean forceOpen) {
+    public BokOpenedEvent(final Bok bok) {
 	super(bok);
-	this.forceOpen = forceOpen;
     }
 
     @Override
     public Type<BokOpenedHandler> getAssociatedType() {
 	return getType();
-    }
-
-    public boolean isForceOpen() {
-	return forceOpen;
     }
 
     @Override

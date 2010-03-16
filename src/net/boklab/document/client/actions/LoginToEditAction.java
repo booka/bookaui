@@ -1,6 +1,6 @@
 package net.boklab.document.client.actions;
 
-import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.document.client.I18nDocs;
 import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.action.BokAction;
@@ -14,11 +14,11 @@ import com.google.inject.Singleton;
 @Singleton
 public class LoginToEditAction extends BokAction {
     private static final String TYPE = "LoginToEdit";
-    private final Sessions sessions;
+    private final UserSessionManager sessions;
     private final EventBus eventBus;
 
     @Inject
-    public LoginToEditAction(final EventBus eventBus, final Sessions sessions) {
+    public LoginToEditAction(final EventBus eventBus, final UserSessionManager sessions) {
 	super(TYPE, I18nDocs.t.loginToEdit());
 	this.eventBus = eventBus;
 	this.sessions = sessions;

@@ -6,9 +6,8 @@ public class BokPlacesModule extends AbstractGinModule {
 
     @Override
     protected void configure() {
-	bind(EntranceController.class).asEagerSingleton();
-	bind(ArchivesController.class).asEagerSingleton();
-	bind(IndicesController.class).asEagerSingleton();
+	bind(LocationRegistrar.class).asEagerSingleton();
+	bind(NavigationPlaces.class).asEagerSingleton();
     }
 
 }

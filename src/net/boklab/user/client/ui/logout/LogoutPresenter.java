@@ -1,6 +1,6 @@
 package net.boklab.user.client.ui.logout;
 
-import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -12,10 +12,10 @@ import com.google.inject.Singleton;
 @Singleton
 public class LogoutPresenter extends AbstractPresenter<LogoutDisplay> {
 
-    private final Sessions sessions;
+    private final UserSessionManager sessions;
 
     @Inject
-    public LogoutPresenter(final Sessions sessions, final Provider<LogoutDisplay> provider) {
+    public LogoutPresenter(final UserSessionManager sessions, final Provider<LogoutDisplay> provider) {
 	super(provider);
 	this.sessions = sessions;
     }

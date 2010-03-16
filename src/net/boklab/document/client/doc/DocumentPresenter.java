@@ -3,7 +3,7 @@ package net.boklab.document.client.doc;
 import java.util.ArrayList;
 
 import net.boklab.core.client.model.Bok;
-import net.boklab.core.client.session.Sessions;
+import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.document.client.DocumentManager;
 import net.boklab.document.client.bok.ClipPresenter;
 import net.boklab.document.client.bok.ClipPresenter.InsertHandler;
@@ -21,11 +21,11 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
     private final ContentManager typeManager;
     private final ArrayList<ClipPresenter> boks;
     private ClipPresenter documentPresenter;
-    private final Sessions sessions;
+    private final UserSessionManager sessions;
     private final InsertHandler insertHandler;
 
     @Inject
-    public DocumentPresenter(final DocumentManager documents, final Sessions sessions,
+    public DocumentPresenter(final DocumentManager documents, final UserSessionManager sessions,
 	    final ContentManager typeManager, final Provider<DocumentDisplay> displayProvider) {
 	super(displayProvider);
 	this.sessions = sessions;

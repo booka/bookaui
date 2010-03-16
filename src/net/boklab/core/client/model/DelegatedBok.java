@@ -182,4 +182,9 @@ public class DelegatedBok implements Bok {
 	return name + "(" + getId() + "): ";
     }
 
+    @Override
+    public String toString() {
+	return getBokType() + "-" + getId();
+    }
+
 }

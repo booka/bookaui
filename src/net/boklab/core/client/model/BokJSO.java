@@ -18,7 +18,6 @@ public class BokJSO extends JavaScriptObject implements BokDTO {
 	bok.setParentId(parentId);
 	bok.setPosition(position);
 	return bok;
-
     }
 
     public final native String getBody() /*-{

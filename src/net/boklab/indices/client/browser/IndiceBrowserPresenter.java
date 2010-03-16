@@ -7,12 +7,13 @@ import net.boklab.core.client.bok.events.BokOpenedHandler;
 import net.boklab.core.client.bok.events.BokUpdatedEvent;
 import net.boklab.core.client.bok.events.BokUpdatedHandler;
 import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.ui.browser.AbstractBrowserPresenter;
+import net.boklab.core.client.ui.browser.BrowserDisplay;
 import net.boklab.indices.client.IndiceManager;
 import net.boklab.indices.client.model.Indice;
 import net.boklab.indices.client.model.Pointer;
 import net.boklab.indices.client.pointer.PointerPresenter;
 import net.boklab.indices.client.pointer.PointerWidget;
-import net.boklab.tools.client.mvp.AbstractPresenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -24,7 +25,7 @@ import com.google.inject.Singleton;
  * Es el browser de indices
  */
 @Singleton
-public class IndiceBrowserPresenter extends AbstractPresenter<BrowserDisplay> {
+public class IndiceBrowserPresenter extends AbstractBrowserPresenter {
     private final ArrayList<IndiceBrowserAction> actions;
     private Indice current;
     private PointerPresenter selected;
@@ -39,13 +40,13 @@ public class IndiceBrowserPresenter extends AbstractPresenter<BrowserDisplay> {
 	indices.addOpenedHandler(new BokOpenedHandler() {
 	    @Override
 	    public void onBokOpened(final BokOpenedEvent event) {
-		setCurrent(event.getBok());
+		setIndice(event.getBok());
 	    }
 	});
 	indices.addUpdatedHandler(new BokUpdatedHandler() {
 	    @Override
 	    public void onBokUpdated(final BokUpdatedEvent event) {
-		setCurrent(event.getBok());
+		setIndice(event.getBok());
 	    }
 	});
     }
@@ -86,22 +87,22 @@ public class IndiceBrowserPresenter extends AbstractPresenter<BrowserDisplay> {
 	});
     }
 
-    @Override
-    protected void attach(final BrowserDisplay display) {
-	display.getBrowserTitle().setText("Explorando");
-	for (final IndiceBrowserAction action : actions) {
-	    addAction(action, display);
-	}
-    }
-
-    protected void setCurrent(final Bok bok) {
-	current = new Indice(bok);
+    private void setIndice(final Bok indiceBok) {
+	current = new Indice(indiceBok);
 	final BrowserDisplay display = getDisplay();
 	display.clearList();
 	for (final Pointer p : current.getPointers()) {
 	    final PointerPresenter pointer = new PointerPresenter(this, new PointerWidget());
 	    pointer.setPointer(p);
 	    display.addItem(pointer.getDisplay());
+	}
+    }
+
+    @Override
+    protected void attach(final BrowserDisplay display) {
+	display.getBrowserTitle().setText("Explorando");
+	for (final IndiceBrowserAction action : actions) {
+	    addAction(action, display);
 	}
     }
 

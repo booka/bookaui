@@ -1,9 +1,9 @@
 package net.boklab.indices.client.browser.actions;
 
-import net.boklab.core.client.session.Sessions;
 import net.boklab.core.client.ui.action.AbstractAction;
 import net.boklab.core.client.ui.icons.BokIcon;
 import net.boklab.core.client.ui.icons.Icons;
+import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.indices.client.I18nIndices;
 import net.boklab.indices.client.browser.IndiceBrowserAction;
 import net.boklab.indices.client.browser.IndiceBrowserPresenter;
@@ -18,7 +18,7 @@ public class RemovePointerAction extends AbstractAction implements IndiceBrowser
     private IndiceBrowserPresenter presenter;
 
     @Inject
-    public RemovePointerAction(final Sessions sessions) {
+    public RemovePointerAction(final UserSessionManager sessions) {
 	super(I18nIndices.t.actionRemovePointer(), Icons.get(BokIcon.none), sessions);
     }
 

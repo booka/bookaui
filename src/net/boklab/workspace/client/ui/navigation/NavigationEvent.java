@@ -30,6 +30,11 @@ public class NavigationEvent extends GwtEvent<NavigationHandler> {
     }
 
     @Override
+    public String toDebugString() {
+	return super.toDebugString() + name;
+    }
+
+    @Override
     protected void dispatch(final NavigationHandler handler) {
 	handler.onNavigation(this);
     }

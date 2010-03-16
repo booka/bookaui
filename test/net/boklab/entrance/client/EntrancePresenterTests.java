@@ -2,7 +2,7 @@ package net.boklab.entrance.client;
 
 import static org.junit.Assert.assertEquals;
 import net.boklab.core.client.bok.events.RetrieveBokEvent;
-import net.boklab.places.client.EntranceController;
+import net.boklab.places.client.entrance.EntranceController;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.EventBusTester;
 import net.boklab.testing.RouterTester;
