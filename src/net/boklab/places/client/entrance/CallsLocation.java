@@ -58,7 +58,6 @@ public class CallsLocation implements Location {
 		workspace.get().setDocument(bok);
 		workspace.get().show();
 		navigation.setCurrentLocation(I18nPlaces.t.locationCall(bok.getTitle()));
-		router.setCurrent(new Place(callsResource, bok.getId()));
 
 		DeferredCommand.addCommand(new Command() {
 		    @Override
@@ -81,26 +80,11 @@ public class CallsLocation implements Location {
 	    }
 	});
 
-	calls.addOpenedHandler(new BokOpenedHandler() {
-	    @Override
-	    public void onBokOpened(final BokOpenedEvent event) {
-
-	    }
-	});
-
-	// projects.addOpenedHandler(new BokOpenedHandler() {
-	// @Override
-	// public void onBokOpened(final BokOpenedEvent event) {
-	// if (router.currentIs(callsResource)) {
-	// calls.openCallOfProject(event.getBok());
-	// }
-	// }
-	// });
     }
 
     @Override
     public Path getPath() {
-	return Paths.show(callsResource);
+	return Paths.resource(callsResource);
     }
 
     @Override

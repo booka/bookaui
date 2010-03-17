@@ -4,13 +4,14 @@
 	<inherits name="com.google.gwt.user.User" />
 	<inherits name="net.boklab.core.BokCore" />
     <inherits name="net.boklab.workspace.BokWorkspace" />
-    <inherits name="net.boklab.browser.BokBrowser" />
-    <inherits name="net.boklab.calendar.BokCalendar" />
     <inherits name="net.boklab.document.BokDocuments" />
-    <inherits name="net.boklab.indices.BokIndices" />
     <inherits name="net.boklab.site.BokSite" />
     <inherits name="net.boklab.user.BokUser" />
     <inherits name="net.boklab.places.BokPlaces" />
+    <inherits name="net.boklab.module.archives.BokArchives" />
+    <inherits name="net.boklab.module.explore.BokExplore" />
+    <inherits name="net.boklab.module.calendar.BokCalendar" />
+    <inherits name="net.boklab.module.forum.BokForum" />
     
 	<source path="client" />
 	<entry-point class="net.boklab.booka.client.BookaEntryPoint" />

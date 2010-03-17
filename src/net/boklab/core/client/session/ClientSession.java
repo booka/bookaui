@@ -17,6 +17,7 @@ public class ClientSession {
     private final HashMap<String, Bok> byType;
     private Bok site;
     private Bok project;
+    private Bok selected;
 
     @Inject
     public ClientSession(final EventBus eventBus) {
@@ -29,6 +30,23 @@ public class ClientSession {
 		store(event.getBok());
 	    }
 	});
+	eventBus.addHandler(BokSelectedEvent.getType(), new BokSelectedHandler() {
+	    @Override
+	    public void onBokSelected(final BokSelectedEvent event) {
+		selected = event.getBok();
+	    }
+	});
+    }
+
+    public void addBokSelectedHandler(final String bokType, final BokSelectedHandler handler) {
+	eventBus.addHandler(BokSelectedEvent.getType(), new BokSelectedHandler() {
+	    @Override
+	    public void onBokSelected(final BokSelectedEvent event) {
+		if (event.isBokType(bokType)) {
+		    handler.onBokSelected(event);
+		}
+	    }
+	});
     }
 
     public Bok getProject() {
@@ -38,6 +56,10 @@ public class ClientSession {
     public Bok getProjectBok(final String bokType) {
 	assert !Bok.SITE.equals(bokType) && !Bok.PROJECT.equals(bokType) : "ClientSession: use get methods instead";
 	return byType.get(bokType);
+    }
+
+    public Bok getSelected() {
+	return selected;
     }
 
     public Bok getSite() {
@@ -52,6 +74,26 @@ public class ClientSession {
     public boolean isCurrent(final String bokType, final String id) {
 	final Bok bok = byType.get(bokType);
 	return bok != null && bok.getId().equals(id);
+    }
+
+    /**
+     * Recommended way to send BokSelected events
+     * 
+     * @param bok
+     * @return
+     */
+    public boolean select(final Bok bok) {
+	if (bok != null) {
+	    selected = bok;
+	    eventBus.fireEvent(new BokSelectedEvent(bok));
+	    return true;
+	} else {
+	    return false;
+	}
+    }
+
+    public boolean select(final String bokType) {
+	return select(getProjectBok(bokType));
     }
 
     private void setProject(final Bok bok) {

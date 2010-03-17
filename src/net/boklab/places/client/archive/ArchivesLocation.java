@@ -56,7 +56,7 @@ public class ArchivesLocation implements Location {
 
     @Override
     public Path getPath() {
-	return Paths.show(I18nPlaces.t.resourceArchives());
+	return Paths.resource(I18nPlaces.t.resourceArchives());
     }
 
     @Override

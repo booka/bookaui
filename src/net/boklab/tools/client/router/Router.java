@@ -20,7 +20,7 @@ public interface Router {
 	    return new Path("/?");
 	}
 
-	public static Path show(final String resourceSingular) {
+	public static Path resource(final String resourceSingular) {
 	    return new Path("^/" + resourceSingular + "/\\w+$");
 	}
 

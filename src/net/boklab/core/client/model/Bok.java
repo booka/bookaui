@@ -11,6 +11,7 @@ public interface Bok extends BokDTO {
     public static final String SITE = "Site";
     public static final String INDICE = "Indice";
     public static final String ARCHIVE = "Archives";
+    public static final String FORUM = "Forum";
 
     ArrayList<Bok> getChildren();
 

@@ -1,13 +1,13 @@
 package net.boklab.user.client;
 
+import net.boklab.core.client.navigation.NavigationEvent;
+import net.boklab.core.client.navigation.NavigationHandler;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestEvent;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
-import net.boklab.workspace.client.ui.navigation.NavigationEvent;
-import net.boklab.workspace.client.ui.navigation.NavigationHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
 import com.google.inject.Inject;

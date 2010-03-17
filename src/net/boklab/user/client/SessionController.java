@@ -1,5 +1,7 @@
 package net.boklab.user.client;
 
+import net.boklab.core.client.navigation.NavigationEvent;
+import net.boklab.core.client.navigation.NavigationHandler;
 import net.boklab.core.client.user.LoginRequestEvent;
 import net.boklab.core.client.user.LoginRequestHandler;
 import net.boklab.core.client.user.SessionChangedEvent;
@@ -12,8 +14,6 @@ import net.boklab.tools.client.place.PlaceRequestHandler;
 import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
-import net.boklab.workspace.client.ui.navigation.NavigationEvent;
-import net.boklab.workspace.client.ui.navigation.NavigationHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 import net.boklab.workspace.client.ui.signals.SignalsDisplay;
 

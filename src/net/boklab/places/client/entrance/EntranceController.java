@@ -5,6 +5,8 @@ import net.boklab.core.client.bok.events.BokOpenedHandler;
 import net.boklab.core.client.bok.events.OpenBokEvent;
 import net.boklab.core.client.bok.events.OpenBokHandler;
 import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.navigation.NavigationEvent;
+import net.boklab.core.client.navigation.NavigationHandler;
 import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.document.client.DocumentManager;
 import net.boklab.places.client.I18nPlaces;
@@ -18,8 +20,6 @@ import net.boklab.tools.client.router.Router;
 import net.boklab.tools.client.router.Router.Paths;
 import net.boklab.workspace.client.msg.MessageManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
-import net.boklab.workspace.client.ui.navigation.NavigationEvent;
-import net.boklab.workspace.client.ui.navigation.NavigationHandler;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;
 
 import com.google.inject.Inject;
@@ -68,13 +68,13 @@ public class EntranceController {
 	    }
 	});
 
-	router.onRequest(Paths.show(projectResource), new PlaceRequestHandler() {
+	router.onRequest(Paths.resource(projectResource), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 	    }
 	});
 
-	router.onRequest(Paths.show(callResource), new PlaceRequestHandler() {
+	router.onRequest(Paths.resource(callResource), new PlaceRequestHandler() {
 	    @Override
 	    public void onPlaceRequest(final PlaceRequestEvent event) {
 	    }

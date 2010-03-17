@@ -2,6 +2,8 @@ package net.boklab.workspace.client.ui.navigation;
 
 import net.boklab.core.client.bok.events.BokOpenedEvent;
 import net.boklab.core.client.bok.events.BokOpenedHandler;
+import net.boklab.core.client.navigation.NavigationEvent;
+import net.boklab.core.client.navigation.NavigationHandler;
 import net.boklab.core.client.ui.overlay.OverlayPresenter;
 import net.boklab.site.client.ProjectManager;
 import net.boklab.tools.client.eventbus.EventBus;
@@ -112,9 +114,9 @@ public class NavigationPresenter implements Presenter<NavigationDisplay> {
 	}
     }
 
-    public void setCurrentLocation(final String placeDescription) {
-	GWT.log("NAV LOCATION: " + placeDescription);
-	signals.getPlace().setText(placeDescription);
+    public void setCurrentLocation(final String locationDescription) {
+	GWT.log("NAV LOCATION: " + locationDescription);
+	signals.getPlace().setText(locationDescription);
     }
 
     public void setProjectName(final String projectName) {

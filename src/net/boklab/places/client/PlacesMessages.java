@@ -24,6 +24,9 @@ public interface PlacesMessages extends Messages {
     @DefaultMessage("Convocatoria para ''{0}''")
     String locationCall(String title);
 
+    @DefaultMessage("Explorando ''{0}''")
+    String locationIndice(String title);
+
     @DefaultMessage("{0}")
     String locationProject(String title);
 

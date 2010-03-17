@@ -12,9 +12,11 @@ public class BokSelectedEvent extends GwtEvent<BokSelectedHandler> {
     }
 
     private final Bok bok;
+    private final String bokType;
 
     public BokSelectedEvent(final Bok bok) {
 	this.bok = bok;
+	bokType = bok.getBokType();
     }
 
     @Override
@@ -24,6 +26,10 @@ public class BokSelectedEvent extends GwtEvent<BokSelectedHandler> {
 
     public Bok getBok() {
 	return bok;
+    }
+
+    public boolean isBokType(final String bokType) {
+	return this.bokType.equals(bokType);
     }
 
     @Override

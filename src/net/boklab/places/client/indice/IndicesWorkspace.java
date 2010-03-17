@@ -1,7 +1,7 @@
 package net.boklab.places.client.indice;
 
 import net.boklab.core.client.ui.wip.WipPresenter;
-import net.boklab.indices.client.browser.IndiceBrowserPresenter;
+import net.boklab.module.explore.client.browser.IndiceBrowserPresenter;
 import net.boklab.workspace.client.ui.WorkspacePresenter;
 import net.boklab.workspace.client.ui.app.BookaAppPresenter;
 

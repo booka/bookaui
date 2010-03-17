@@ -1,11 +1,11 @@
 package net.boklab.testing;
 
-import net.boklab.calendar.client.ui.CalendarDisplay;
 import net.boklab.core.client.ui.browser.BrowserDisplay;
 import net.boklab.document.client.bok.BokDisplay;
 import net.boklab.document.client.browser.DocumentItemDisplay;
 import net.boklab.document.client.content.info.InfoEditorDisplay;
 import net.boklab.document.client.doc.DocumentDisplay;
+import net.boklab.module.calendar.client.ui.CalendarDisplay;
 import net.boklab.site.client.project.browser.ProjectBrowserDisplay;
 import net.boklab.site.client.project.browser.ProjectDisplay;
 import net.boklab.tools.client.eventbus.EventBus;

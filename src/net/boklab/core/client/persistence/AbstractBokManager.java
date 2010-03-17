@@ -163,6 +163,12 @@ public abstract class AbstractBokManager implements BokManager {
 	}
     }
 
+    public void openChildOfProject(final Bok project, final BokOpenedHandler handler) {
+	final Bok child = project.getFirstChild(bokType);
+	assert child != null : "Project " + bokType + " child bok not found (AbstractBokManager)";
+	open(child.getId(), project.getTitle(), handler);
+    }
+
     public void setActive(final Bok active) {
 	GWT.log("SET ACTIVE " + bokType + ": " + (active != null ? active.getId() : "none"));
 	this.active = active;

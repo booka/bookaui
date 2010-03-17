@@ -60,7 +60,7 @@ public class DocumentLocation implements Location {
     @Override
     public Path getPath() {
 	final String documentsResource = I18nPlaces.t.resourceDocuments();
-	return Paths.show(documentsResource);
+	return Paths.resource(documentsResource);
     }
 
     @Override
