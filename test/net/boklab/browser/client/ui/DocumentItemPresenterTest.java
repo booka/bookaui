@@ -30,7 +30,7 @@ public class DocumentItemPresenterTest {
     public void shouldFireItemClickedEvent() {
 	final Bok doc = Boky.bok("Document");
 	presenter.setDocument(doc);
-	display.getClickeable().fireEvent(null);
+	display.getSelectArea().fireEvent(null);
 	assertEquals(new Place("documents", doc.getId()), router.getLastRequest());
     }
 

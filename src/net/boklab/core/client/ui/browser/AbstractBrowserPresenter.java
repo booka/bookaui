@@ -1,15 +1,15 @@
 package net.boklab.core.client.ui.browser;
 
-import net.boklab.module.explore.client.pointer.PointerPresenter;
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Provider;
 
-public class AbstractBrowserPresenter<B extends AbstractBrowserPresenter<?, I>, I> extends
-	AbstractPresenter<BrowserDisplay> {
-    protected PointerPresenter selected;
+public class AbstractBrowserPresenter<B extends AbstractBrowserPresenter<B, I>, I extends BrowserItemPresenter<? extends BrowserItemDisplay>>
+	extends AbstractPresenter<BrowserDisplay> {
+    protected I selected;
     private final BrowserActions<B, I> actions;
 
     public AbstractBrowserPresenter(final Provider<BrowserDisplay> provider,
@@ -22,15 +22,15 @@ public class AbstractBrowserPresenter<B extends AbstractBrowserPresenter<?, I>, 
 	return selected != null;
     }
 
-    @SuppressWarnings("unchecked")
-    public void setSelected(final PointerPresenter pointerPresenter) {
+    public void setSelected(final I itemPresenter) {
+	GWT.log("ABPres SELECTED : " + itemPresenter);
 	if (hasSelected()) {
 	    selected.setSelected(false);
 	}
-	selected = pointerPresenter;
+	selected = itemPresenter;
 	selected.setSelected(true);
 	for (final BrowserAction<B, I> action : actions) {
-	    action.setSelected((I) selected);
+	    action.setSelected(selected);
 	}
     }
 

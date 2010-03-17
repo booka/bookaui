@@ -18,7 +18,12 @@ public class BokCoreEntryPoint implements EntryPoint {
 
 	Icons.set(BokIcon.loading, css.loadingIcon());
 	Icons.set(BokIcon.add, css.addIcon());
-	Icons.set(BokIcon.none, css.none());
+	Icons.set(BokIcon.delete, css.none());
+	Icons.set(BokIcon.lock, css.lockIcon());
 	Icons.set(BokIcon.unlock, css.unlockIcon());
+	Icons.set(BokIcon.edit, css.editIcon());
+	Icons.set(BokIcon.search, css.searchIcon());
+	Icons.set(BokIcon.tag, css.tagIcon());
+	Icons.set(BokIcon.menu, css.menuIcon());
     }
 }

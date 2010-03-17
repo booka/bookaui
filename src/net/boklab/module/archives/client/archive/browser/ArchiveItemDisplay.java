@@ -1,14 +1,11 @@
 package net.boklab.module.archives.client.archive.browser;
 
-import net.boklab.tools.client.mvp.Display;
+import net.boklab.core.client.ui.browser.BrowserItemDisplay;
 
-import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
 
-public interface ArchiveItemDisplay extends Display {
-
-    HasClickHandlers getClickeable();
+public interface ArchiveItemDisplay extends BrowserItemDisplay {
 
     HasHTML getDescription();
 

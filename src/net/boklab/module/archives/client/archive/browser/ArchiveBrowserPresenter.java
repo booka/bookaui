@@ -32,7 +32,6 @@ public class ArchiveBrowserPresenter extends
 	    final ArchiveManager archives, final UserSessionManager sessions,
 	    final Provider<ArchiveItemPresenter> itemProvider) {
 	super(displayProvider, actions);
-
 	idToDocuments = new HashMap<String, ArchiveItemPresenter>();
 
 	archives.addOpenedHandler(new BokOpenedHandler() {
@@ -72,7 +71,6 @@ public class ArchiveBrowserPresenter extends
 
     @Override
     protected void attach(final BrowserDisplay display) {
-	// FIXME: i18n
 	display.getBrowserTitle().setText(I18nDocs.t.browserTitle());
 	super.attach(display);
     }

@@ -8,11 +8,26 @@
         @sprite .addIcon {
             gwt-image: 'add';
         }
+        @sprite .none {
+            gwt-image: 'none';
+        }
+        @sprite .lockIcon {
+            gwt-image: 'lock';
+        }
         @sprite .unlockIcon {
             gwt-image: 'unlock';
         }
-        @sprite .none {
-            gwt-image: 'none';
+        @sprite .editIcon {
+            gwt-image: 'edit';
+        }
+        @sprite .searchIcon {
+            gwt-image: 'search';
+        }
+        @sprite .menuIcon {
+            gwt-image: 'menu';
+        }
+        @sprite .tagIcon {
+            gwt-image: 'tag';
         }
 	</ui:style>
 	
@@ -21,5 +36,10 @@
 	<ui:image field="loading" src="res/loading.gif"></ui:image>
 	<ui:image field="add" src="res/plus_alt_16x16.png"></ui:image>
 	<ui:image field="none" src="res/x_14x14.png"></ui:image>
+	<ui:image field="lock" src="res/lock_stroke_12x16.png"></ui:image>
 	<ui:image field="unlock" src="res/unlock_stroke_16x12.png"></ui:image>
+	<ui:image field="edit" src="res/pen_16x16.png"></ui:image>
+    <ui:image field="search" src="res/magnifying_glass_16x16.png"></ui:image>
+    <ui:image field="menu" src="res/cog_alt_16x16.png"></ui:image>
+    <ui:image field="tag" src="res/tag_stroke_16x16.png"></ui:image>
 </ui:UiBinder> 

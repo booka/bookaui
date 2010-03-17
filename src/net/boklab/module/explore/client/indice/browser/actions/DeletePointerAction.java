@@ -13,13 +13,13 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class RemovePointerAction extends AbstractAction implements IndiceBrowserAction {
+public class DeletePointerAction extends AbstractAction implements IndiceBrowserAction {
 
     private IndiceBrowserPresenter presenter;
 
     @Inject
-    public RemovePointerAction(final UserSessionManager sessions) {
-	super(I18nExplore.t.actionRemovePointer(), Icons.get(BokIcon.none), sessions);
+    public DeletePointerAction(final UserSessionManager sessions) {
+	super(I18nExplore.t.actionRemovePointer(), Icons.get(BokIcon.delete), sessions);
     }
 
     @Override

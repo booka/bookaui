@@ -1,13 +1,11 @@
 package net.boklab.module.forum.client.browser;
 
-import net.boklab.tools.client.mvp.Presenter;
+import net.boklab.core.client.ui.browser.BrowserItemPresenter;
 
-public class TopicPresenter implements Presenter<TopicDisplay> {
+public class TopicPresenter extends BrowserItemPresenter<TopicDisplay> {
 
-    private final TopicDisplay display;
-
-    public TopicPresenter(final TopicDisplay display) {
-	this.display = display;
+    public TopicPresenter(final ForumBrowserPresenter parent, final TopicDisplay display) {
+	super(display);
     }
 
     @Override
@@ -17,6 +15,11 @@ public class TopicPresenter implements Presenter<TopicDisplay> {
     @Override
     public TopicDisplay getDisplay() {
 	return display;
+    }
+
+    @Override
+    public void setSelected(final boolean selected) {
+
     }
 
 }

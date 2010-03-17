@@ -9,9 +9,9 @@ import net.boklab.module.forum.client.browser.ForumBrowserAction;
 import net.boklab.module.forum.client.browser.ForumBrowserPresenter;
 import net.boklab.module.forum.client.browser.TopicPresenter;
 
-public class AddTopicAction extends AbstractAction implements ForumBrowserAction {
+public class NewTopicAction extends AbstractAction implements ForumBrowserAction {
 
-    public AddTopicAction(final UserSessionManager sessions) {
+    public NewTopicAction(final UserSessionManager sessions) {
 	super(I18nForum.t.actionAddTopic(), Icons.get(BokIcon.add), sessions);
     }
 

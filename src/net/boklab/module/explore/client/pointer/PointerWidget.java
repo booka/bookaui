@@ -41,7 +41,7 @@ public class PointerWidget extends Composite implements PointerDisplay {
     }
 
     @Override
-    public HasClickHandlers getSelf() {
+    public HasClickHandlers getSelectArea() {
 	return self;
     }
 }

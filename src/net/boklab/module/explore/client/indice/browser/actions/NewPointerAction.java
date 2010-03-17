@@ -20,7 +20,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 
 @Singleton
-public class AddPointerAction extends AbstractAction implements IndiceBrowserAction {
+public class NewPointerAction extends AbstractAction implements IndiceBrowserAction {
 
     private final OverlayPresenter overlay;
     private final PointerEditorPresenter editor;
@@ -28,7 +28,7 @@ public class AddPointerAction extends AbstractAction implements IndiceBrowserAct
     private IndiceBrowserPresenter presenter;
 
     @Inject
-    public AddPointerAction(final IndiceManager indices, final UserSessionManager sessions,
+    public NewPointerAction(final IndiceManager indices, final UserSessionManager sessions,
 	    final PointerEditorPresenter editor, final OverlayPresenter overlay) {
 	super(I18nExplore.t.actionAdd(), Icons.get(BokIcon.add), sessions);
 	this.indices = indices;

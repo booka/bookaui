@@ -35,11 +35,6 @@ public class ArchiveItemWidget extends Composite implements ArchiveItemDisplay {
     }
 
     @Override
-    public HasClickHandlers getClickeable() {
-	return title;
-    }
-
-    @Override
     public HasHTML getDescription() {
 	return description;
     }
@@ -52,6 +47,11 @@ public class ArchiveItemWidget extends Composite implements ArchiveItemDisplay {
     @Override
     public HasHTML getExtra() {
 	return extra;
+    }
+
+    @Override
+    public HasClickHandlers getSelectArea() {
+	return title;
     }
 
 }
