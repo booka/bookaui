@@ -9,6 +9,7 @@ import net.boklab.document.client.content.ContentHandler;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Presenter;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.MouseOutEvent;
@@ -32,12 +33,15 @@ public class ClipPresenter implements Presenter<BokDisplay> {
     private final BokDisplay display;
     private InsertHandler insertHandler;
     private final BokActionsPresenter actions;
+    private boolean locked;
+    private boolean active;
 
     @Inject
     public ClipPresenter(final EventBus eventBus, final BokDisplay display,
 	    final BokActionsPresenter actions) {
 	this.display = display;
 	this.actions = actions;
+	locked = true;
 
 	eventBus.addHandler(BokUpdatedEvent.getType(), new BokUpdatedHandler() {
 	    @Override
@@ -56,20 +60,26 @@ public class ClipPresenter implements Presenter<BokDisplay> {
 	display.getMouseOver().addMouseOverHandler(new MouseOverHandler() {
 	    @Override
 	    public void onMouseOver(final MouseOverEvent event) {
-		setActive(!display.hasControls());
+		if (shouldActivate()) {
+		    setActive(true);
+		}
 	    }
 	});
 	display.getMouseOut().addMouseOutHandler(new MouseOutHandler() {
 	    @Override
 	    public void onMouseOut(final MouseOutEvent event) {
-		setActive(false);
+		if (active) {
+		    setActive(false);
+		}
 	    }
 	});
 
 	display.getActive().addClickHandler(new ClickHandler() {
 	    @Override
 	    public void onClick(final ClickEvent event) {
-		setActionsVisible(!display.hasControls());
+		if (!locked) {
+		    setActionsVisible(!display.hasControls());
+		}
 	    }
 	});
 
@@ -119,8 +129,6 @@ public class ClipPresenter implements Presenter<BokDisplay> {
 	} else {
 	    display.setControls(null);
 	}
-	setActive(!visible);
-
     }
 
     public void setBok(final Bok clip, final ContentHandler contentHandler) {
@@ -149,6 +157,10 @@ public class ClipPresenter implements Presenter<BokDisplay> {
 	insertHandler = handler;
     }
 
+    public void setLocked(final boolean locked) {
+	this.locked = locked;
+    }
+
     public void setWaiting(final boolean waiting) {
 	setEditor(null);
 	display.setViewVisible(!waiting);
@@ -156,11 +168,17 @@ public class ClipPresenter implements Presenter<BokDisplay> {
     }
 
     private void setActive(final boolean active) {
+	this.active = active;
+	GWT.log("ClipPresenter ACTIVE: " + active);
 	if (active) {
 	    display.addStyleName("active");
 	} else {
 	    display.removeStyleName("active");
 	}
 	display.setSlotsVisible(active);
+    }
+
+    private boolean shouldActivate() {
+	return !locked && !display.hasControls();
     }
 }

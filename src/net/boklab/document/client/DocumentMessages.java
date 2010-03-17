@@ -21,12 +21,6 @@ public interface DocumentMessages extends Messages {
     @DefaultMessage("Entra para poder editar")
     String loginToEdit();
 
-    @DefaultMessage("Abriendo archivos de ''{0}''...")
-    String openArchive(String title);
-
-    @DefaultMessage("Abriendo archivos...")
-    String openArchiveUntitled();
-
     @DefaultMessage("Cargando documento...")
     String openClip();
 

@@ -5,9 +5,8 @@
 	<inherits name="net.boklab.core.BokCore" />
     <inherits name="net.boklab.workspace.BokWorkspace" />
     <inherits name="net.boklab.document.BokDocuments" />
-    <inherits name="net.boklab.site.BokSite" />
     <inherits name="net.boklab.user.BokUser" />
-    <inherits name="net.boklab.places.BokPlaces" />
+    <inherits name="net.boklab.module.entrance.BokEntrance" />
     <inherits name="net.boklab.module.archives.BokArchives" />
     <inherits name="net.boklab.module.explore.BokExplore" />
     <inherits name="net.boklab.module.calendar.BokCalendar" />

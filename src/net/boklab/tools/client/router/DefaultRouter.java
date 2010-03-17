@@ -2,7 +2,6 @@ package net.boklab.tools.client.router;
 
 import java.util.ArrayList;
 
-import net.boklab.places.client.Location;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceManager;
 import net.boklab.tools.client.place.PlaceRequestEvent;
@@ -34,18 +33,6 @@ public class DefaultRouter implements Router {
 	    }
 	});
 
-    }
-
-    @Override
-    public void addLocation(final Location location) {
-	onRequest(location.getPath(), new PlaceRequestHandler() {
-	    @Override
-	    public void onPlaceRequest(final PlaceRequestEvent event) {
-		final Place place = event.getPlace();
-		setCurrent(place);
-		location.open(place);
-	    }
-	});
     }
 
     @Override

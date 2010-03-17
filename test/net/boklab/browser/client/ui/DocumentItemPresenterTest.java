@@ -2,8 +2,8 @@ package net.boklab.browser.client.ui;
 
 import static org.junit.Assert.assertEquals;
 import net.boklab.core.client.model.Bok;
-import net.boklab.document.client.browser.DocumentItemDisplay;
-import net.boklab.document.client.browser.DocumentItemPresenter;
+import net.boklab.module.archives.client.archive.browser.ArchiveItemDisplay;
+import net.boklab.module.archives.client.archive.browser.ArchiveItemPresenter;
 import net.boklab.testing.Boky;
 import net.boklab.testing.BookaTester;
 import net.boklab.testing.RouterTester;
@@ -14,14 +14,14 @@ import org.junit.Test;
 
 public class DocumentItemPresenterTest {
 
-    private DocumentItemPresenter presenter;
-    private DocumentItemDisplay display;
+    private ArchiveItemPresenter presenter;
+    private ArchiveItemDisplay display;
     private RouterTester router;
 
     @Before
     public void setup() {
 	final BookaTester tester = new BookaTester();
-	presenter = tester.get(DocumentItemPresenter.class);
+	presenter = tester.get(ArchiveItemPresenter.class);
 	display = presenter.getDisplay();
 	router = tester.router;
     }

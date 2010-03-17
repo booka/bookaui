@@ -1,6 +1,5 @@
 package net.boklab.tools.client.router;
 
-import net.boklab.places.client.Location;
 import net.boklab.tools.client.place.Place;
 import net.boklab.tools.client.place.PlaceRequestHandler;
 
@@ -16,20 +15,18 @@ public interface Router {
 
     public static class Paths {
 
-	public static Path root() {
-	    return new Path("/?");
-	}
-
 	public static Path resource(final String resourceSingular) {
 	    return new Path("^/" + resourceSingular + "/\\w+$");
+	}
+
+	public static Path root() {
+	    return new Path("/?");
 	}
 
 	public static Path singletonResource(final String resource) {
 	    return new Path("^/" + resource + "$");
 	}
     }
-
-    void addLocation(Location site);
 
     boolean currentIs(String resource);
 

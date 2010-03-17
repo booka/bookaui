@@ -1,7 +1,6 @@
 package net.boklab.module.explore.client.pointer;
 
-import net.boklab.module.explore.client.browser.IndiceBrowserPresenter;
-import net.boklab.module.explore.client.model.Pointer;
+import net.boklab.module.explore.client.indice.browser.IndiceBrowserPresenter;
 import net.boklab.tools.client.mvp.Presenter;
 
 import com.google.gwt.event.dom.client.ClickEvent;

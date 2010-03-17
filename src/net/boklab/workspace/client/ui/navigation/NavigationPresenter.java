@@ -5,7 +5,7 @@ import net.boklab.core.client.bok.events.BokOpenedHandler;
 import net.boklab.core.client.navigation.NavigationEvent;
 import net.boklab.core.client.navigation.NavigationHandler;
 import net.boklab.core.client.ui.overlay.OverlayPresenter;
-import net.boklab.site.client.ProjectManager;
+import net.boklab.module.entrance.client.project.ProjectManager;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Presenter;
 import net.boklab.tools.client.place.Place;

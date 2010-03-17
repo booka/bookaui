@@ -9,11 +9,13 @@ import com.google.inject.Provider;
 import com.google.inject.Singleton;
 
 @Singleton
-public class ForumBrowserPresenter extends AbstractBrowserPresenter {
+public class ForumBrowserPresenter extends
+	AbstractBrowserPresenter<ForumBrowserPresenter, TopicPresenter> {
 
     @Inject
-    public ForumBrowserPresenter(final Provider<BrowserDisplay> provider) {
-	super(provider);
+    public ForumBrowserPresenter(final Provider<BrowserDisplay> provider,
+	    final ForumBrowserActions actions) {
+	super(provider, actions);
     }
 
     @Override

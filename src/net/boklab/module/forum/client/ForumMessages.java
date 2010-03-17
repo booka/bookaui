@@ -6,6 +6,9 @@ import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 @DefaultLocale("es")
 public interface ForumMessages extends Messages {
 
+    @DefaultMessage("Crear nueva discusión")
+    String actionAddTopic();
+
     @DefaultMessage("Discusiones")
     String browserTitle();
 

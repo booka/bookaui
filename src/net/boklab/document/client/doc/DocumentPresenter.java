@@ -3,6 +3,8 @@ package net.boklab.document.client.doc;
 import java.util.ArrayList;
 
 import net.boklab.core.client.model.Bok;
+import net.boklab.core.client.user.SessionChangedEvent;
+import net.boklab.core.client.user.SessionChangedHandler;
 import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.document.client.DocumentManager;
 import net.boklab.document.client.bok.ClipPresenter;
@@ -32,6 +34,17 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 
 	boks = new ArrayList<ClipPresenter>();
 	this.typeManager = typeManager;
+
+	sessions.addSessionChangedHandler(new SessionChangedHandler() {
+
+	    @Override
+	    public void onSessionChanged(final SessionChangedEvent event) {
+		final boolean locked = !sessions.isLoggedIn();
+		for (final ClipPresenter presenter : boks) {
+		    presenter.setLocked(locked);
+		}
+	    }
+	}, false);
 
 	insertHandler = new InsertHandler() {
 	    @Override
@@ -95,6 +108,7 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	ClipPresenter bokPresenter;
 	for (final Bok clip : document.getChildren()) {
 	    bokPresenter = createBokPresenter(clip);
+	    bokPresenter.setLocked(!sessions.isLoggedIn());
 	    display.add(bokPresenter.getDisplay());
 	}
     }

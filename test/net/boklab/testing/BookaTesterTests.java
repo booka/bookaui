@@ -2,8 +2,8 @@ package net.boklab.testing;
 
 import static org.junit.Assert.assertNotNull;
 import net.boklab.document.client.DocumentManager;
-import net.boklab.site.client.ProjectManager;
-import net.boklab.site.client.project.browser.ProjectBrowserDisplay;
+import net.boklab.module.entrance.client.project.ProjectManager;
+import net.boklab.module.entrance.client.project.browser.ProjectBrowserDisplay;
 import net.boklab.tools.client.place.PlaceManager;
 import net.boklab.workspace.client.ui.navigation.NavigationDisplay;
 import net.boklab.workspace.client.ui.navigation.NavigationPresenter;

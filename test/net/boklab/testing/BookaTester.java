@@ -2,12 +2,12 @@ package net.boklab.testing;
 
 import net.boklab.core.client.ui.browser.BrowserDisplay;
 import net.boklab.document.client.bok.BokDisplay;
-import net.boklab.document.client.browser.DocumentItemDisplay;
 import net.boklab.document.client.content.info.InfoEditorDisplay;
 import net.boklab.document.client.doc.DocumentDisplay;
+import net.boklab.module.archives.client.archive.browser.ArchiveItemDisplay;
 import net.boklab.module.calendar.client.ui.CalendarDisplay;
-import net.boklab.site.client.project.browser.ProjectBrowserDisplay;
-import net.boklab.site.client.project.browser.ProjectDisplay;
+import net.boklab.module.entrance.client.project.browser.ProjectBrowserDisplay;
+import net.boklab.module.entrance.client.project.browser.ProjectDisplay;
 import net.boklab.tools.client.eventbus.EventBus;
 import net.boklab.tools.client.mvp.Display;
 import net.boklab.tools.client.place.HistoryManager;
@@ -76,7 +76,7 @@ public class BookaTester extends AbstractModule implements Module {
 	addDisplay(ProjectBrowserDisplay.class).in(Singleton.class);
 	addDisplay(ProjectDisplay.class);
 	addDisplay(BrowserDisplay.class).in(Singleton.class);
-	addDisplay(DocumentItemDisplay.class);
+	addDisplay(ArchiveItemDisplay.class);
 	addDisplay(DocumentDisplay.class).in(Singleton.class);
 	addDisplay(BokDisplay.class);
 	addDisplay(CalendarDisplay.class).in(Singleton.class);

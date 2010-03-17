@@ -36,11 +36,10 @@ public class BookaEntryPoint implements EntryPoint {
 	final String hostPath = getMeta(CONFIG_HOST);
 	restService.setHostPath(hostPath);
 
-	injector.getProjects();
-
 	final BookaAppPresenter booka = injector.getBookaAppPresenter();
 	RootLayoutPanel.get().add(booka.getDisplay().asWidget());
 
+	// FIXME: move to user module
 	injector.getUserSessionPersistence().requestUserSession();
 	injector.getPlaceManager().fireCurrentPlace();
     }
