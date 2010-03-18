@@ -32,13 +32,17 @@ public class ArchiveItemPresenter extends BrowserItemPresenter<ArchiveItemDispla
 
     public void setDocument(final Bok document) {
 	this.document = document;
-	getDisplay().getDocumentTitle().setText(document.getTitle());
-	getDisplay().getDescription().setHTML(document.getDescription());
-	getDisplay().getExtra().setHTML("Autor(a):" + document.getUserName());
+	display.getDocumentTitle().setText(document.getTitle());
+	display.getDescription().setHTML(document.getDescription());
+	display.getExtra().setHTML("Autor(a):" + document.getUserName());
     }
 
     @Override
     public void setSelected(final boolean selected) {
-
+	if (selected) {
+	    display.addStyleName("active");
+	} else {
+	    display.removeStyleName("active");
+	}
     }
 }

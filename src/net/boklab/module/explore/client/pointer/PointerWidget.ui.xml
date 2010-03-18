@@ -4,7 +4,7 @@
 	<ui:style>
 		
 	</ui:style>
-	<g:FocusPanel ui:field="self" styleName="bk-Pointer">
+	<g:FocusPanel ui:field="self" styleName="bk-Pointer bk-BrowserItem">
 		<g:HTMLPanel>
 			<g:Label ui:field="position" />
 			<g:Label ui:field="title" />

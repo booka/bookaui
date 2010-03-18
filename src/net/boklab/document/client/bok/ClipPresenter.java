@@ -158,6 +158,7 @@ public class ClipPresenter implements Presenter<BokDisplay> {
     }
 
     public void setLocked(final boolean locked) {
+	GWT.log("CLIP LOCKED: " + locked);
 	this.locked = locked;
     }
 

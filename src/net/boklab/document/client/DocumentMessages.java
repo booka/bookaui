@@ -6,9 +6,6 @@ import com.google.gwt.i18n.client.LocalizableResource.DefaultLocale;
 @DefaultLocale("es")
 public interface DocumentMessages extends Messages {
 
-    @DefaultMessage("Archivos")
-    String browserTitle();
-
     @DefaultMessage("Añadir texto")
     String createHtmlAction();
 

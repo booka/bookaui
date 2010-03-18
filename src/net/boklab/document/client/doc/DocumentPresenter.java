@@ -36,15 +36,15 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	this.typeManager = typeManager;
 
 	sessions.addSessionChangedHandler(new SessionChangedHandler() {
-
 	    @Override
 	    public void onSessionChanged(final SessionChangedEvent event) {
 		final boolean locked = !sessions.isLoggedIn();
 		for (final ClipPresenter presenter : boks) {
+		    documentPresenter.setLocked(locked);
 		    presenter.setLocked(locked);
 		}
 	    }
-	}, false);
+	}, true);
 
 	insertHandler = new InsertHandler() {
 	    @Override
@@ -104,11 +104,11 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
 	    }
 	});
 	display.add(documentPresenter.getDisplay());
+	documentPresenter.setLocked(!sessions.isLoggedIn());
 
 	ClipPresenter bokPresenter;
 	for (final Bok clip : document.getChildren()) {
 	    bokPresenter = createBokPresenter(clip);
-	    bokPresenter.setLocked(!sessions.isLoggedIn());
 	    display.add(bokPresenter.getDisplay());
 	}
     }
@@ -116,6 +116,7 @@ public class DocumentPresenter extends AbstractPresenter<DocumentDisplay> {
     private ClipPresenter createBokPresenter(final Bok bok) {
 	final ClipPresenter bokPresenter = typeManager.newBokPresenter(bok, insertHandler);
 	boks.add(bokPresenter);
+	bokPresenter.setLocked(!sessions.isLoggedIn());
 	return bokPresenter;
     }
 }

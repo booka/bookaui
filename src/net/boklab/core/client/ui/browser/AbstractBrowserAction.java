@@ -29,6 +29,7 @@ public abstract class AbstractBrowserAction<B, I> extends AbstractAction impleme
     @Override
     public void setSelected(final I selected) {
 	this.selected = selected;
+	changeVisibility();
     }
 
     public void setVisibility(final VisibilityPolicy visibility) {

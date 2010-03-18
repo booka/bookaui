@@ -8,6 +8,9 @@ public interface ArchivesMessages extends Messages {
     @DefaultMessage("Añadir un documento al archivo")
     String actionNewDocument();
 
+    @DefaultMessage("Artículos y proyectos")
+    String browserTitle();
+
     @DefaultMessage("Abriendo archivos de ''{0}''...")
     String openArchive(String title);
 
@@ -37,5 +40,4 @@ public interface ArchivesMessages extends Messages {
 
     @DefaultMessage("Guardando...")
     String update();
-
 }

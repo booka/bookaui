@@ -13,7 +13,7 @@ import net.boklab.core.client.ui.browser.AbstractBrowserPresenter;
 import net.boklab.core.client.ui.browser.BrowserDisplay;
 import net.boklab.core.client.user.UserSessionManager;
 import net.boklab.document.client.DocumentManager;
-import net.boklab.document.client.I18nDocs;
+import net.boklab.module.archives.client.I18nArchives;
 import net.boklab.module.archives.client.archive.ArchiveManager;
 
 import com.google.inject.Inject;
@@ -25,6 +25,7 @@ public class ArchiveBrowserPresenter extends
 	AbstractBrowserPresenter<ArchiveBrowserPresenter, ArchiveItemPresenter> {
 
     private final HashMap<String, ArchiveItemPresenter> idToDocuments;
+    private final DocumentManager documents;
 
     @Inject
     public ArchiveBrowserPresenter(final Provider<BrowserDisplay> displayProvider,
@@ -32,6 +33,7 @@ public class ArchiveBrowserPresenter extends
 	    final ArchiveManager archives, final UserSessionManager sessions,
 	    final Provider<ArchiveItemPresenter> itemProvider) {
 	super(displayProvider, actions);
+	this.documents = documents;
 	idToDocuments = new HashMap<String, ArchiveItemPresenter>();
 
 	archives.addOpenedHandler(new BokOpenedHandler() {
@@ -70,8 +72,15 @@ public class ArchiveBrowserPresenter extends
     }
 
     @Override
+    public void setSelected(final ArchiveItemPresenter itemPresenter) {
+	super.setSelected(itemPresenter);
+	final Bok document = itemPresenter.getDocument();
+	documents.open(document.getId(), document.getTitle(), null);
+    }
+
+    @Override
     protected void attach(final BrowserDisplay display) {
-	display.getBrowserTitle().setText(I18nDocs.t.browserTitle());
+	display.getBrowserTitle().setText(I18nArchives.t.browserTitle());
 	super.attach(display);
     }
 

@@ -7,10 +7,14 @@ import com.google.gwt.user.client.ui.HasText;
 
 public interface ArchiveItemDisplay extends BrowserItemDisplay {
 
+    void addStyleName(String style);
+
     HasHTML getDescription();
 
     HasText getDocumentTitle();
 
     HasHTML getExtra();
+
+    void removeStyleName(String style);
 
 }

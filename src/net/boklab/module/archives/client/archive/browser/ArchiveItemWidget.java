@@ -5,6 +5,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Composite;
+import com.google.gwt.user.client.ui.FocusPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasHTML;
 import com.google.gwt.user.client.ui.HasText;
@@ -21,7 +22,8 @@ public class ArchiveItemWidget extends Composite implements ArchiveItemDisplay {
 
     @UiField
     Label title;
-
+    @UiField
+    FocusPanel self;
     @UiField
     HTML description, extra;
 
@@ -51,7 +53,7 @@ public class ArchiveItemWidget extends Composite implements ArchiveItemDisplay {
 
     @Override
     public HasClickHandlers getSelectArea() {
-	return title;
+	return self;
     }
 
 }

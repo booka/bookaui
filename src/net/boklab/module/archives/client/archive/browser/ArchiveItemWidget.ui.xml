@@ -4,9 +4,11 @@
 	<ui:style>
 		
 	</ui:style>
-	<g:HTMLPanel styleName="bk-DocumentItem">
-		<g:Label styleName="Title" ui:field="title">Title</g:Label>
-		<g:HTML ui:field="description" styleName="Description">Description</g:HTML>
-		<g:HTML ui:field="extra" styleName="Extra">Extra information</g:HTML>
-	</g:HTMLPanel>
+	<g:FocusPanel ui:field="self" styleName="bk-DocumentItem bk-BrowserItem">
+		<g:HTMLPanel>
+			<g:Label styleName="Title" ui:field="title">Title</g:Label>
+			<g:HTML ui:field="description" styleName="Description">Description</g:HTML>
+			<g:HTML ui:field="extra" styleName="Extra">Extra information</g:HTML>
+		</g:HTMLPanel>
+	</g:FocusPanel>
 </ui:UiBinder> 

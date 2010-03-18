@@ -2,7 +2,6 @@ package net.boklab.core.client.ui.browser;
 
 import net.boklab.tools.client.mvp.AbstractPresenter;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.inject.Provider;
@@ -23,7 +22,6 @@ public class AbstractBrowserPresenter<B extends AbstractBrowserPresenter<B, I>, 
     }
 
     public void setSelected(final I itemPresenter) {
-	GWT.log("ABPres SELECTED : " + itemPresenter);
 	if (hasSelected()) {
 	    selected.setSelected(false);
 	}
